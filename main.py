@@ -26,7 +26,7 @@ fuente = pygame.font.Font("Recursos/Fonts/Snowes.ttf", 60)
 path = "Recursos/Obstaculos/bola_nieve_1.png"
 
 # JUEGO
-jugador = Jugador((50,50), (200,H-70), diccionario_animaciones_personaje, 5, -15, 3000, "Recursos/Obstaculos/bola_nieve_1.png", 100)
+jugador = Jugador((60,80), (200,H-100), diccionario_animaciones_personaje, 5, -15, 3000, "Recursos/Obstaculos/bola_nieve_1.png", 100)
 
 # NIVEL UNO
 
@@ -36,22 +36,25 @@ fondo_uno = pygame.transform.scale(fondo_uno, (W,H))
 fondo_dos = pygame.image.load("Recursos/Fondos/aldea.png")
 fondo_dos = pygame.transform.scale(fondo_dos, (W,H))
 
+enemigo_uno = Enemigo((100,90), (20,0), diccionario_animaciones_oso, 5, -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
+enemigo_dos = Enemigo((100,90), (500,0), diccionario_animaciones_oso, 5, -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
 
-enemigo_uno = Enemigo((50,50), (20,0), diccionario_animaciones_yeti, 5, -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
-enemigo_dos = Enemigo((50,50), (500,0), diccionario_animaciones_yeti, 5, -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
+enemigo_tres = Enemigo((100,90), (20,0), diccionario_animaciones_yeti, 5, -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
+enemigo_cuatro = Enemigo((100,90), (500,0), diccionario_animaciones_yeti, 5, -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
 
-piso = Objeto((W,20), (0, jugador.lados['bottom'].bottom-1), "Recursos/Plataformas/plataforma_tierra_nieve.png")
+piso = Objeto((W,20), (0, jugador.lados['bottom'].bottom-1), "Recursos/Plataformas/plataforma_grande.png")
 plataforma = Objeto((200,20), (0, 200), "Recursos/Plataformas/plataforma_tierra_nieve.png")
 
 item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
 item_dos = Item((30,30), (200, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
 
-enemigos = [enemigo_uno, enemigo_dos]
+enemigos_uno = [enemigo_uno, enemigo_dos]
+enemigos_dos = [enemigo_tres, enemigo_cuatro]
 lista_plataformas = [piso, plataforma]
 items = [item_uno, item_dos]
 
-nivel_uno = Nivel(fondo_uno, lista_plataformas,enemigos, items)
-nivel_dos = Nivel(fondo_dos, lista_plataformas,enemigos, items)
+nivel_uno = Nivel(fondo_uno, lista_plataformas,enemigos_uno, items)
+nivel_dos = Nivel(fondo_dos, lista_plataformas,enemigos_dos, items)
 juego = Juego(jugador, [nivel_uno, nivel_dos])
 
 
@@ -60,8 +63,6 @@ tiempo = 0
 # Timer para el juego
 TIMER_EVENT = pygame.USEREVENT + 0
 pygame.time.set_timer(TIMER_EVENT, 1000)
-
-elementos_juego = [jugador, enemigos, lista_plataformas, items]
 
 
 while True:
@@ -76,7 +77,7 @@ while True:
         if evento.type == TIMER_EVENT:
             tiempo += 1
             if tiempo % 5 == 0:
-                for e in enemigos:
+                for e in juego.niveles[juego.nivel_actual].enemigos:
                     e.lanzar_proyectil()
 
     PANTALLA.fill("Black")

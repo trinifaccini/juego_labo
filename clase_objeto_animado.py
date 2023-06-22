@@ -35,7 +35,6 @@ class ObjetoAnimado(Objeto):
         self.gravedad = 1 # cuanto mas grande, mas rapido cae
         self.potencia_salto = potencia_salto
         self.limite_velocidad_caida = potencia_salto*-1
-
         
         self.reescalar_animaciones()
 

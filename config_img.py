@@ -82,6 +82,12 @@ oso_quieto_derecha = [
 
 oso_quieto_izquierda = girar_imagenes(oso_quieto_derecha, True, False)
 
+oso_salta_derecha = [
+    pygame.image.load("Recursos/Personajes/Oso/Quieto/oso_quieto_0.png"),
+    ]
+
+oso_salta_izquierda = girar_imagenes(oso_salta_derecha, True, False)
+
 oso_camina_derecha = [
     pygame.image.load("Recursos/Personajes/Oso/Camina/oso_camina_0.png"),
     pygame.image.load("Recursos/Personajes/Oso/Camina/oso_camina_1.png"),
@@ -129,7 +135,7 @@ yeti_salta_derecha = [
     pygame.image.load("Recursos/Personajes/Yeti/Quieto/yeti_quieto_0.png"),
 ]
 
-yeti_salta_izquierda = girar_imagenes(yeti_quieto_derecha, True, False)
+yeti_salta_izquierda = girar_imagenes(yeti_salta_derecha, True, False)
 
 
 
@@ -148,6 +154,8 @@ diccionario_animaciones_oso = {}
 diccionario_animaciones_oso = {
     "quieto_derecha": oso_quieto_derecha,
     "quieto_izquierda": oso_quieto_izquierda,
+    "salta_derecha": oso_salta_derecha,
+    "salta_izquierda": oso_quieto_izquierda,
     "camina_derecha": oso_camina_derecha,
     "camina_izquierda": oso_camina_izquierda
 }
