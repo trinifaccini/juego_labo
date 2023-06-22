@@ -1,12 +1,13 @@
+'''
+CLASE JUEGO
+'''
+
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-class-docstring
 # pylint: disable=unused-wildcard-import
 # pylint: disable=wildcard-import
-
-
-'''
-CLASE JUEGO
-'''
+# pylint: disable=arguments-differ
+# pylint: disable=no-member
 
 import sys
 import pygame

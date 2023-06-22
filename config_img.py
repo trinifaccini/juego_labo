@@ -78,7 +78,6 @@ personaje_salta_izquierda = girar_imagenes(personaje_salta_derecha, True, False)
 
 oso_quieto_derecha = [
     pygame.image.load("Recursos/Personajes/Oso/Quieto/oso_quieto_0.png"),
-   #pygame.image.load("Recursos/Personajes/Oso/Quieto/oso_quieto_1.png"),
     ]
 
 oso_quieto_izquierda = girar_imagenes(oso_quieto_derecha, True, False)

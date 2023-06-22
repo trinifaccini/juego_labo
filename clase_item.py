@@ -1,4 +1,14 @@
-import pygame
+'''
+CLASE ITEM
+'''
+
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=unused-wildcard-import
+# pylint: disable=wildcard-import
+# pylint: disable=arguments-differ
+# pylint: disable=no-member
+
 from clase_objeto import Objeto
 
 

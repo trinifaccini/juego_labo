@@ -1,17 +1,24 @@
+'''
+CLASE JUGADOR
+'''
+
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-class-docstring
+# pylint: disable=unused-wildcard-import
+# pylint: disable=wildcard-import
+# pylint: disable=arguments-differ
+# pylint: disable=no-member
 
 import pygame
-from clase_objeto_animado import ObjetoAnimado
 from clase_personaje import Personaje
-from clase_proyectil import Proyectil
-
 
 class Jugador(Personaje):
 
-    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones, velocidad: int, potencia_salto: int, vidas: int, img_proyectil: str, danio: int):
-        
-        super().__init__(tamanio, pos_inicial, animaciones, velocidad, potencia_salto, vidas, img_proyectil, danio)
+    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones, velocidad: int,
+                 potencia_salto: int, vidas: int, img_proyectil: str, danio: int):
+
+        super().__init__(tamanio, pos_inicial, animaciones, velocidad, potencia_salto, 
+                         vidas, img_proyectil, danio)
 
         self.accion = "derecha"
         self.puntos = 0
@@ -31,9 +38,3 @@ class Jugador(Personaje):
 
         self.definir_accion(keys)
         super().update(pantalla, lista_plataformas)
-
-    
-
-
-    
-

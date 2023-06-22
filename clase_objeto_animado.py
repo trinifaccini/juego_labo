@@ -1,12 +1,24 @@
 
-import pygame
+'''
+CLASE OBJETO ANIMADO
+'''
+
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=unused-wildcard-import
+# pylint: disable=wildcard-import
+# pylint: disable=arguments-differ
+# pylint: disable=no-member
+
 from clase_objeto import Objeto
 from config_img import reescalar_imagen
 
 
 class ObjetoAnimado(Objeto):
 
-    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones, velocidad:int, potencia_salto: int):
+    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones,
+                 velocidad:int, potencia_salto: int):
+        
         super().__init__(tamanio, pos_inicial, "")
 
         self.contador_pasos = 0

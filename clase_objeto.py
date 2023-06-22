@@ -1,3 +1,16 @@
+'''
+CLASE OBJETO
+'''
+
+
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=unused-wildcard-import
+# pylint: disable=wildcard-import
+# pylint: disable=arguments-differ
+# pylint: disable=no-member
+# pylint: disable=invalid-name
+
 import pygame
 
 from config_img import obtener_rectangulos

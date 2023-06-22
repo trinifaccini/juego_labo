@@ -1,13 +1,16 @@
-import pygame, sys
+# pylint: disable=wildcard-import
+# pylint: disable=unused-wildcard-import
+# pylint: disable=no-member
+
+import pygame
 from clase_enemigo import Enemigo
 from clase_item import Item
 from clase_juego import Juego
 from clase_jugador import Jugador
 from clase_nivel import Nivel
 from clase_objeto import Objeto
-from clase_objeto_animado import ObjetoAnimado
-from config_img import * 
-from funciones_juego import *
+from config_img import *
+from modo import get_mode
 
 pygame.init()
 
@@ -30,6 +33,10 @@ jugador = Jugador((50,50), (200,H-70), diccionario_animaciones_personaje, 5, -15
 fondo_uno = pygame.image.load("Recursos/Fondos/fondo_negro.png")
 fondo_uno = pygame.transform.scale(fondo_uno, (W,H))
 
+fondo_dos = pygame.image.load("Recursos/Fondos/aldea.png")
+fondo_dos = pygame.transform.scale(fondo_dos, (W,H))
+
+
 enemigo_uno = Enemigo((50,50), (20,0), diccionario_animaciones_yeti, 5, -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
 enemigo_dos = Enemigo((50,50), (500,0), diccionario_animaciones_yeti, 5, -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
 
@@ -44,19 +51,9 @@ lista_plataformas = [piso, plataforma]
 items = [item_uno, item_dos]
 
 nivel_uno = Nivel(fondo_uno, lista_plataformas,enemigos, items)
-juego = Juego(jugador, [nivel_uno])
+nivel_dos = Nivel(fondo_dos, lista_plataformas,enemigos, items)
+juego = Juego(jugador, [nivel_uno, nivel_dos])
 
-
-# def definir_accion_personaje(keys, jugador):
-
-#     if keys[pygame.K_RIGHT]:
-#         jugador.accion = "derecha"
-#     elif keys[pygame.K_LEFT]:
-#         jugador.accion = "izquierda"
-#     elif keys[pygame.K_UP] or keys[pygame.K_SPACE]:
-#         jugador.accion = "salta"
-#     else:
-#         jugador.accion = "quieto"
 
 tiempo = 0
 
@@ -89,16 +86,19 @@ while True:
 
     juego.update(PANTALLA, fuente, tiempo, pygame.key.get_pressed())
 
-    # jugador.update(PANTALLA, lista_plataformas, pygame.key.get_pressed())
-    # dibujar_borde_rectangulos(PANTALLA, jugador.lados, "Pink")
+    if get_mode() is True:
 
-    # for p in lista_plataformas:
-    #     p.update(PANTALLA)
-    #     dibujar_borde_rectangulos(PANTALLA, p.lados, "Red")
+        for p in juego.niveles[juego.nivel_actual].plataformas:
+            dibujar_borde_rectangulos(PANTALLA, p.lados, "Green")
 
-    # for e in enemigos:
-    #     funciones_enemigo(e, PANTALLA, lista_plataformas, jugador)
+        for e in juego.niveles[juego.nivel_actual].enemigos:
+            dibujar_borde_rectangulos(PANTALLA, e.lados, "Blue")
+            for x in e.lista_proyectiles:
+                dibujar_borde_rectangulos(PANTALLA, x.lados, "Magenta")
 
-    # funciones_items(items, PANTALLA, jugador)
+        dibujar_borde_rectangulos(PANTALLA, juego.jugador.lados, "Red")
+
+        for i in juego.niveles[juego.nivel_actual].items:
+            dibujar_borde_rectangulos(PANTALLA, i.lados, "Yellow")
 
     pygame.display.flip()

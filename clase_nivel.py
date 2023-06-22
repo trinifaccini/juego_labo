@@ -35,11 +35,9 @@ class Nivel():
         for enemigo in self.enemigos:
 
             enemigo.update(rect_pantalla, self.plataformas)
-            dibujar_borde_rectangulos(rect_pantalla, enemigo.lados, "Yellow")
             lista_aux = enemigo.lista_proyectiles
             for x in enemigo.lista_proyectiles:
                 x.update(rect_pantalla, jugador)
-                dibujar_borde_rectangulos(rect_pantalla, x.lados, "Magenta")
                 if x.colisiono:
                     print("PUNTOS", jugador.puntos)
                     print("VIDA", jugador.vidas)
@@ -52,7 +50,6 @@ class Nivel():
 
         for item in self.items:
             item.update(rect_pantalla, jugador)
-            dibujar_borde_rectangulos(rect_pantalla, item.lados, "Blue")
             if item.colisiono:
                 print("PUNTOS", jugador.puntos)
                 print("VIDA", jugador.vidas)

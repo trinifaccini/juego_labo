@@ -1,14 +1,20 @@
+'''
+CLASE PROYECTIL
+'''
+
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-class-docstring
-
+# pylint: disable=unused-wildcard-import
+# pylint: disable=wildcard-import
+# pylint: disable=arguments-differ
+# pylint: disable=no-member
 
 from clase_item import Item
-from clase_objeto import Objeto
-
 
 class Proyectil(Item):
 
-    def __init__(self, tamanio: tuple, pos_inicial: tuple, cambio_vida: int, cambio_puntos: int, velocidad, path_img="", es_trampa=False):
+    def __init__(self, tamanio: tuple, pos_inicial: tuple, cambio_vida: int, cambio_puntos: int,
+                 velocidad, path_img="", es_trampa=False):
 
         super().__init__(tamanio, pos_inicial, cambio_vida, cambio_puntos, path_img, es_trampa)
 
@@ -26,7 +32,7 @@ class Proyectil(Item):
     def mover(self) -> None:
 
         # La direccion del proyectil va a estar dada por la velocidad
-        
+
         for lado in dict(self.lados):
             self.lados[lado].x += self.velocidad
 
@@ -36,5 +42,4 @@ class Proyectil(Item):
         self.colisionar_pantalla(pantalla)
         self.mover()
         super().update(pantalla, jugador)
-
 
