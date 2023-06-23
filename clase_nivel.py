@@ -5,12 +5,6 @@
 ARCHIVO CLASE NIVEL
 '''
 
-
-# las vidas son por NIVEL
-
-from config_img import dibujar_borde_rectangulos
-
-
 class Nivel():
 
     def __init__(self, fondo, plataformas, enemigos, items) -> None:
@@ -39,8 +33,6 @@ class Nivel():
             for x in enemigo.lista_proyectiles:
                 x.update(rect_pantalla, jugador)
                 if x.colisiono:
-                    print("PUNTOS", jugador.puntos)
-                    print("VIDA", jugador.vidas)
                     lista_aux.remove(x)
 
 
@@ -51,8 +43,6 @@ class Nivel():
         for item in self.items:
             item.update(rect_pantalla, jugador)
             if item.colisiono:
-                print("PUNTOS", jugador.puntos)
-                print("VIDA", jugador.vidas)
                 items_aux.remove(item)
 
     def update(self, rect_pantalla, jugador, keys) -> None:

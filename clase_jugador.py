@@ -17,7 +17,7 @@ class Jugador(Personaje):
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones, velocidad: int,
                  potencia_salto: int, vidas: int, img_proyectil: str, danio: int):
 
-        super().__init__(tamanio, pos_inicial, animaciones, velocidad, potencia_salto, 
+        super().__init__(tamanio, pos_inicial, animaciones, velocidad, potencia_salto,
                          vidas, img_proyectil, danio)
 
         self.accion = "derecha"

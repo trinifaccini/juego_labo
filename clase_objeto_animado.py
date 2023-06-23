@@ -10,8 +10,9 @@ CLASE OBJETO ANIMADO
 # pylint: disable=arguments-differ
 # pylint: disable=no-member
 
+from copy import deepcopy
 from clase_objeto import Objeto
-from config_img import reescalar_imagen
+from config_img import *
 
 
 class ObjetoAnimado(Objeto):
@@ -22,7 +23,11 @@ class ObjetoAnimado(Objeto):
         super().__init__(tamanio, pos_inicial, "")
 
         self.contador_pasos = 0
-        self.animaciones = animaciones
+
+        animaciones_aux = deepcopy_dict_animaciones(animaciones)
+
+        self.animaciones = animaciones_aux
+
         self.accion = "derecha"
         self.ultima_accion = "derecha"
 
@@ -91,8 +96,8 @@ class ObjetoAnimado(Objeto):
                 if self.superficie_apoyo is None:
                     self.superficie_apoyo = p
                 self.esta_saltando = False
-                self.desplazamiento_y = 0
                 self.lados["main"].bottom = p.lados['main'].top # POR QUE ACA NO PONEMOS A TODOS LOS LADOS DEL PERSONAJE??? 
+                self.desplazamiento_y = 0
                 #Rompe cuando deja de verificar colision, entonces el personaje cae
         # else:
         #     self.esta_saltando = True
@@ -101,7 +106,7 @@ class ObjetoAnimado(Objeto):
     def update(self, pantalla, lista_plataformas):
 
         # En el caso del jugador, va a ser manipulado por el usuario
-        # En el caso del enemigo, va a ser manipulado por los choques 
+        # En el caso del enemigo, va a ser manipulado por los choques
 
         if self.superficie_apoyo is not None:
             match (self.accion):
@@ -126,6 +131,5 @@ class ObjetoAnimado(Objeto):
                         else:
                             self.animar(pantalla, "quieto_izquierda")
 
-        #print(self.superficie_apoyo)
         self.verificar_salto(pantalla)
         self.verificar_colision_pisos(lista_plataformas)

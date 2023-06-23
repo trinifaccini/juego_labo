@@ -171,3 +171,16 @@ diccionario_animaciones_yeti = {
     "ataca_derecha": yeti_ataca_derecha,
     "ataca_izquierda": yeti_ataca_izquierda
 }
+
+
+def deepcopy_dict_animaciones(animaciones:dict) -> dict:
+
+    animaciones_aux = {}
+    for animacion in animaciones:
+        lista_aux = []
+        for i in animaciones[animacion]:
+            i_aux = pygame.Surface.copy(i)
+            lista_aux.append(i_aux)
+        animaciones_aux.update({animacion : lista_aux})
+
+    return animaciones_aux

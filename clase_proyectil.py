@@ -42,4 +42,3 @@ class Proyectil(Item):
         self.colisionar_pantalla(pantalla)
         self.mover()
         super().update(pantalla, jugador)
-

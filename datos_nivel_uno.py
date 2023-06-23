@@ -1,0 +1,39 @@
+'''
+NIVEL UNO
+'''
+
+import pygame
+from clase_item import Item
+from clase_nivel import Nivel
+from clase_objeto import Objeto
+from datos_juego import TAMANIO_PANTALLA, W, jugador
+from clase_enemigo import Enemigo
+from config_img import diccionario_animaciones_oso
+
+fondo = pygame.image.load("Recursos/Fondos/aldea__.png")
+fondo = pygame.transform.scale(fondo, TAMANIO_PANTALLA)
+
+enemigo_uno = Enemigo((100,90), (20,0), diccionario_animaciones_oso, 5,
+                      -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
+
+enemigo_dos = Enemigo((50,50), (500,0), diccionario_animaciones_oso, 5,
+                      -15, 2000, "Recursos/Obstaculos/bola_nieve_1.png", 200)
+
+
+piso_1 = Objeto((W,20), (0, jugador.lados['bottom'].bottom-1),
+                "Recursos/Plataformas/plataforma_grande.png")
+
+piso_2 = Objeto((W,20), (0, jugador.lados['bottom'].bottom-1),
+                "Recursos/Plataformas/plataforma_grande.png")
+
+plataforma = Objeto((200,20), (0, 200), "Recursos/Plataformas/plataforma_tierra_nieve.png")
+
+item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
+item_dos = Item((30,30), (200, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
+
+enemigos = [enemigo_uno, enemigo_dos]
+lista_plataformas = [piso_1, piso_2, plataforma]
+
+items = [item_uno, item_dos]
+
+nivel_uno = Nivel(fondo, lista_plataformas,enemigos, items)

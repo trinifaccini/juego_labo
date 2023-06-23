@@ -8,7 +8,6 @@ CLASE PERSONAJE
 from clase_objeto_animado import ObjetoAnimado
 from clase_proyectil import Proyectil
 
-
 class Personaje(ObjetoAnimado):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones, velocidad: int,
@@ -22,19 +21,14 @@ class Personaje(ObjetoAnimado):
         self.danio = danio
 
 
-    def lanzar_proyectil(self):
-
-        # print(self.lados['main'].centerx)
-        # print(self.lados['main'].centery)
-
-        vel = 10
+    def lanzar_proyectil(self, velocidad):
 
         if self.accion == "izquierda":
-            vel = vel * -1
+            velocidad = velocidad * -1
 
         proyectil = Proyectil(
             (20, 20),(self.lados['main'].centerx, self.lados['left'].y),
-            -500, 0, vel, self.img_proyectil)
+            -500, 0, velocidad, self.img_proyectil)
 
         self.lista_proyectiles.append(proyectil)
 
