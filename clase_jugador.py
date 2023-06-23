@@ -29,8 +29,10 @@ class Jugador(Personaje):
             self.accion = "derecha"
         elif keys[pygame.K_LEFT]:
             self.accion = "izquierda"
-        elif keys[pygame.K_UP] or keys[pygame.K_SPACE]:
+        elif keys[pygame.K_UP]:
             self.accion = "salta"
+        elif keys[pygame.K_SPACE]:
+            self.accion = "ataca"
         else:
             self.accion = "quieto"
 

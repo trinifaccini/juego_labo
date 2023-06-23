@@ -2,7 +2,6 @@
 CLASE OBJETO
 '''
 
-
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-class-docstring
 # pylint: disable=unused-wildcard-import
@@ -42,12 +41,7 @@ class Objeto():
     # Si es un objeto inanimado no va a sobreescribir
     # Si es un objeto animado si va a sobreescribir
     def animar(self,pantalla):
-        #pantalla.blit(pantalla, self.lados['main'])
         pantalla.blit(self.superficie, self.lados['main'])
 
     def update(self, pantalla):
         self.animar(pantalla)
-
-
-
-        

@@ -4,7 +4,7 @@ from config_img import diccionario_animaciones_personaje
 
 W = 1200
 H = 600
-FPS = 18
+FPS = 20
 
 TAMANIO_PANTALLA = (W,H)
 

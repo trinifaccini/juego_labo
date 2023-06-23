@@ -10,7 +10,6 @@ CLASE OBJETO ANIMADO
 # pylint: disable=arguments-differ
 # pylint: disable=no-member
 
-from copy import deepcopy
 from clase_objeto import Objeto
 from config_img import *
 
@@ -19,7 +18,7 @@ class ObjetoAnimado(Objeto):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones,
                  velocidad:int, potencia_salto: int):
-        
+
         super().__init__(tamanio, pos_inicial, "")
 
         self.contador_pasos = 0
@@ -40,7 +39,7 @@ class ObjetoAnimado(Objeto):
         self.gravedad = 1 # cuanto mas grande, mas rapido cae
         self.potencia_salto = potencia_salto
         self.limite_velocidad_caida = potencia_salto*-1
-        
+
         self.reescalar_animaciones()
 
 
@@ -90,17 +89,32 @@ class ObjetoAnimado(Objeto):
 
     def verificar_colision_pisos(self, lista_plataformas):
 
-        for p in lista_plataformas:
-            if self.lados['bottom'].colliderect(p.lados['top']):
+        for plat in lista_plataformas:
+            if self.lados['bottom'].colliderect(plat.lados['top']):
 
                 if self.superficie_apoyo is None:
-                    self.superficie_apoyo = p
+                    self.superficie_apoyo = plat
                 self.esta_saltando = False
-                self.lados["main"].bottom = p.lados['main'].top # POR QUE ACA NO PONEMOS A TODOS LOS LADOS DEL PERSONAJE??? 
+                self.lados["main"].bottom = plat.lados['main'].top
+                # POR QUE ACA NO PONEMOS A TODOS LOS LADOS DEL PERSONAJE?
+
                 self.desplazamiento_y = 0
                 #Rompe cuando deja de verificar colision, entonces el personaje cae
         # else:
         #     self.esta_saltando = True
+
+    def atacar(self, pantalla):
+
+        if self.ultima_accion == "izquierda":
+            if "ataca_izquierda" in self.animaciones:
+                self.animar(pantalla, "ataca_izquierda")
+            else:
+                self.animar(pantalla, "camina_izquierda")
+        elif self.ultima_accion == "derecha":
+            if "ataca_derecha" in self.animaciones:
+                self.animar(pantalla, "ataca_derecha")
+            else:
+                self.animar(pantalla, "camina_izquierda")
 
 
     def update(self, pantalla, lista_plataformas):
@@ -124,6 +138,11 @@ class ObjetoAnimado(Objeto):
                     if not self.esta_saltando:
                         self.esta_saltando = True
                         self.desplazamiento_y = self.potencia_salto
+                case "ataca":
+                    if not self.esta_saltando:
+                        if "ataca_izquierda" in self.animaciones:
+                            self.atacar(pantalla)
+                            print("atacando")
                 case "quieto":
                     if not self.esta_saltando: # solo animo si no está saltando
                         if self.ultima_accion == "derecha":

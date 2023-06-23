@@ -28,7 +28,7 @@ class Nivel():
 
         for enemigo in self.enemigos:
 
-            enemigo.update(rect_pantalla, self.plataformas)
+            enemigo.update(rect_pantalla, self.plataformas, jugador)
             lista_aux = enemigo.lista_proyectiles
             for x in enemigo.lista_proyectiles:
                 x.update(rect_pantalla, jugador)

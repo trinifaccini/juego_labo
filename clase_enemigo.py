@@ -23,23 +23,33 @@ class Enemigo(Personaje):
         self.accion = "derecha"
         self.esta_saltando = True
 
-    def definir_accion(self):
+
+    def definir_accion(self, jugador):
 
         # REBOTE SOBRE LA PLATAFORMA EN LA QUE SE ENCUENTRA
 
         if self.superficie_apoyo is not None:
-            if (self.accion == "derecha" and
-                self.lados['right'].x == (self.superficie_apoyo.lados['main'].x +
-                                          self.superficie_apoyo.lados['main'].width)):
 
-                self.accion = "izquierda"
+            if self.accion == "derecha" and self.lados['right'].colliderect(jugador.lados['main']):
+                self.accion = "ataca"
+            elif self.accion == "izquierda" and self.lados['left'].colliderect(jugador.lados['main']):
+                    self.accion = "ataca"
 
-            elif (self.accion == "izquierda" and
-                  self.lados['left'].x == self.superficie_apoyo.lados['main'].x):
+            else:
+                self.accion = self.ultima_accion
 
-                self.accion = "derecha"
+                if (self.accion == "derecha" and
+                    self.lados['right'].x == (self.superficie_apoyo.lados['main'].x +
+                                            self.superficie_apoyo.lados['main'].width)):
 
-    def update(self, pantalla, lista_plataformas):
+                    self.accion = "izquierda"
 
-        self.definir_accion()
+                elif (self.accion == "izquierda" and
+                    self.lados['left'].x == self.superficie_apoyo.lados['main'].x):
+
+                    self.accion = "derecha"
+
+    def update(self, pantalla, lista_plataformas, jugador):
+
+        self.definir_accion(jugador)
         super().update(pantalla, lista_plataformas)

@@ -1,6 +1,7 @@
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
 # pylint: disable=no-member
+# pylint: disable=invalid-name
 
 import pygame
 from clase_juego import Juego
@@ -16,7 +17,7 @@ pygame.init()
 RELOJ = pygame.time.Clock()
 PANTALLA = pygame.display.set_mode(TAMANIO_PANTALLA)
 
-fuente = pygame.font.Font("Recursos/Fonts/Snowes.ttf", 60)
+FUENTE = pygame.font.Font("Recursos/Fonts/Snowes.ttf", 60)
 
 juego = Juego(jugador, [nivel_uno, nivel_dos])
 
@@ -42,10 +43,10 @@ while True:
                 for e in juego.niveles[juego.nivel_actual].enemigos:
                     e.lanzar_proyectil(15)
 
-    if jugador.vidas <= 2500:
+    if jugador.vidas <= 2510:
         juego.nivel_actual = 1
 
-    juego.update(PANTALLA, fuente, tiempo, pygame.key.get_pressed())
+    juego.update(PANTALLA, FUENTE, tiempo, pygame.key.get_pressed())
 
     if get_mode() is True:
 
