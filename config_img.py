@@ -161,6 +161,7 @@ diccionario_animaciones_oso = {
 }
 
 diccionario_animaciones_yeti = {}
+
 diccionario_animaciones_yeti = {
     "quieto_derecha": yeti_quieto_derecha,
     "quieto_izquierda": yeti_quieto_izquierda,
@@ -171,7 +172,6 @@ diccionario_animaciones_yeti = {
     "ataca_derecha": yeti_ataca_derecha,
     "ataca_izquierda": yeti_ataca_izquierda
 }
-
 
 def deepcopy_dict_animaciones(animaciones:dict) -> dict:
 

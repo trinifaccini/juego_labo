@@ -30,13 +30,15 @@ class Enemigo(Personaje):
 
         if self.superficie_apoyo is not None:
 
-            if self.accion == "derecha" and self.lados['right'].colliderect(jugador.lados['main']):
-                self.accion = "ataca"
-            elif self.accion == "izquierda" and self.lados['left'].colliderect(jugador.lados['main']):
+            if self.ultima_accion == "derecha" and jugador.lados['main'].colliderect(self.lados['right']):
+                    self.accion = "ataca"
+                    
+            elif self.ultima_accion == "izquierda" and jugador.lados['main'].colliderect(self.lados['left']):
                     self.accion = "ataca"
 
             else:
-                self.accion = self.ultima_accion
+                if self.accion == "ataca":
+                    self.accion = self.ultima_accion
 
                 if (self.accion == "derecha" and
                     self.lados['right'].x == (self.superficie_apoyo.lados['main'].x +

@@ -20,7 +20,6 @@ class Personaje(ObjetoAnimado):
         self.lista_proyectiles = []
         self.danio = danio
 
-
     def lanzar_proyectil(self, velocidad):
 
         if self.accion == "izquierda":

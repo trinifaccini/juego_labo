@@ -21,7 +21,6 @@ class Juego():
         self.nivel_actual = 0
         self.niveles = niveles
 
-
     def posicionar_textos(self, pantalla, textos) -> None:
 
         for texto in textos:

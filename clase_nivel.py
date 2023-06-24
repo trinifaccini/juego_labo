@@ -34,6 +34,7 @@ class Nivel():
                 x.update(rect_pantalla, jugador)
                 if x.colisiono:
                     lista_aux.remove(x)
+                    del x
 
 
     def posicionar_items(self, rect_pantalla, jugador) -> None:
@@ -44,6 +45,7 @@ class Nivel():
             item.update(rect_pantalla, jugador)
             if item.colisiono:
                 items_aux.remove(item)
+                del item
 
     def update(self, rect_pantalla, jugador, keys) -> None:
 

@@ -43,7 +43,7 @@ while True:
                 for e in juego.niveles[juego.nivel_actual].enemigos:
                     e.lanzar_proyectil(15)
 
-    if jugador.vidas <= 2510:
+    if jugador.vidas <= 2500:
         juego.nivel_actual = 1
 
     juego.update(PANTALLA, FUENTE, tiempo, pygame.key.get_pressed())

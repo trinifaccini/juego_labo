@@ -11,7 +11,6 @@ CLASE ITEM
 
 from clase_objeto import Objeto
 
-
 class Item(Objeto):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, cambio_vida:int,
@@ -23,6 +22,7 @@ class Item(Objeto):
         self.es_trampa = es_trampa
         self.colisiono = False
 
+    # PASAR A JUGADOR
     def verificar_colision_jugador(self, jugador):
 
         if self.lados['main'].colliderect(jugador.lados['main']):
