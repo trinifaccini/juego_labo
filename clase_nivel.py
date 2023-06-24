@@ -7,14 +7,14 @@ ARCHIVO CLASE NIVEL
 
 class Nivel():
 
-    def __init__(self, fondo, plataformas, enemigos, items) -> None:
+    def __init__(self, fondo, plataformas, enemigos, items, tiempo, puntos_requeridos, ) -> None:
 
         self.fondo = fondo
-        self.tiempo_total_nivel = 1000
-        self.tiempo_restante_nivel = 1000
+        self.tiempo = tiempo
         self.enemigos = enemigos
         self.items = items
         self.plataformas = plataformas # las plataformas van a venir con las trampas
+        self.puntos_requeridos = puntos_requeridos
 
     def posicionar_jugador(self) -> None:
         pass
@@ -57,6 +57,6 @@ class Nivel():
 
         jugador.update(rect_pantalla, self.plataformas, self.items, self.enemigos, keys)
 
-    # def update_personalizado(self, jugador):
+    def update_personalizado(self, jugador, keys):
 
-    #     jugador.update_personalizado(self.enemigos, self.items)
+        jugador.update_personalizado(self.enemigos, keys)

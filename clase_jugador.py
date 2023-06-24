@@ -54,8 +54,8 @@ class Jugador(Personaje):
             self.accion = "izquierda"
         elif keys[pygame.K_UP]:
             self.accion = "salta"
-        elif keys[pygame.K_SPACE]:
-            self.accion = "ataca"
+        # elif keys[pygame.K_SPACE]:
+        #     self.lanzar_proyectil(10)
         else:
             self.accion = "quieto"
 
@@ -65,4 +65,17 @@ class Jugador(Personaje):
         self.verificar_colision_enemigos(enemigos)
         self.verificar_colision_proyectiles(enemigos)
         self.definir_accion(keys)
+        for proyectil in self.lista_proyectiles:
+            proyectil.update(pantalla)
+
         super().update(pantalla, lista_plataformas)
+
+
+    def update_personalizado(self, enemigos, keys):
+
+        self.verificar_colision_enemigos(enemigos)
+
+        if keys[pygame.K_SPACE]:
+            self.lanzar_proyectil(10)
+        
+

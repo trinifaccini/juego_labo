@@ -26,19 +26,22 @@ class Juego():
         for texto in textos:
             pantalla.blit(texto['texto'], (texto['pos_x'], texto['pos_y']))
 
+    def cerrar_juego(self):
+        pygame.quit()
+        sys.exit(0)
+
     def manejar_eventos_juego(self, eventos):
 
         for evento in eventos:
 
             match evento.type:
                 case pygame.QUIT:
-                    pygame.quit()
-                    sys.exit(0)
+                    self.cerrar_juego()
                 case pygame.KEYDOWN:
                     if evento.key == pygame.K_TAB:
                         change_mode()
 
-    def update(self, pantalla, fuente, tiempo_transcurrido:float, keys) -> None:
+    def update(self, pantalla, fuente, keys) -> None:
 
         self.niveles[self.nivel_actual].update(pantalla, self.jugador, keys)
 
@@ -59,7 +62,7 @@ class Juego():
             "pos_y": 0
         }
 
-        texto = fuente.render(f"Tiempo:{1000-tiempo_transcurrido}", False, "Green", "Blue")
+        texto = fuente.render(f"Tiempo:{self.niveles[self.nivel_actual].tiempo}", False, "Green", "Blue")
         ancho_texto = texto.get_width()
 
         texto_tiempo = {
@@ -72,6 +75,6 @@ class Juego():
 
         self.posicionar_textos(pantalla, textos)
 
-    def update_personalizado(self) -> None:
+    def update_personalizado(self, keys) -> None:
 
-        self.niveles[self.nivel_actual].update_personalizado(self.jugador)
+        self.niveles[self.nivel_actual].update_personalizado(self.jugador, keys)
