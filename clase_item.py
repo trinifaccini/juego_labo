@@ -21,16 +21,3 @@ class Item(Objeto):
         self.cambio_puntos = cambio_puntos
         self.es_trampa = es_trampa
         self.colisiono = False
-
-    # PASAR A JUGADOR
-    def verificar_colision_jugador(self, jugador):
-
-        if self.lados['main'].colliderect(jugador.lados['main']):
-            self.colisiono = True
-            jugador.vidas += self.cambio_vida
-            jugador.puntos += self.cambio_puntos
-
-    def update(self, pantalla, jugador):
-
-        self.verificar_colision_jugador(jugador)
-        super().update(pantalla)

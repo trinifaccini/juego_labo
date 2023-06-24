@@ -23,6 +23,29 @@ class Jugador(Personaje):
         self.accion = "derecha"
         self.puntos = 0
 
+    def verificar_colision_items(self, items):
+
+        for item in items:
+            if self.lados['main'].colliderect(item.lados['main']):
+                item.colisiono = True
+                self.vidas += item.cambio_vida
+                self.puntos += item.cambio_puntos
+
+    def verificar_colision_proyectiles(self, enemigos):
+
+        for enemigo in enemigos:
+            for proyectil in enemigo.lista_proyectiles:
+                if self.lados['main'].colliderect(proyectil.lados['main']):
+                    proyectil.colisiono = True
+                    self.vidas += proyectil.cambio_vida
+                    self.puntos += proyectil.cambio_puntos
+
+    def verificar_colision_enemigos(self, enemigos):
+
+        for enemigo in enemigos:
+            if enemigo.accion == "ataca":
+                self.vidas -= enemigo.danio
+
     def definir_accion(self, keys):
 
         if keys[pygame.K_RIGHT]:
@@ -36,7 +59,10 @@ class Jugador(Personaje):
         else:
             self.accion = "quieto"
 
-    def update(self, pantalla, lista_plataformas, keys):
+    def update(self, pantalla, lista_plataformas, items, enemigos, keys):
 
+        self.verificar_colision_items(items)
+        self.verificar_colision_enemigos(enemigos)
+        self.verificar_colision_proyectiles(enemigos)
         self.definir_accion(keys)
         super().update(pantalla, lista_plataformas)

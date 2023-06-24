@@ -31,18 +31,18 @@ class Nivel():
             enemigo.update(rect_pantalla, self.plataformas, jugador)
             lista_aux = enemigo.lista_proyectiles
             for x in enemigo.lista_proyectiles:
-                x.update(rect_pantalla, jugador)
+                x.update(rect_pantalla)
                 if x.colisiono:
                     lista_aux.remove(x)
                     del x
 
 
-    def posicionar_items(self, rect_pantalla, jugador) -> None:
+    def posicionar_items(self, rect_pantalla) -> None:
 
         items_aux = self.items
 
         for item in self.items:
-            item.update(rect_pantalla, jugador)
+            item.update(rect_pantalla)
             if item.colisiono:
                 items_aux.remove(item)
                 del item
@@ -53,9 +53,9 @@ class Nivel():
 
         self.posicionar_plataformas(rect_pantalla)
         self.posicionar_enemigos(rect_pantalla, jugador)
-        self.posicionar_items(rect_pantalla, jugador)
+        self.posicionar_items(rect_pantalla)
 
-        jugador.update(rect_pantalla, self.plataformas, keys)
+        jugador.update(rect_pantalla, self.plataformas, self.items, self.enemigos, keys)
 
     # def update_personalizado(self, jugador):
 

@@ -21,7 +21,7 @@ class Proyectil(Item):
         self.velocidad = velocidad
 
 
-    def colisionar_pantalla(self, pantalla):
+    def verificar_colision_pantalla(self, pantalla):
 
         if self.velocidad > 0 and self.lados['right'].x >= pantalla.get_width()-self.w*2:
             self.colisiono = True
@@ -32,13 +32,11 @@ class Proyectil(Item):
     def mover(self) -> None:
 
         # La direccion del proyectil va a estar dada por la velocidad
-
         for lado in dict(self.lados):
             self.lados[lado].x += self.velocidad
 
+    def update(self, pantalla) -> None:
 
-    def update(self, pantalla, jugador) -> None:
-
-        self.colisionar_pantalla(pantalla)
+        self.verificar_colision_pantalla(pantalla)
         self.mover()
-        super().update(pantalla, jugador)
+        super().update(pantalla)

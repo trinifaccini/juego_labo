@@ -96,9 +96,9 @@ class ObjetoAnimado(Objeto):
                 self.esta_saltando = False
                 self.lados["main"].bottom = plat.lados['main'].top + 5
                 self.desplazamiento_y = 0
-            #     break
-            # else:
-            #     self.esta_saltando = True
+                break
+            else:
+                self.esta_saltando = True
 
     def atacar(self, pantalla):
 
