@@ -30,10 +30,12 @@ class Enemigo(Personaje):
 
         if self.superficie_apoyo is not None:
 
-            if self.ultima_accion == "derecha" and jugador.lados['main'].colliderect(self.lados['right']):
+            if (self.ultima_accion == "derecha" and
+                jugador.lados['main'].colliderect(self.lados['right'])):
                     self.accion = "ataca"
-                    
-            elif self.ultima_accion == "izquierda" and jugador.lados['main'].colliderect(self.lados['left']):
+            
+            elif (self.ultima_accion == "izquierda" and
+                  jugador.lados['main'].colliderect(self.lados['left'])):
                     self.accion = "ataca"
 
             else:
@@ -51,7 +53,7 @@ class Enemigo(Personaje):
 
                     self.accion = "derecha"
 
-    def update(self, pantalla, lista_plataformas, jugador):
+    def update(self, pantalla, lista_plataformas, personajes):
 
-        self.definir_accion(jugador)
-        super().update(pantalla, lista_plataformas)
+        self.definir_accion(personajes[0])
+        super().update(pantalla, lista_plataformas, personajes)

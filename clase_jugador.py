@@ -23,6 +23,8 @@ class Jugador(Personaje):
         self.accion = "derecha"
         self.puntos = 0
 
+    # VERIFICO COLISION DE ITEM CON PERSONAE JUGADOR UNICAMENTE
+    # SI COLISIONA LO BORRO DE LA LISTA
     def verificar_colision_items(self, items):
 
         for item in items:
@@ -30,15 +32,10 @@ class Jugador(Personaje):
                 item.colisiono = True
                 self.vidas += item.cambio_vida
                 self.puntos += item.cambio_puntos
-
-    def verificar_colision_proyectiles(self, enemigos):
-
-        for enemigo in enemigos:
-            for proyectil in enemigo.lista_proyectiles:
-                if self.lados['main'].colliderect(proyectil.lados['main']):
-                    proyectil.colisiono = True
-                    self.vidas += proyectil.cambio_vida
-                    self.puntos += proyectil.cambio_puntos
+                print("COLISIONO ITEM")
+                lista_aux = items
+                lista_aux.remove(item)
+                del item
 
     def verificar_colision_enemigos(self, enemigos):
 
@@ -54,28 +51,22 @@ class Jugador(Personaje):
             self.accion = "izquierda"
         elif keys[pygame.K_UP]:
             self.accion = "salta"
-        # elif keys[pygame.K_SPACE]:
-        #     self.lanzar_proyectil(10)
         else:
             self.accion = "quieto"
 
-    def update(self, pantalla, lista_plataformas, items, enemigos, keys):
+    def update(self, pantalla, lista_plataformas, enemigos, items, keys):
 
         self.verificar_colision_items(items)
-        self.verificar_colision_enemigos(enemigos)
-        self.verificar_colision_proyectiles(enemigos)
         self.definir_accion(keys)
-        for proyectil in self.lista_proyectiles:
-            proyectil.update(pantalla)
 
-        super().update(pantalla, lista_plataformas)
+        super().update(pantalla, lista_plataformas, enemigos)
 
 
     def update_personalizado(self, enemigos, keys):
 
+        # Verifico la colision unicamente aca porque este update se llama
+        # cada un segundo
         self.verificar_colision_enemigos(enemigos)
 
         if keys[pygame.K_SPACE]:
             self.lanzar_proyectil(10)
-        
-

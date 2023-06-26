@@ -41,20 +41,7 @@ while True:
     for evento in eventos:
         if evento.type == TIMER_EVENT:
             juego.niveles[juego.nivel_actual].tiempo -= 1
-            if juego.niveles[juego.nivel_actual].tiempo % 5 == 0:
-                for e in juego.niveles[juego.nivel_actual].enemigos:
-                    e.lanzar_proyectil(15)
-            if jugador.puntos >= juego.niveles[juego.nivel_actual].puntos_requeridos:
-                juego.nivel_actual += 1
             juego.update_personalizado(keys)
-
-    if juego.niveles[juego.nivel_actual].tiempo <= 0 and jugador.puntos < juego.niveles[juego.nivel_actual].puntos_requeridos:
-        print("NO ALCANZO LOS PUNTOS")
-        juego.cerrar_juego()
-
-    if jugador.vidas <= 0:
-        print("MUERTO")
-        juego.cerrar_juego()
 
     juego.update(PANTALLA, FUENTE, keys)
 

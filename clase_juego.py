@@ -30,6 +30,21 @@ class Juego():
         pygame.quit()
         sys.exit(0)
 
+    def chequear_puntos_tiempo(self) -> None:
+
+        if self.jugador.puntos >= self.niveles[self.nivel_actual].puntos_requeridos:
+            self.nivel_actual += 1
+
+        if (self.niveles[self.nivel_actual].tiempo <= 0 and
+            self.jugador.puntos < self.niveles[self.nivel_actual].puntos_requeridos):
+            print("NO ALCANZO LOS PUNTOS")
+            self.cerrar_juego()
+
+    def chequear_vida_jugador(self) -> None:
+        if self.jugador.vidas <= 0:
+            print("MUERTO")
+            self.cerrar_juego()
+
     def manejar_eventos_juego(self, eventos):
 
         for evento in eventos:
@@ -42,6 +57,9 @@ class Juego():
                         change_mode()
 
     def update(self, pantalla, fuente, keys) -> None:
+
+        self.chequear_puntos_tiempo()
+        self.chequear_vida_jugador()
 
         self.niveles[self.nivel_actual].update(pantalla, self.jugador, keys)
 
@@ -62,7 +80,8 @@ class Juego():
             "pos_y": 0
         }
 
-        texto = fuente.render(f"Tiempo:{self.niveles[self.nivel_actual].tiempo}", False, "Green", "Blue")
+        texto = fuente.render(f"Tiempo:{self.niveles[self.nivel_actual].tiempo}",
+                              False, "Green", "Blue")
         ancho_texto = texto.get_width()
 
         texto_tiempo = {

@@ -5,9 +5,15 @@
 ARCHIVO CLASE NIVEL
 '''
 
+from clase_enemigo import Enemigo
+from clase_item import Item
+from config_img import diccionario_animaciones_yeti
+
+
 class Nivel():
 
-    def __init__(self, fondo, plataformas, enemigos, items, tiempo, puntos_requeridos, ) -> None:
+    def __init__(self, fondo, plataformas:list, enemigos:list,
+                 items:list, tiempo:int, puntos_requeridos:int) -> None:
 
         self.fondo = fondo
         self.tiempo = tiempo
@@ -16,8 +22,28 @@ class Nivel():
         self.plataformas = plataformas # las plataformas van a venir con las trampas
         self.puntos_requeridos = puntos_requeridos
 
-    def posicionar_jugador(self) -> None:
-        pass
+    def generar_proyectiles(self) -> None:
+
+        if self.tiempo % 5 == 0:
+            for enemigo in self.enemigos:
+                enemigo.lanzar_proyectil(15)
+
+    def generar_enemigos(self) -> None:
+        if self.tiempo % 15 == 0:
+            enemigo = Enemigo((100,90), (200,0), diccionario_animaciones_yeti, 5, -15, 2000,
+                              "Recursos/Obstaculos/bola_nieve_1.png", 200)
+
+            self.enemigos.append(enemigo)
+
+    def generar_items_especiales(self) -> None:
+
+        if self.tiempo % 10 == 0:
+           item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
+           self.items.append(item_uno)
+          
+        if self.tiempo % 12 == 0:
+            item_dos = Item((30,30), (300, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
+            self.items.append(item_dos)
 
     def posicionar_plataformas(self, rect_pantalla) -> None:
 
@@ -26,16 +52,13 @@ class Nivel():
 
     def posicionar_enemigos(self, rect_pantalla, jugador) -> None:
 
+        lista = [jugador]
         for enemigo in self.enemigos:
 
-            enemigo.update(rect_pantalla, self.plataformas, jugador)
-            lista_aux = enemigo.lista_proyectiles
-            for x in enemigo.lista_proyectiles:
-                x.update(rect_pantalla)
-                if x.colisiono:
-                    lista_aux.remove(x)
-                    del x
-
+            enemigo.update(rect_pantalla, self.plataformas, lista)
+            if enemigo.vidas < 0:
+                self.enemigos.remove(enemigo)
+                del enemigo
 
     def posicionar_items(self, rect_pantalla) -> None:
 
@@ -47,6 +70,7 @@ class Nivel():
                 items_aux.remove(item)
                 del item
 
+
     def update(self, rect_pantalla, jugador, keys) -> None:
 
         rect_pantalla.blit(self.fondo, (0, 0))
@@ -55,8 +79,13 @@ class Nivel():
         self.posicionar_enemigos(rect_pantalla, jugador)
         self.posicionar_items(rect_pantalla)
 
-        jugador.update(rect_pantalla, self.plataformas, self.items, self.enemigos, keys)
+        jugador.update(rect_pantalla, self.plataformas, self.enemigos, self.items, keys)
+
 
     def update_personalizado(self, jugador, keys):
 
+        self.generar_proyectiles()
+        self.generar_enemigos()
+        self.generar_items_especiales()
         jugador.update_personalizado(self.enemigos, keys)
+
