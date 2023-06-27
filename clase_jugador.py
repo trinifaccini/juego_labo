@@ -23,25 +23,34 @@ class Jugador(Personaje):
         self.accion = "derecha"
         self.puntos = 0
 
-    # VERIFICO COLISION DE ITEM CON PERSONAE JUGADOR UNICAMENTE
+    # VERIFICO COLISION DE ITEM CON PERSONAJE JUGADOR UNICAMENTE
     # SI COLISIONA LO BORRO DE LA LISTA
     def verificar_colision_items(self, items):
 
         for item in items:
             if self.lados['main'].colliderect(item.lados['main']):
-                item.colisiono = True
                 self.vidas += item.cambio_vida
                 self.puntos += item.cambio_puntos
-                print("COLISIONO ITEM")
-                lista_aux = items
-                lista_aux.remove(item)
-                del item
+                item.colisiono = True
+                # lista_aux = items
+                # lista_aux.remove(item)
+                # del item
 
+    
+    # SI VEO LO DE QUE SEA CADA UN SEGUNDO USAR ESTE METODO
     def verificar_colision_enemigos(self, enemigos):
 
         for enemigo in enemigos:
             if enemigo.accion == "ataca":
                 self.vidas -= enemigo.danio
+                self.accion = "atacado"
+    
+    def daniar_personaje_por_enemigo(self, enemigos):
+
+         for enemigo in enemigos:
+            if enemigo.accion == "ataca":
+                self.vidas -= enemigo.danio
+
 
     def definir_accion(self, keys):
 
@@ -51,7 +60,7 @@ class Jugador(Personaje):
             self.accion = "izquierda"
         elif keys[pygame.K_UP]:
             self.accion = "salta"
-        else:
+        elif self.accion != "atacado":
             self.accion = "quieto"
 
     def update(self, pantalla, lista_plataformas, enemigos, items, keys):
@@ -59,14 +68,23 @@ class Jugador(Personaje):
         self.verificar_colision_items(items)
         self.definir_accion(keys)
 
+        if self.accion == "atacado":
+            if self.ultima_accion == "derecha":
+                self.animar(pantalla, "atacado_derecha")
+            else:
+                self.animar(pantalla, "atacado_izquierda")
+
         super().update(pantalla, lista_plataformas, enemigos)
 
 
-    def update_personalizado(self, enemigos, keys):
+    def update_personalizado(self, enemigos, pantalla, keys):
 
         # Verifico la colision unicamente aca porque este update se llama
         # cada un segundo
-        self.verificar_colision_enemigos(enemigos)
+        
+        #self.verificar_colision_enemigos(enemigos, pantalla)
+
+        self.daniar_personaje_por_enemigo(enemigos)
 
         if keys[pygame.K_SPACE]:
             self.lanzar_proyectil(10)

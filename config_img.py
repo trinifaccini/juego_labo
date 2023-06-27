@@ -76,6 +76,16 @@ personaje_salta_derecha = [
 
 personaje_salta_izquierda = girar_imagenes(personaje_salta_derecha, True, False)
 
+
+personaje_atacado_derecha = [
+    pygame.image.load("Recursos/Personajes/Esquiador/Atacado/atacado.png"),
+]
+
+personaje_atacado_izquierda = girar_imagenes(personaje_atacado_derecha, True, False)
+
+
+###########################################################################
+
 oso_quieto_derecha = [
     pygame.image.load("Recursos/Personajes/Oso/Quieto/oso_quieto_0.png"),
     ]
@@ -102,7 +112,8 @@ oso_camina_derecha = [
 
 oso_camina_izquierda = girar_imagenes(oso_camina_derecha, True, False)
 
-####
+###########################################################################
+
 yeti_quieto_derecha = [
     pygame.image.load("Recursos/Personajes/Yeti/Quieto/yeti_quieto_0.png"),
     ]
@@ -138,6 +149,7 @@ yeti_salta_derecha = [
 yeti_salta_izquierda = girar_imagenes(yeti_salta_derecha, True, False)
 
 
+###########################################################################
 
 diccionario_animaciones_personaje = {}
 diccionario_animaciones_personaje = {
@@ -146,7 +158,9 @@ diccionario_animaciones_personaje = {
     "camina_derecha": personaje_camina_derecha,
     "camina_izquierda": personaje_camina_izquierda,
     "salta_derecha": personaje_salta_derecha,
-    "salta_izquierda": personaje_salta_izquierda
+    "salta_izquierda": personaje_salta_izquierda,
+    "atacado_derecha": personaje_atacado_derecha,
+    "atacado_izquierda": personaje_atacado_izquierda
 }
 
 

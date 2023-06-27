@@ -141,7 +141,6 @@ class ObjetoAnimado(Objeto):
                 case "ataca":
                     if not self.esta_saltando:
                         self.atacar(pantalla)
-                        print("atacando")
                 case "quieto":
                     if not self.esta_saltando: # solo animo si no está saltando
                         if self.ultima_accion == "derecha":

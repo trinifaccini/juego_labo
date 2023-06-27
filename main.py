@@ -7,8 +7,10 @@ import pygame
 from clase_juego import Juego
 from config_img import dibujar_borde_rectangulos
 from datos_juego import TAMANIO_PANTALLA, FPS, jugador
+from datos_nivel_tres import nivel_tres
 from datos_nivel_dos import nivel_dos
-from datos_nivel_uno import nivel_uno, nivel_tres
+from datos_nivel_uno import nivel_uno
+
 from modo import get_mode
 
 pygame.init()
@@ -41,7 +43,7 @@ while True:
     for evento in eventos:
         if evento.type == TIMER_EVENT:
             juego.niveles[juego.nivel_actual].tiempo -= 1
-            juego.update_personalizado(keys)
+            juego.update_personalizado(PANTALLA, keys)
 
     juego.update(PANTALLA, FUENTE, keys)
 

@@ -30,17 +30,22 @@ class Juego():
         pygame.quit()
         sys.exit(0)
 
-    def chequear_puntos_tiempo(self) -> None:
+    def verificar_puntos_tiempo(self) -> None:
 
         if self.jugador.puntos >= self.niveles[self.nivel_actual].puntos_requeridos:
-            self.nivel_actual += 1
+
+            if self.nivel_actual < len(self.niveles)-1:
+                self.nivel_actual += 1
+            else:
+                print("GANO EL JUEGO")
+
 
         if (self.niveles[self.nivel_actual].tiempo <= 0 and
             self.jugador.puntos < self.niveles[self.nivel_actual].puntos_requeridos):
             print("NO ALCANZO LOS PUNTOS")
             self.cerrar_juego()
 
-    def chequear_vida_jugador(self) -> None:
+    def verificar_vida_jugador(self) -> None:
         if self.jugador.vidas <= 0:
             print("MUERTO")
             self.cerrar_juego()
@@ -58,8 +63,8 @@ class Juego():
 
     def update(self, pantalla, fuente, keys) -> None:
 
-        self.chequear_puntos_tiempo()
-        self.chequear_vida_jugador()
+        self.verificar_puntos_tiempo()
+        self.verificar_vida_jugador()
 
         self.niveles[self.nivel_actual].update(pantalla, self.jugador, keys)
 
@@ -94,6 +99,6 @@ class Juego():
 
         self.posicionar_textos(pantalla, textos)
 
-    def update_personalizado(self, keys) -> None:
+    def update_personalizado(self, pantalla, keys) -> None:
 
-        self.niveles[self.nivel_actual].update_personalizado(self.jugador, keys)
+        self.niveles[self.nivel_actual].update_personalizado(self.jugador,pantalla, keys)

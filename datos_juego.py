@@ -8,4 +8,5 @@ FPS = 20
 
 TAMANIO_PANTALLA = (W,H)
 
-jugador = Jugador((60,80), (200,H-100), diccionario_animaciones_personaje, 5, -15, 3000, "Recursos/Obstaculos/bola_nieve_1.png", 100)
+jugador = Jugador((60,80), (200,H-100), diccionario_animaciones_personaje, 
+                  5, -15, 20000, "Recursos/Obstaculos/bola_nieve_1.png", 100)

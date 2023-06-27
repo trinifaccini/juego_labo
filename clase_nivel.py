@@ -82,10 +82,9 @@ class Nivel():
         jugador.update(rect_pantalla, self.plataformas, self.enemigos, self.items, keys)
 
 
-    def update_personalizado(self, jugador, keys):
+    def update_personalizado(self, jugador,pantalla, keys):
 
         self.generar_proyectiles()
         self.generar_enemigos()
         self.generar_items_especiales()
-        jugador.update_personalizado(self.enemigos, keys)
-
+        jugador.update_personalizado(self.enemigos, pantalla, keys)

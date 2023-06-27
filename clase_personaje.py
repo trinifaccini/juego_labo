@@ -43,7 +43,6 @@ class Personaje(ObjetoAnimado):
         for personaje in personajes:
             for proyectil in personaje.lista_proyectiles:
                 if self.lados['main'].colliderect(proyectil.lados['main']):
-                    print("COLISIONO PROYECTIL")
                     self.vidas += proyectil.cambio_vida
                     lista_aux = personaje.lista_proyectiles
                     lista_aux.remove(proyectil)

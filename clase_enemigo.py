@@ -33,10 +33,12 @@ class Enemigo(Personaje):
             if (self.ultima_accion == "derecha" and
                 jugador.lados['main'].colliderect(self.lados['right'])):
                     self.accion = "ataca"
+                    jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
             
             elif (self.ultima_accion == "izquierda" and
                   jugador.lados['main'].colliderect(self.lados['left'])):
                     self.accion = "ataca"
+                    jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
 
             else:
                 if self.accion == "ataca":
