@@ -62,7 +62,7 @@ juego = Juego(jugador, "jugadores.db", "trinif", [nivel_uno, nivel_dos, nivel_tr
 
 while True and juego:
 
-    RELOJ.tick(FPS)
+    RELOJ.tick(FPS)         
 
     eventos = pygame.event.get()
 
