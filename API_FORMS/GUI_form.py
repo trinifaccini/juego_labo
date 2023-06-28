@@ -1,13 +1,13 @@
 import pygame
 from pygame.locals import *
 
-from GUI_button import *
+from API_FORMS.GUI_widget import Widget
 
 #No se instancia. Es la base de la jerarquia
 
 class Form(Widget):
 
-    def __init__(self, screen, x,y,w,h,color_background,color_border = "Black",
+    def __init__(self, screen, x,y,w,h,color_background=None,color_border = "Black",
                  border_size = -1, active = True):
 
         super().__init__(screen, x,y,w,h, color_background, color_border, border_size)

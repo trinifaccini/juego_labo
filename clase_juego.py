@@ -43,7 +43,7 @@ class Juego():
                 self.jugador.puntos += (self.niveles[self.nivel_actual].tiempo * 100)
                 self.nivel_actual += 1
             else:
-                actualizar_jugador(self.nivel_actual, self.jugador.puntos, 
+                actualizar_jugador(self.nivel_actual, self.jugador.puntos,
                                    self.usuario, self.base_datos)
                 self.cerrar_juego()
 

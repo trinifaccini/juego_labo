@@ -1,4 +1,5 @@
 import pygame
+
 class Widget:
     def __init__(self,screen, x,y,w,h,color_background = "Black", color_border = "Red", border_size = -1):
 

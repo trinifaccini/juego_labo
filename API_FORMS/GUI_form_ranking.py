@@ -1,9 +1,9 @@
 import pygame
 from pygame.locals import * 
 
-from GUI_form import Form
-from GUI_label import Label
-from GUI_button_image import Button_Image
+from API_FORMS.GUI_form import Form
+from API_FORMS.GUI_label import Label
+from API_FORMS.GUI_button_image import Button_Image
 
 class FormRanking(Form):
 

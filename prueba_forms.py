@@ -1,7 +1,7 @@
 import pygame
 import sys
 from pygame.locals import *
-from GUI_form_inicio import FormInicio
+from API_FORMS.GUI_form_inicio import FormInicio
 
 pygame.init()
 
@@ -12,7 +12,7 @@ FPS = 60
 RELOJ = pygame.time.Clock()
 PANTALLA = pygame.display.set_mode((W,H))
 
-form_inicio = FormInicio(PANTALLA, 200, 100, 900, 350, "Gold", "Magenta", 5, True)
+form_inicio = FormInicio(PANTALLA, 200, 100, 900, 350, "Recursos/Fondos/bg-icebergs-2.png")
 
 while True:
 
