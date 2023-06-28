@@ -14,11 +14,11 @@ from clase_personaje import Personaje
 
 class Jugador(Personaje):
 
-    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones, velocidad: int,
+    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio, velocidad: int,
                  potencia_salto: int, vidas: int, img_proyectil: str, danio: int):
 
-        super().__init__(tamanio, pos_inicial, animaciones, velocidad, potencia_salto,
-                         vidas, img_proyectil, danio)
+        super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
+                         velocidad, potencia_salto,vidas, img_proyectil, danio)
 
         self.accion = "derecha"
         self.puntos = 0
@@ -44,10 +44,10 @@ class Jugador(Personaje):
             if enemigo.accion == "ataca":
                 self.vidas -= enemigo.danio
                 self.accion = "atacado"
-    
+
     def daniar_personaje_por_enemigo(self, enemigos):
 
-         for enemigo in enemigos:
+        for enemigo in enemigos:
             if enemigo.accion == "ataca":
                 self.vidas -= enemigo.danio
 

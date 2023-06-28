@@ -14,14 +14,29 @@ from clase_personaje import Personaje
 
 class Enemigo(Personaje):
 
-    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones, velocidad: int,
-                 potencia_salto: int, vidas: int, img_proyectil: str, danio: int):
+    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio,
+                 velocidad: int, potencia_salto: int, vidas: int, img_proyectil: str, danio: int):
 
-        super().__init__(tamanio, pos_inicial, animaciones, velocidad, potencia_salto,
-                         vidas, img_proyectil, danio)
+        super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
+                         velocidad, potencia_salto, vidas, img_proyectil, danio)
 
         self.accion = "derecha"
         self.esta_saltando = True
+
+    def atacar(self, pantalla):
+
+        if self.accion == "ataca":
+            if self.ultima_accion == "izquierda":
+                if "ataca_izquierda" in self.animaciones_actual:
+                    self.animar(pantalla, "ataca_izquierda")
+                else:
+                    self.animar(pantalla, "camina_izquierda")
+
+            elif self.ultima_accion == "derecha":
+                if "ataca_derecha" in self.animaciones_actual:
+                    self.animar(pantalla, "ataca_derecha")
+                else:
+                    self.animar(pantalla, "camina_izquierda")
 
 
     def definir_accion(self, jugador):
@@ -29,16 +44,15 @@ class Enemigo(Personaje):
         # REBOTE SOBRE LA PLATAFORMA EN LA QUE SE ENCUENTRA
 
         if self.superficie_apoyo is not None:
-
             if (self.ultima_accion == "derecha" and
                 jugador.lados['main'].colliderect(self.lados['right'])):
-                    self.accion = "ataca"
-                    jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
-            
+                self.accion = "ataca"
+                jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
+
             elif (self.ultima_accion == "izquierda" and
                   jugador.lados['main'].colliderect(self.lados['left'])):
-                    self.accion = "ataca"
-                    jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
+                self.accion = "ataca"
+                jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
 
             else:
                 if self.accion == "ataca":
@@ -52,10 +66,11 @@ class Enemigo(Personaje):
 
                 elif (self.accion == "izquierda" and
                     self.lados['left'].x == self.superficie_apoyo.lados['main'].x):
-
                     self.accion = "derecha"
 
     def update(self, pantalla, lista_plataformas, personajes):
 
         self.definir_accion(personajes[0])
+        self.atacar(pantalla)
+
         super().update(pantalla, lista_plataformas, personajes)

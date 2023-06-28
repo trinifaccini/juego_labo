@@ -11,12 +11,15 @@ CLASE JUEGO
 
 import sys
 import pygame
+from config_db import actualizar_jugador
 from modo import *
 
 class Juego():
 
-    def __init__(self, jugador, niveles:list) -> None:
+    def __init__(self, jugador, base_datos, usuario, niveles:list) -> None:
 
+        self.usuario = usuario
+        self.base_datos = base_datos
         self.jugador = jugador
         self.nivel_actual = 0
         self.niveles = niveles
@@ -27,6 +30,7 @@ class Juego():
             pantalla.blit(texto['texto'], (texto['pos_x'], texto['pos_y']))
 
     def cerrar_juego(self):
+
         pygame.quit()
         sys.exit(0)
 
@@ -35,14 +39,18 @@ class Juego():
         if self.jugador.puntos >= self.niveles[self.nivel_actual].puntos_requeridos:
 
             if self.nivel_actual < len(self.niveles)-1:
+                print("PASO DE NIVEL")
+                self.jugador.puntos += (self.niveles[self.nivel_actual].tiempo * 100)
                 self.nivel_actual += 1
             else:
-                print("GANO EL JUEGO")
-
+                actualizar_jugador(self.nivel_actual, self.jugador.puntos, 
+                                   self.usuario, self.base_datos)
+                self.cerrar_juego()
 
         if (self.niveles[self.nivel_actual].tiempo <= 0 and
             self.jugador.puntos < self.niveles[self.nivel_actual].puntos_requeridos):
-            print("NO ALCANZO LOS PUNTOS")
+            actualizar_jugador(self.nivel_actual, 0, self.usuario, self.base_datos)
+            print("NO ALCANZO LOS PUNTOS DEL NIVEL: ", self.nivel_actual)
             self.cerrar_juego()
 
     def verificar_vida_jugador(self) -> None:

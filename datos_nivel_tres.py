@@ -8,15 +8,17 @@ from clase_nivel import Nivel
 from clase_objeto import Objeto
 from datos_juego import TAMANIO_PANTALLA, W, jugador
 from clase_enemigo import Enemigo
-from config_img import diccionario_animaciones_yeti
+from config_img import diccionario_animaciones_yeti_normal, diccionario_animaciones_yeti_rojo
 
 fondo = pygame.image.load("Recursos/Fondos/fondo_nivel_3.png")
 fondo = pygame.transform.scale(fondo, TAMANIO_PANTALLA)
 
-enemigo_uno = Enemigo((100,90), (20,0), diccionario_animaciones_yeti, 5, -15, 2000,
+enemigo_uno = Enemigo((100,90), (20,0), diccionario_animaciones_yeti_normal,
+                      diccionario_animaciones_yeti_rojo,5, -15, 2000,
                       "Recursos/Obstaculos/bola_nieve_1.png", 200)
 
-enemigo_dos = Enemigo((100,60), (500,0), diccionario_animaciones_yeti, 5, -15, 2000,
+enemigo_dos = Enemigo((100,90), (500,0), diccionario_animaciones_yeti_normal,
+                      diccionario_animaciones_yeti_rojo,5, -15, 2000,
                       "Recursos/Obstaculos/bola_nieve_1.png", 200)
 
 piso_1 = Objeto((W,20), (0, jugador.lados['bottom'].bottom-1),
@@ -35,4 +37,4 @@ lista_plataformas = [piso_1, piso_2, plataforma]
 
 items = [item_uno, item_dos]
 
-nivel_tres = Nivel(fondo, lista_plataformas,enemigos, items, 50, 60)
+nivel_tres = Nivel(fondo, lista_plataformas,enemigos, items, 60, 7600)

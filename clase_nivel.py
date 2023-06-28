@@ -7,7 +7,7 @@ ARCHIVO CLASE NIVEL
 
 from clase_enemigo import Enemigo
 from clase_item import Item
-from config_img import diccionario_animaciones_yeti
+from config_img import diccionario_animaciones_yeti_normal, diccionario_animaciones_yeti_rojo
 
 
 class Nivel():
@@ -30,7 +30,8 @@ class Nivel():
 
     def generar_enemigos(self) -> None:
         if self.tiempo % 15 == 0:
-            enemigo = Enemigo((100,90), (200,0), diccionario_animaciones_yeti, 5, -15, 2000,
+            enemigo = Enemigo((100,90), (200,0), diccionario_animaciones_yeti_normal,
+                              diccionario_animaciones_yeti_rojo, 5, -15, 2000,
                               "Recursos/Obstaculos/bola_nieve_1.png", 200)
 
             self.enemigos.append(enemigo)
@@ -45,18 +46,20 @@ class Nivel():
             item_dos = Item((30,30), (300, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
             self.items.append(item_dos)
 
+    # CORREGIR ESTA FUNCION
     def posicionar_plataformas(self, rect_pantalla) -> None:
 
         for plataforma in self.plataformas:
             plataforma.update(rect_pantalla)
 
+    #CORREGIR ESTA FUNCION
     def posicionar_enemigos(self, rect_pantalla, jugador) -> None:
 
         lista = [jugador]
         for enemigo in self.enemigos:
-
             enemigo.update(rect_pantalla, self.plataformas, lista)
             if enemigo.vidas < 0:
+                jugador.puntos += 100
                 self.enemigos.remove(enemigo)
                 del enemigo
 
