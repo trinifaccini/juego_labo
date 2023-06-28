@@ -4,6 +4,7 @@ from API_FORMS.GUI_widget import *
 
 class Label(Widget):
     def __init__(self, screen,x,y,w,h,text, font, font_size, font_color, path_image):
+        
         super().__init__(screen, x,y,w,h)
         
         pygame.font.init()
