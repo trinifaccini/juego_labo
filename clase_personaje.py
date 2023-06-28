@@ -6,6 +6,7 @@ CLASE PERSONAJE
 # pylint: disable=missing-class-docstring
 # pylint: disable=arguments-differ
 
+import pygame
 from clase_objeto_animado import ObjetoAnimado
 from clase_proyectil import Proyectil
 from config_img import deepcopy_dict_animaciones
@@ -13,7 +14,7 @@ from config_img import deepcopy_dict_animaciones
 class Personaje(ObjetoAnimado):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio,
-                 velocidad: int, potencia_salto: int, vidas:int, img_proyectil:str, danio:int):
+                 velocidad: int, potencia_salto: int, vidas:int, danio:int):
 
 
         animaciones_aux_normal = deepcopy_dict_animaciones(animaciones_normal)
@@ -24,7 +25,7 @@ class Personaje(ObjetoAnimado):
         super().__init__(tamanio, pos_inicial, lista, velocidad, potencia_salto)
 
         self.vidas = vidas
-        self.img_proyectil = img_proyectil
+        #self.img_proyectil = img_proyectil
         self.lista_proyectiles = []
         self.danio = danio
 
@@ -56,12 +57,12 @@ class Personaje(ObjetoAnimado):
 
     def lanzar_proyectil(self, velocidad):
 
-        if self.accion == "izquierda":
+        if self.ultima_accion == "izquierda":
             velocidad = velocidad * -1
 
         proyectil = Proyectil(
             (20, 20),(self.lados['main'].centerx, self.lados['left'].y),
-            -500, 0, velocidad, self.img_proyectil)
+            -500, 0, velocidad)
 
         self.lista_proyectiles.append(proyectil)
 

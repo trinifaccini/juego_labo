@@ -1,5 +1,6 @@
 # pylint: disable=missing-function-docstring
 # pylint: disable=missing-class-docstring
+# pylint: disable=too-many-arguments
 
 '''
 ARCHIVO CLASE NIVEL
@@ -31,17 +32,16 @@ class Nivel():
     def generar_enemigos(self) -> None:
         if self.tiempo % 15 == 0:
             enemigo = Enemigo((100,90), (200,0), diccionario_animaciones_yeti_normal,
-                              diccionario_animaciones_yeti_rojo, 5, -15, 2000,
-                              "Recursos/Obstaculos/bola_nieve_1.png", 200)
+                              diccionario_animaciones_yeti_rojo, 5, -15, 2000, 200)
 
             self.enemigos.append(enemigo)
 
     def generar_items_especiales(self) -> None:
 
         if self.tiempo % 10 == 0:
-           item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
-           self.items.append(item_uno)
-          
+            item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
+            self.items.append(item_uno)
+
         if self.tiempo % 12 == 0:
             item_dos = Item((30,30), (300, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
             self.items.append(item_dos)

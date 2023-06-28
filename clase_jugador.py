@@ -8,6 +8,7 @@ CLASE JUGADOR
 # pylint: disable=wildcard-import
 # pylint: disable=arguments-differ
 # pylint: disable=no-member
+# pylint: disable=too-many-arguments
 
 import pygame
 from clase_personaje import Personaje
@@ -15,10 +16,10 @@ from clase_personaje import Personaje
 class Jugador(Personaje):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio, velocidad: int,
-                 potencia_salto: int, vidas: int, img_proyectil: str, danio: int):
+                 potencia_salto: int, vidas: int, danio: int):
 
         super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
-                         velocidad, potencia_salto,vidas, img_proyectil, danio)
+                         velocidad, potencia_salto,vidas, danio)
 
         self.accion = "derecha"
         self.puntos = 0
@@ -36,7 +37,7 @@ class Jugador(Personaje):
                 # lista_aux.remove(item)
                 # del item
 
-    
+
     # SI VEO LO DE QUE SEA CADA UN SEGUNDO USAR ESTE METODO
     def verificar_colision_enemigos(self, enemigos):
 
@@ -81,7 +82,7 @@ class Jugador(Personaje):
 
         # Verifico la colision unicamente aca porque este update se llama
         # cada un segundo
-        
+
         #self.verificar_colision_enemigos(enemigos, pantalla)
 
         self.daniar_personaje_por_enemigo(enemigos)

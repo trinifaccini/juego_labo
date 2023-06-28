@@ -29,35 +29,36 @@ FUENTE = pygame.font.Font("Recursos/Fonts/Snowes.ttf", 60)
 TIMER_EVENT = pygame.USEREVENT + 0
 pygame.time.set_timer(TIMER_EVENT, 1000)
 
-nuevo_usuario = input("Sos un usuario nuevo? S o N: ")
+# nuevo_usuario = input("Sos un usuario nuevo? S o N: ")
 
-if nuevo_usuario == "N":
+# if nuevo_usuario == "N":
 
-    usuario = input("Ingresa tu usuario: ")
+#     usuario = input("Ingresa tu usuario: ")
 
-    existe = buscar_usuario_db("jugadores.db", usuario)
+#     existe = buscar_usuario_db("jugadores.db", usuario)
 
-    while len(existe) == 0:
-        usuario = input("Usuario inexistente. Ingresa tu nombre de usuario")
-        existe = buscar_usuario_db("jugadores.db", usuario)
+#     while len(existe) == 0:
+#         usuario = input("Usuario inexistente. Ingresa tu nombre de usuario")
+#         existe = buscar_usuario_db("jugadores.db", usuario)
 
-    guardado = True
+#     guardado = True
 
-else:
+# else:
 
-    nombre = input("Ingresa tu nombre: ")
-    apellido = input("Ingresa tu apellido: ")
-    usuario = input("Ingresa tu usuario: ")
+#     nombre = input("Ingresa tu nombre: ")
+#     apellido = input("Ingresa tu apellido: ")
+#     usuario = input("Ingresa tu usuario: ")
 
-    guardado = insertar_jugador(nombre, apellido, 0, 0, usuario, "jugadores.db")
+#     guardado = insertar_jugador(nombre, apellido, 0, 0, usuario, "jugadores.db")
 
-    while guardado is False:
-        usuario = input("Usuario existente. Ingresa otro usuario: ")
-        guardado = insertar_jugador(nombre, apellido, 0, 0, usuario, "jugadores.db")
+#     while guardado is False:
+#         usuario = input("Usuario existente. Ingresa otro usuario: ")
+#         guardado = insertar_jugador(nombre, apellido, 0, 0, usuario, "jugadores.db")
 
-if guardado:
-    juego = Juego(jugador, "jugadores.db", usuario, [nivel_uno, nivel_dos, nivel_tres])
 
+# if guardado:
+    
+juego = Juego(jugador, "jugadores.db", "trinif", [nivel_uno, nivel_dos, nivel_tres])
 
 while True and juego:
 

@@ -15,10 +15,10 @@ from clase_personaje import Personaje
 class Enemigo(Personaje):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio,
-                 velocidad: int, potencia_salto: int, vidas: int, img_proyectil: str, danio: int):
+                 velocidad: int, potencia_salto: int, vidas: int, danio: int):
 
         super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
-                         velocidad, potencia_salto, vidas, img_proyectil, danio)
+                         velocidad, potencia_salto, vidas, danio)
 
         self.accion = "derecha"
         self.esta_saltando = True
