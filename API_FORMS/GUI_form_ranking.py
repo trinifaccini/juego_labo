@@ -63,16 +63,16 @@ class FormRanking(Form):
 
         for jugador in self._scores:
             pos_inicial_x = margen_x
-            for x,s in jugador.items():
+            for x in jugador:
                 cadena = ""
-                cadena += f"{s}"
+                cadena += f"{x}"
                 aux = Label(self._slave, pos_inicial_x, pos_inicial_y,
-                            w/2-margen_x, 100, cadena, "Verdana", 30,
+                            w/2-margen_x, 50, cadena, "Verdana", 15,
                             "White", "Recursos/Table.png")
                 self.lista_widgets.append(aux)
                 pos_inicial_x += w/2 - margen_x
 
-            pos_inicial_y += 100 + espacio
+            pos_inicial_y += 50 + espacio
 
 
         # self.render()

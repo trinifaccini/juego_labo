@@ -8,7 +8,7 @@ from API_FORMS.GUI_label import Label
 from API_FORMS.GUI_slider import Slider
 from API_FORMS.GUI_button_image import Button_Image
 from API_FORMS.GUI_form_ranking import FormRanking
-from config_db import buscar_usuario_db, insertar_jugador
+from config_db import buscar_usuario_db, insertar_jugador, traer_ranking_db
 
 class FormInicio(Form):
 
@@ -165,9 +165,7 @@ class FormInicio(Form):
 
         #print(self.nombre_jugador.get_text())
 
-        dic_score = [{"Usuario": "trinif", "Puntos": 1000},
-                     {"Usuario": "trinif", "Puntos": 2000},
-                     {"Usuario": "trinif", "Puntos": 3000}]
+        dic_score = traer_ranking_db("jugadores.db")
         
         # LE PASAMOS EL MASTER PORQUE ESTE FORM QUEREMOS QUE SE BLITEE EN RELACION
         # A LA PANTALLA, NO AL FORM DE INICIO
