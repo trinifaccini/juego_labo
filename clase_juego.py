@@ -11,7 +11,8 @@ CLASE JUEGO
 
 import sys
 import pygame
-from config_db import actualizar_jugador
+from API_FORMS.GUI_form_ranking import FormRanking
+from config_db import actualizar_jugador, traer_ranking_db
 from modo import *
 
 class Juego():
@@ -58,7 +59,47 @@ class Juego():
             print("MUERTO")
             self.cerrar_juego()
 
-    def manejar_eventos_juego(self, eventos):
+    def pausar_juego(self, pantalla) -> None:
+
+        paused = True
+
+        dic_score = traer_ranking_db("jugadores.db")
+        
+        # LE PASAMOS EL MASTER PORQUE ESTE FORM QUEREMOS QUE SE BLITEE EN RELACION
+        # A LA PANTALLA, NO AL FORM DE INICIO
+
+        form_ranking = FormRanking(pantalla,
+                                   x=250,
+                                   y=25,
+                                   w=500,
+                                   h=550,
+                                   color_background=(220,0,220),
+                                   color_border="White",
+                                   border_size=5,
+                                   active=True,
+                                   path_img="Recursos/Window.png",
+                                   scores=dic_score,
+                                   margen_x=10,
+                                   margen_y=100,
+                                   espacio=10)
+
+        while paused:
+            eventos = pygame.event.get()
+            pantalla.fill("Black")
+            form_ranking.update(eventos)
+            pygame.display.flip()
+
+            for event in eventos:
+                if event.type == pygame.QUIT:
+                    paused = False
+                    self.cerrar_juego()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_TAB:
+                        change_mode()
+                    if event.key == pygame.K_x:
+                        paused = False
+   
+    def manejar_eventos_juego(self, pantalla, eventos):
 
         for evento in eventos:
 
@@ -68,6 +109,8 @@ class Juego():
                 case pygame.KEYDOWN:
                     if evento.key == pygame.K_TAB:
                         change_mode()
+                    if evento.key == pygame.K_x:
+                        self.pausar_juego(pantalla)
 
     def update(self, pantalla, fuente, keys) -> None:
 

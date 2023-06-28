@@ -37,7 +37,6 @@ form_inicio = FormInicio(PANTALLA, 50, 25, W-100, H-50,"Recursos/Fondos/bg-icebe
 
 niveles = [nivel_uno, nivel_dos, nivel_tres]
 
-
 while True:
 
     RELOJ.tick(FPS)
@@ -46,25 +45,20 @@ while True:
 
     keys = pygame.key.get_pressed()
 
-    for evento in eventos:
-        if evento.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit(0)
-
     if form_inicio.flag_jugar:
 
         if juego is None:
             juego = Juego(jugador, "jugadores.db", form_inicio.usuario_jugador, niveles)
 
-        juego.manejar_eventos_juego(eventos)
+        juego.manejar_eventos_juego(PANTALLA, eventos)
 
         for evento in eventos:
             if evento.type == TIMER_EVENT:
                 juego.niveles[juego.nivel_actual].tiempo -= 1
                 juego.update_personalizado(PANTALLA, keys)
 
-
         juego.update(PANTALLA, FUENTE, keys)
+
         if get_mode() is True:
 
             for p in juego.niveles[juego.nivel_actual].plataformas:
@@ -79,7 +73,16 @@ while True:
 
             for i in juego.niveles[juego.nivel_actual].items:
                 dibujar_borde_rectangulos(PANTALLA, i.lados, "Yellow")
+
+        pygame.display.flip()
+
     else:
+
+        for evento in eventos:
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit(0)
+
         PANTALLA.fill("Black")
         form_inicio.update(eventos)
 

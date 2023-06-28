@@ -33,12 +33,12 @@ class Button_Image(Widget):
  
     def render(self):
         image_text = self._font.render(self._text, True, self._font_color, self._color_background)
-        
+
         self.slave_rect = self._slave.get_rect()
 
         self.slave_rect.x = self._x
         self.slave_rect.y = self._y
-        
+
         self.slave_rect_collide = pygame.Rect(self.slave_rect)
         self.slave_rect_collide.x += self._master_x
         self.slave_rect_collide.y += self._master_y 
