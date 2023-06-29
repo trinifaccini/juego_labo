@@ -22,18 +22,16 @@ class PictureBox(Widget):
         """
 
         super().__init__(screen, x,y,w,h)
-        
+
         self.esta_prendido = False
-        
+
         aux_image = pygame.image.load(path_image)
         aux_image = pygame.transform.scale(aux_image,(w,h))
 
         self._slave = aux_image
-        
+
         self.render()
-        
-     
- 
+
     def render(self):
         self.slave_rect = self._slave.get_rect()
 

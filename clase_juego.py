@@ -45,19 +45,38 @@ class Juego():
                 self.jugador.puntos += (self.niveles[self.nivel_actual].tiempo * 100)
                 self.nivel_actual += 1
             else:
-                actualizar_jugador(self.nivel_actual, self.jugador.puntos,
-                                   self.usuario, self.base_datos)
+                if self.jugador.puntos > self.usuario['puntos']: # actualizo solo si los puntos q obtuvo son mayores a los que ya tenia
+                    actualizar_jugador(self.nivel_actual, self.jugador.puntos,
+                                   self.usuario['usuario'], self.base_datos)
+                    print("PUNTOS ANTERIORES: ", self.usuario['puntos'])
+                    print("PUNTOS ACTUALES: ", self.jugador.puntos)
+                    print("ACTUALIZA LOS PUNTOS")
                 self.cerrar_juego()
 
         if (self.niveles[self.nivel_actual].tiempo <= 0 and
             self.jugador.puntos < self.niveles[self.nivel_actual].puntos_requeridos):
-            actualizar_jugador(self.nivel_actual, 0, self.usuario, self.base_datos)
+
+            if self.usuario['nivel_max'] < self.nivel_actual:
+                print("PASO A UN NIVEL MAYOR QUE ANTES")
+                if self.usuario['puntos'] == 0:# significa que nunca ganó
+                    actualizar_jugador(self.nivel_actual, 0, self.usuario['usuario'],
+                                       self.base_datos)
+                print("GUARDO NIVEL")
+                    
+
             print("NO ALCANZO LOS PUNTOS DEL NIVEL: ", self.nivel_actual)
             self.cerrar_juego()
 
     def verificar_vida_jugador(self) -> None:
+
         if self.jugador.vidas <= 0:
             print("MUERTO")
+            if self.usuario['nivel_max'] < self.nivel_actual:
+                print("PASO A UN NIVEL MAYOR QUE ANTES")
+                if self.usuario['puntos'] == 0: # significa que nunca ganó
+                    actualizar_jugador(self.nivel_actual, 0, self.usuario['usuario'],
+                                       self.base_datos)
+                print("GUARDO NIVEL")
             self.cerrar_juego()
 
     def pausar_juego(self, pantalla) -> None:

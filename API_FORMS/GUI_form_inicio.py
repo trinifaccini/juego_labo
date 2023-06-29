@@ -139,7 +139,12 @@ class FormInicio(Form):
                                         self.usuario_jugador_nuevo.get_text(), "jugadores.db")
             
             if guardado:
-                self.usuario_jugador = self.usuario_jugador_nuevo.get_text()
+                self.usuario_jugador = {
+                    "usuario": self.usuario_jugador_nuevo.get_text(),
+                    "puntos": 0,
+                    "nivel_max": 0
+                }
+                # self.usuario_jugador = self.usuario_jugador_nuevo.get_text()
                 self.flag_jugar = True
 
         else:
@@ -149,10 +154,14 @@ class FormInicio(Form):
 
         if(self.usuario_jugador_existente.get_text() != ""):
 
-            existe = buscar_usuario_db("jugadores.db", self.usuario_jugador_existente.get_text())
+            usuario = buscar_usuario_db("jugadores.db", self.usuario_jugador_existente.get_text())
 
-            if existe:
-                self.usuario_jugador = self.usuario_jugador_existente.get_text()
+            if usuario:
+                self.usuario_jugador = {
+                    "usuario": usuario[0],
+                    "puntos": usuario[1],
+                    "nivel_max": usuario[2]
+                }
                 self.flag_jugar = True
             else:
                 print("no existeee")

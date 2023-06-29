@@ -35,4 +35,4 @@ lista_plataformas = [piso_1, plataforma]
 
 items = [item_uno, item_dos]
 
-nivel_uno = Nivel(fondo, lista_plataformas, enemigos, items, 30, 150)
+nivel_uno = Nivel(fondo, lista_plataformas, enemigos, items, 30, 220)

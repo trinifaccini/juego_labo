@@ -57,14 +57,14 @@ def actualizar_jugador(nivel,puntos, usuario, nombre_db) -> None:
 
 def buscar_usuario_db(nombre_db, usuario) -> list:
 
-    select = "SELECT usuario from Jugadores WHERE usuario = ?"
+    select = "SELECT usuario, puntos, nivel_max from Jugadores WHERE usuario = ?"
 
     with sqlite3.connect(nombre_db) as conexion:
         try:
-            conexion.row_factory = lambda cursor, row: row[0]
-            c = conexion.cursor()
-            usuario = c.execute(select, (usuario,)).fetchall()
-            return usuario
+            # conexion.row_factory = lambda cursor, row: row[0]
+            # c = conexion.cursor()
+            usuario = conexion.execute(select, (usuario,)).fetchall()
+            return usuario[0]
         except Exception as e:
             print("error", e)
 
