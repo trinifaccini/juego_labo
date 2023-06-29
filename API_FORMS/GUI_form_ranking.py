@@ -47,7 +47,6 @@ class FormRanking(Form):
                                         color_border=(255,0,255),
                                         onclick=self.btn_home_click,
                                         onclick_param="",
-                                        font="Verdana",
                                         font_size= 30,
                                         font_color= (0,255,0),
                                         path_image="Recursos/home.png"

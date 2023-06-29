@@ -75,12 +75,32 @@ class FormNiveles(Form):
                                  ancho_nivel, 50,
                                  CELESTE, "Blue", self.btn_jugar_click,
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
+        
+        self.boton_atras = Button_Image(self._slave,
+                                        x= pos_x_niveles + 200,
+                                        y= pos_inicial_y + 200,
+                                        master_x= x,
+                                        master_y=y,
+                                        w=90,
+                                        h=90,
+                                        color_background=None,
+                                        color_border=(255,0,255),
+                                        border_size=-1,
+                                        onclick=self.btn_atras_click,
+                                        onclick_param="",
+                                        font="Recursos/Fonts/Snowes.ttf",
+                                        font_size= 25,
+                                        font_color= "White",
+                                        path_image="Recursos/Interfaces/flecha.png",
+                                        text=""
+                                        )
 
 
         ######
 
         self.lista_widgets.append(self.label_elegir)
         self.lista_widgets.append(self.boton_jugar)
+        self.lista_widgets.append(self.boton_atras)
 
         self.render()
 
@@ -90,6 +110,11 @@ class FormNiveles(Form):
         self.padre.nivel = param
         self.padre.flag_jugar = True
         self.end_dialog()
+
+    def btn_atras_click(self, param):
+
+        self.end_dialog()
+
 
     def render(self):
 
