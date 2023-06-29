@@ -10,7 +10,8 @@ class Label(Widget):
         pygame.font.init()
 
         self._text = text
-        self._font = pygame.font.SysFont(font, font_size)
+        #self._font = pygame.font.SysFont(font, font_size)
+        self._font = pygame.font.Font(font, font_size)
         self._font_color = font_color
         #if path_image != "":
         aux_image = pygame.image.load(path_image)
@@ -30,7 +31,7 @@ class Label(Widget):
         self.render()
     
     def render(self):
-        self._slave.blit(self.img_original, (0, 0)) 
+        self._slave.blit(self.img_original, (0, 0))
         image_text = self._font.render(self._text, True, self._font_color)
         
         media_texto_horizontal = image_text.get_width() / 2
@@ -38,7 +39,7 @@ class Label(Widget):
 
         media_horizontal = self._w / 2
         media_vertical = self._h / 2
-        diferencia_horizontal = media_horizontal - media_texto_horizontal 
+        diferencia_horizontal = media_horizontal - media_texto_horizontal
         diferencia_vertical = media_vertical - media_texto_vertical
         
         self._slave.blit(image_text,(diferencia_horizontal,diferencia_vertical))

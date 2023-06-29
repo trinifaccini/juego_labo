@@ -24,7 +24,7 @@ class FormPausa(Form):
                            w=600,
                            h=50,
                            text="PRESIONA X PARA REANUDAR",
-                           font= "Verdana",
+                           font= "Recursos/Fonts/Snowes.ttf",
                            font_size=25,
                            font_color="White",
                            path_image="Recursos/bar.png")
@@ -40,7 +40,7 @@ class FormPausa(Form):
                                         color_border=(255,0,255),
                                         onclick=self.btn_home_click,
                                         onclick_param="",
-                                        font="Verdana",
+                                        font="Snowes.ttf",
                                         font_size= 15,
                                         font_color= (0,255,0),
                                         path_image="Recursos/home.png"

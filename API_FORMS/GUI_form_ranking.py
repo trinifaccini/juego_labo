@@ -27,12 +27,12 @@ class FormRanking(Form):
 
         # CABECERAS
 
-        self.label_usuario = Label(self._slave, pos_x_label, 20,
-                                   ancho_label, 50, "USUARIO", "Verdana", 30,
+        self.label_usuario = Label(self._slave, pos_x_label, 30,
+                                   ancho_label, 50, "USUARIO", "Recursos/Fonts/Snowes.ttf", 30,
                                    "White", "Recursos/bar.png")
 
-        self.label_puntos = Label(self._slave, pos_x_label + ancho_label, 20,
-                                  w/2-margen_x-10, 50, "PUNTOS", "Verdana", 30,
+        self.label_puntos = Label(self._slave, pos_x_label + ancho_label, 30,
+                                  w/2-margen_x-10, 50, "PUNTOS", "Recursos/Fonts/Snowes.ttf", 30,
                                   "White", "Recursos/bar.png")
 
 
@@ -48,7 +48,7 @@ class FormRanking(Form):
                                         onclick=self.btn_home_click,
                                         onclick_param="",
                                         font="Verdana",
-                                        font_size= 15,
+                                        font_size= 30,
                                         font_color= (0,255,0),
                                         path_image="Recursos/home.png"
                                         )
@@ -67,7 +67,7 @@ class FormRanking(Form):
                 cadena = ""
                 cadena += f"{x}"
                 aux = Label(self._slave, pos_inicial_x, pos_inicial_y,
-                            w/2-margen_x, 50, cadena, "Verdana", 15,
+                            w/2-margen_x, 50, cadena, "Recursos/Fonts/Snowes.ttf", 25,
                             "White", "Recursos/Table.png")
                 self.lista_widgets.append(aux)
                 pos_inicial_x += w/2 - margen_x

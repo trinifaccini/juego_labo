@@ -22,7 +22,8 @@ class TextBox(Widget):
         self._color_background_seleccionado = color_background_seleccionado
         self._color_border_seleccionado = color_border_seleccionado
         self._text = ""
-        self._font = pygame.font.SysFont(font,font_size)
+        # self._font = pygame.font.SysFont(font,font_size)
+        self._font = pygame.font.Font(font,font_size)
         self._font_color = font_color
         self._master_x = master_x
         self._master_y = master_y

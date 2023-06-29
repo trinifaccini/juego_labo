@@ -40,7 +40,6 @@ niveles = [nivel_uno, nivel_dos, nivel_tres]
 while True:
 
     RELOJ.tick(FPS)
-
     eventos = pygame.event.get()
 
     keys = pygame.key.get_pressed()
@@ -48,7 +47,7 @@ while True:
     if form_inicio.flag_jugar:
 
         if juego is None:
-            juego = Juego(jugador, "jugadores.db", form_inicio.usuario_jugador, niveles)
+            juego = Juego(jugador, form_inicio.nivel, "jugadores.db", form_inicio.usuario_jugador, niveles)
 
         juego.manejar_eventos_juego(PANTALLA, eventos)
 

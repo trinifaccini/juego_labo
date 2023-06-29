@@ -13,7 +13,8 @@ class Button(Widget):
         self._onclick = onclick
         self._onclick_param = onclick_param
         self._text = text
-        self._font = pygame.font.SysFont(font,font_size)
+        # self._font = pygame.font.SysFont(font,font_size)
+        self._font = pygame.font.Font(font,font_size)
         self._font_color = font_color
         self._master_x = master_x
         self._master_y = master_y

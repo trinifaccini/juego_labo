@@ -18,12 +18,12 @@ from modo import *
 
 class Juego():
 
-    def __init__(self, jugador, base_datos, usuario, niveles:list) -> None:
+    def __init__(self, jugador, nivel_actual, base_datos, usuario, niveles:list) -> None:
 
         self.usuario = usuario
         self.base_datos = base_datos
         self.jugador = jugador
-        self.nivel_actual = 0
+        self.nivel_actual = nivel_actual
         self.niveles = niveles
 
     def posicionar_textos(self, pantalla, textos) -> None:
@@ -80,7 +80,9 @@ class Juego():
             self.cerrar_juego()
 
     def pausar_juego(self, pantalla) -> None:
-
+                    
+                    
+        pygame.mixer.music.pause()
         paused = True
 
         form_pausa = FormPausa(pantalla,
@@ -109,6 +111,8 @@ class Juego():
                         change_mode()
                     if event.key == pygame.K_x:
                         paused = False
+                        pygame.mixer.music.unpause()
+
 
             pygame.display.flip()
    
@@ -124,6 +128,7 @@ class Juego():
                         change_mode()
                     if evento.key == pygame.K_x:
                         self.pausar_juego(pantalla)
+
 
     def update(self, pantalla, fuente, keys) -> None:
 
