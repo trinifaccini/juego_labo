@@ -15,17 +15,13 @@ class FormNiveles(Form):
                  active=True):
 
         super().__init__(screen, x,y, w,h,color_background, color_border, border_size, active)
+
         ######
 
-        ancho_label = 250
-        alto_label = 40
-
-
-        ancho_nivel = 150
-
-        ancho_txt = 200
-        alto_txt = 35
-
+        ancho_label = 300
+        alto_label = 50
+        alto_nivel = 40
+        ancho_nivel = 200
         pos_x_label_uno = (w-ancho_label)/2
         pos_x_niveles = (w - ancho_nivel)/2
 
@@ -42,18 +38,13 @@ class FormNiveles(Form):
 
         for nivel in range(nivel_max+1):
 
-            # label_nivel = Label(self._slave, pos_x_niveles, pos_inicial_y,
-            #                             ancho_nivel, alto_label,
-            #                             f"NIVEL {nivel+1}", "Recursos/Fonts/Snowes.ttf", 25, 
-            #                                  "White", "Recursos/Interfaces/interfaces.png")
-            
             boton_nivel = Button_Image(self._slave,
                                         x= pos_x_niveles,
                                         y= pos_inicial_y,
                                         master_x= x,
                                         master_y=y,
                                         w= ancho_nivel,
-                                        h=alto_label,
+                                        h=alto_nivel,
                                         color_background=None,
                                         color_border=(255,0,255),
                                         border_size=-1,
@@ -71,18 +62,18 @@ class FormNiveles(Form):
             pos_inicial_y += alto_label + espacio
 
         self.boton_jugar = Button(self._slave, x, y,
-                                 pos_x_niveles, y_uno + alto_label*3 + espacio*3,
-                                 ancho_nivel, 50,
+                                 pos_x_niveles, pos_inicial_y,
+                                 ancho_nivel, alto_nivel,
                                  CELESTE, "Blue", self.btn_jugar_click,
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
         
         self.boton_atras = Button_Image(self._slave,
-                                        x= pos_x_niveles + 200,
-                                        y= pos_inicial_y + 200,
+                                        x= pos_x_niveles + 150,
+                                        y= pos_inicial_y + 150,
                                         master_x= x,
                                         master_y=y,
-                                        w=90,
-                                        h=90,
+                                        w=70,
+                                        h=70,
                                         color_background=None,
                                         color_border=(255,0,255),
                                         border_size=-1,
