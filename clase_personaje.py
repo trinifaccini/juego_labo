@@ -6,7 +6,6 @@ CLASE PERSONAJE
 # pylint: disable=missing-class-docstring
 # pylint: disable=arguments-differ
 
-import pygame
 from clase_objeto_animado import ObjetoAnimado
 from clase_proyectil import Proyectil
 from config_img import deepcopy_dict_animaciones
@@ -71,7 +70,7 @@ class Personaje(ObjetoAnimado):
             proyectil.update(pantalla)
 
     # VERIFICO COLISION DE PROYECTIL CON CUALQUIER PERSONAJE (SEA ENEMIGO O JUGADOR)
-    # SI COLISIONA LO BORRO DE LA LISTA
+    # SI COLISIONA LO BORRO DE LA LIST
     def verificar_colision_proyectil(self, personajes):
 
         for personaje in personajes:

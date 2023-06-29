@@ -109,7 +109,7 @@ class FormInicio(Form):
 
         pygame.mixer.music.load("Recursos/Audio/musica.mp3")
         pygame.mixer.music.set_volume(self.volumen)
-        pygame.mixer.music.play(-1) # bucle
+        #pygame.mixer.music.play(-1) # bucle
 
         self.render()
 

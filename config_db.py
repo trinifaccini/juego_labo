@@ -11,6 +11,26 @@ jfdj
 
 import sqlite3
 
+def crear_base() -> None:
+
+    sentencia_create = '''
+                    create table Jugadores
+                        (
+                            id integer primary key,
+                            nombre text,
+                            apellido text,
+                            nivel_max integer,
+                            puntos integer,
+                            usuario text UNIQUE
+                        )
+                    '''
+
+    with sqlite3.connect("jugadores.db") as conexion:
+        try:
+            conexion.execute(sentencia_create)
+        except Exception as e:
+            print("error", e)
+
 def insertar_jugador(nombre, apellido, nivel, puntos, usuario, nombre_db) -> None:
 
     insert = '''
@@ -45,10 +65,8 @@ def buscar_usuario_db(nombre_db, usuario) -> list:
             c = conexion.cursor()
             usuario = c.execute(select, (usuario,)).fetchall()
             return usuario
-        
         except Exception as e:
             print("error", e)
-
 
 
 def traer_ranking_db(nombre_db) -> list:
@@ -66,5 +84,4 @@ def traer_ranking_db(nombre_db) -> list:
         except Exception as e:
             print("error", e)
 
-# buscar_usuario_db("jugadores.db", "triniiiii")
 traer_ranking_db("jugadores.db")
