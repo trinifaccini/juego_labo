@@ -34,7 +34,6 @@ pygame.time.set_timer(TIMER_EVENT, 1000)
 juego = None
 form_inicio = FormInicio(PANTALLA, 50, 25, W-100, H-50,"Recursos/Fondos/bg-icebergs-2.png")
 
-
 niveles = [nivel_uno, nivel_dos, nivel_tres]
 
 while True:
