@@ -4,12 +4,13 @@ from pygame.locals import *
 from API_FORMS.GUI_form import Form
 from API_FORMS.GUI_button import Button
 from API_FORMS.GUI_form_niveles import FormNiveles
+from API_FORMS.GUI_form_settings import FormSettings
 from API_FORMS.GUI_textbox import TextBox
 from API_FORMS.GUI_label import Label
-from API_FORMS.GUI_slider import Slider
 from API_FORMS.GUI_button_image import Button_Image
 from API_FORMS.GUI_form_ranking import FormRanking
 from config_db import buscar_usuario_db, insertar_jugador, traer_ranking_db
+from datos_juego import W
 
 CELESTE = (64, 207, 255)
 
@@ -20,8 +21,8 @@ class FormInicio(Form):
 
         super().__init__(screen, x,y, w,h,color_background, color_border, border_size, active)
 
-        self.volumen = 0.2
-        self.flag_play = True
+        # self.volumen = 0.2
+        # self.flag_play = True
         self.usuario_existente = False
         self.flag_jugar = False
         self.nivel = 0
@@ -113,14 +114,18 @@ class FormInicio(Form):
         self.label_volumen = Label(self._slave, 700, 100, 100, 30,
                                    "20%", "Recursos/Fonts/Snowes.ttf", 12, "White", "Recursos/Table.png")
 
-        self.slider_volumen = Slider(self._slave, x,y, 300, 200, 500, 15,
-                                     self.volumen, "Blue", "White")
 
         self.boton_ranking = Button_Image(self._slave, x, y,
                                  w/2 - ancho_btn_ranking/2, 200,
                                  ancho_btn_ranking, ancho_btn_ranking,
                                  "Recursos/Menu_BTN.png",
                                  self.btn_ranking_click, "x")
+        
+        self.boton_settings = Button_Image(self._slave, x, y,
+                                 w/2 - ancho_btn_ranking/2, 400,
+                                 ancho_btn_ranking, ancho_btn_ranking,
+                                 "Recursos/Menu_BTN.png",
+                                 self.btn_settings_click, "x")
 
 
         ######
@@ -132,21 +137,19 @@ class FormInicio(Form):
         self.lista_widgets.append(self.apellido_jugador)
         self.lista_widgets.append(self.usuario_jugador_nuevo)
         self.lista_widgets.append(self.usuario_jugador_existente)
-        # self.lista_widgets.append(self.boton_play)
         self.lista_widgets.append(self.boton_crear_jugar)
         self.lista_widgets.append(self.boton_jugar)
-        #self.lista_widgets.append(self.label_volumen)
-        #self.lista_widgets.append(self.slider_volumen)
+        self.lista_widgets.append(self.boton_settings)
+        self.lista_widgets.append(self.boton_ranking)
         self.lista_widgets.append(self.boton_ranking)
 
         pygame.mixer.music.load("Recursos/Audio/musica.mp3")
-        pygame.mixer.music.set_volume(self.volumen)
-        #pygame.mixer.music.play(-1) # bucle
+        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.play(-1) # bucle
 
         self.render()
 
     def btn_play_click(self, param):
-
 
         if self.flag_play:
             pygame.mixer.music.pause()
@@ -241,12 +244,26 @@ class FormInicio(Form):
 
         self.show_dialog(form_ranking)
 
+    def btn_settings_click(self, param):
 
-    def update_volumen(self, lista_eventos):
+        form_settings = FormSettings(self._master,
+                                   x=W/2-400,
+                                   y=25,
+                                   w=800,
+                                   h=500,
+                                   color_background=(220,0,220),
+                                   color_border="White",
+                                   border_size=-1,
+                                   active=True,
+                                   path_image="")
 
-        self.volumen = self.slider_volumen.value
-        self.label_volumen.set_text(f"{round(self.volumen*100)}%")
-        pygame.mixer.music.set_volume(self.volumen)
+        self.show_dialog(form_settings)
+
+    # def update_volumen(self, lista_eventos):
+
+    #     self.volumen = self.slider_volumen.value
+    #     self.label_volumen.set_text(f"{round(self.volumen*100)}%")
+    #     pygame.mixer.music.set_volume(self.volumen)
 
     def render(self):
         self.draw()
@@ -262,7 +279,7 @@ class FormInicio(Form):
                 for widget in self.lista_widgets:
                     widget.update(lista_eventos)
 
-                self.update_volumen(lista_eventos)
+                # self.update_volumen(lista_eventos)
         else:
             self.hijo.update(lista_eventos)
 

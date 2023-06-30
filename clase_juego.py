@@ -11,6 +11,7 @@ CLASE JUEGO
 
 import sys
 import pygame
+from API_FORMS.GUI_form_estado_juego import CELESTE
 from API_FORMS.GUI_form_pausa import FormPausa
 from config_db import actualizar_jugador
 from datos_juego import W
@@ -80,9 +81,8 @@ class Juego():
             self.cerrar_juego()
 
     def pausar_juego(self, pantalla) -> None:
-                    
-                    
-        pygame.mixer.music.pause()
+        
+        # pygame.mixer.music.pause()
         paused = True
 
         form_pausa = FormPausa(pantalla,
@@ -90,7 +90,7 @@ class Juego():
                                    y=25,
                                    w=800,
                                    h=500,
-                                   color_background=(220,0,220),
+                                   color_background=CELESTE,
                                    color_border="White",
                                    border_size=-1,
                                    active=True,
@@ -98,7 +98,6 @@ class Juego():
 
         while paused:
             eventos = pygame.event.get()
-
             pantalla.fill("BLACK")
             form_pausa.update(eventos)
 
@@ -111,7 +110,7 @@ class Juego():
                         change_mode()
                     if event.key == pygame.K_x:
                         paused = False
-                        pygame.mixer.music.unpause()
+                        # pygame.mixer.music.unpause()
 
 
             pygame.display.flip()
