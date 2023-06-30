@@ -15,13 +15,14 @@ from clase_personaje import Personaje
 class Enemigo(Personaje):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio,
-                 velocidad: int, potencia_salto: int, vidas: int, danio: int):
+                 velocidad: int, potencia_salto: int, vidas: int, danio: int, aporte_puntos):
 
         super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
                          velocidad, potencia_salto, vidas, danio)
 
         self.accion = "derecha"
         self.esta_saltando = True
+        self.aporte_puntos = aporte_puntos
 
     def atacar(self, pantalla):
 

@@ -32,7 +32,7 @@ class Nivel():
     def generar_enemigos(self) -> None:
         if self.tiempo % 15 == 0:
             enemigo = Enemigo((100,90), (200,0), diccionario_animaciones_yeti_normal,
-                              diccionario_animaciones_yeti_rojo, 5, -15, 2000, 200)
+                              diccionario_animaciones_yeti_rojo, 5, -15, 2000, 200,200)
 
             self.enemigos.append(enemigo)
 
@@ -52,14 +52,28 @@ class Nivel():
         for plataforma in self.plataformas:
             plataforma.update(rect_pantalla)
 
+    def posicionar_jugador(self, rect_pantalla, jugador, keys) -> None:
+
+        jugador.update(rect_pantalla, self.plataformas, self.enemigos, self.items, keys)
+
+        for proyectil in jugador.lista_proyectiles:
+            if proyectil.colisiono:
+                jugador.lista_proyectiles.remove(proyectil)
+                del proyectil
+
+
     #CORREGIR ESTA FUNCION
     def posicionar_enemigos(self, rect_pantalla, jugador) -> None:
 
         lista = [jugador]
         for enemigo in self.enemigos:
             enemigo.update(rect_pantalla, self.plataformas, lista)
+            for proyectil in enemigo.lista_proyectiles:
+                if proyectil.colisiono:
+                    enemigo.lista_proyectiles.remove(proyectil)
+                    del proyectil
             if enemigo.vidas < 0:
-                jugador.puntos += 100
+                jugador.puntos += enemigo.aporte_puntos
                 self.enemigos.remove(enemigo)
                 del enemigo
 
@@ -81,8 +95,7 @@ class Nivel():
         self.posicionar_plataformas(rect_pantalla)
         self.posicionar_enemigos(rect_pantalla, jugador)
         self.posicionar_items(rect_pantalla)
-
-        jugador.update(rect_pantalla, self.plataformas, self.enemigos, self.items, keys)
+        self.posicionar_jugador(rect_pantalla,jugador, keys)
 
 
     def update_personalizado(self, jugador,pantalla, keys):

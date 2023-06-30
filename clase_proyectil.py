@@ -22,13 +22,13 @@ class Proyectil(Item):
         self.velocidad = velocidad
 
 
-    def verificar_colision_pantalla(self, pantalla) -> bool:
+    def verificar_colision_pantalla(self, pantalla) -> None:
 
         if self.velocidad > 0 and self.lados['right'].x >= pantalla.get_width()-self.w*2:
-            return True
+            self.colisiono = True
 
         elif self.velocidad < 0 and self.lados['left'].x <= 30:
-            return True
+            self.colisiono = True
 
         return False
 

@@ -48,19 +48,18 @@ class Jugador(Personaje):
 
     def verificar_colision_pisos(self, lista_plataformas):
 
-            for plat in lista_plataformas:
-                if self.lados['bottom'].colliderect(plat.lados['top']):
-                    if self.superficie_apoyo is None:
-                        self.superficie_apoyo = plat
-                    self.esta_saltando = False
-                    self.lados["main"].bottom = plat.lados['main'].top + 5
-                    self.desplazamiento_y = 0
-                    self.velocidad = plat.alteracion_velocidad
-                    print(plat.alteracion_velocidad)
-                    break
-                else:
-                    self.esta_saltando = True
-                    self.velocidad = 5
+        for plat in lista_plataformas:
+            if self.lados['bottom'].colliderect(plat.lados['top']):
+                if self.superficie_apoyo is None:
+                    self.superficie_apoyo = plat
+                self.esta_saltando = False
+                self.lados["main"].bottom = plat.lados['main'].top + 5
+                self.desplazamiento_y = 0
+                self.velocidad = plat.alteracion_velocidad
+                break
+
+            self.esta_saltando = True
+            self.velocidad = 5
 
     def daniar_personaje_por_enemigo(self, enemigos):
 

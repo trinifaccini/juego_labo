@@ -15,10 +15,10 @@ fondo = pygame.image.load("Recursos/Fondos/aldea__.png")
 fondo = pygame.transform.scale(fondo, TAMANIO_PANTALLA)
 
 enemigo_uno = Enemigo((100,90), (20,0), diccionario_animaciones_oso_normal,
-                      diccionario_animaciones_oso_rojo, 5, -15, 100, 200)
+                      diccionario_animaciones_oso_rojo, 5, -15, 100, 200,100)
 
 enemigo_dos = Enemigo((100,90), (600,0), diccionario_animaciones_oso_normal,
-                      diccionario_animaciones_oso_rojo, 5, -15, 100, 200)
+                      diccionario_animaciones_oso_rojo, 5, -15, 100, 200,100)
 
 
 piso_1 = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Nieve",

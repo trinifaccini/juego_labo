@@ -46,7 +46,11 @@ while True:
     if form_inicio.flag_jugar:
 
         if juego is None:
-            juego = Juego(jugador, form_inicio.nivel, "jugadores.db", form_inicio.usuario_jugador, niveles)
+            juego = Juego(jugador, form_inicio.nivel, "jugadores.db",
+                          form_inicio.usuario_jugador, niveles)
+
+            if form_inicio.nivel > 0:
+                jugador.puntos = juego.niveles[juego.nivel_actual-1].puntos_requeridos
 
         juego.manejar_eventos_juego(PANTALLA, eventos)
 
