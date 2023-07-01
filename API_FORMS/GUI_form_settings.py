@@ -3,13 +3,9 @@ from pygame.locals import *
 
 from API_FORMS.GUI_form import Form
 from API_FORMS.GUI_button import Button
-from API_FORMS.GUI_form_niveles import FormNiveles
-from API_FORMS.GUI_textbox import TextBox
 from API_FORMS.GUI_label import Label
 from API_FORMS.GUI_slider import Slider
 from API_FORMS.GUI_button_image import Button_Image
-from API_FORMS.GUI_form_ranking import FormRanking
-from config_db import buscar_usuario_db, insertar_jugador, traer_ranking_db
 
 CELESTE = (64, 207, 255)
 
@@ -27,16 +23,11 @@ class FormSettings(Form):
 
         ######
 
-        ancho_label = 250
         alto_label = 40
         ancho_txt = 200
         alto_txt = 35
 
         pos_x = w/2 - 250
-        pos_x_label_uno = w/4 - ancho_label/2
-        pos_x_label_dos = (w/4)*3 - ancho_label/2
-
-        pos_x_txt_uno = w/4 - ancho_txt/2
         pos_x_txt_dos = (w/4)*3 - ancho_txt/2
 
         y_uno = 90
@@ -48,10 +39,9 @@ class FormSettings(Form):
                                    "Recursos/Interfaces/interfaces_2.png")
 
         self.boton_silenciar_audio = Button(self._slave, x, y,
-                                 pos_x_txt_dos,  y_uno + alto_txt + alto_label + espacio*2, ancho_txt, 50,
-                                 CELESTE, "Blue", self.btn_play_click,
+                                 pos_x_txt_dos,  y_uno + alto_txt + alto_label + espacio*2,
+                                 ancho_txt, 50,CELESTE, "Blue", self.btn_play_click,
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
-        
 
         self.boton_play = Button(self._slave, x, y,
                                  300, 50, 100, 50,
@@ -59,8 +49,8 @@ class FormSettings(Form):
                                  "Nombre", "PAUSE", "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
 
-        self.label_volumen = Label(self._slave, 700, 100, 100, 30,
-                                   "20%", "Recursos/Fonts/Snowes.ttf", 12, "White", "Recursos/Table.png")
+        self.label_volumen = Label(self._slave, 700, 100, 100, 30,"20%", 
+                                   "Recursos/Fonts/Snowes.ttf", 12, "White", "Recursos/Table.png")
 
         self.slider_volumen = Slider(self._slave, x,y, 300, 200, 500, 15,
                                      0.2, "Blue", "White")
@@ -100,20 +90,12 @@ class FormSettings(Form):
 
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.pause()
-            # self.boton_play._color_background = "Cyan"
-            # self.boton_play.set_text("PLAY")
 
         else:
             pygame.mixer.music.unpause()
-            # self.boton_play._color_background = "Red"
-            # self.boton_play.set_text("PAUSE")
-
-        #self.padre.flag_play = not self.padre.flag_play
 
     def update_volumen(self, lista_eventos):
 
-        # self.padre.volumen = self.slider_volumen.value
-        # self.label_volumen.set_text(f"{round(self.padre.volumen*100)}%")
         self.label_volumen.set_text(f"{round(self.slider_volumen.value*100)}%")
         pygame.mixer.music.set_volume(self.slider_volumen.value)
 
@@ -123,17 +105,7 @@ class FormSettings(Form):
 
     def render(self):
 
-        # if self.padre:
-        #     if self.padre.flag_play:
-        #         self.boton_play._color_background = "Red"
-        #         self.boton_play.set_text("PAUSAR")
-
-        #     else:
-        #         self.boton_play._color_background = "Cyan"
-        #         self.boton_play.set_text("PLAY")
-
         self._slave.fill(self._color_background)
-
 
         if pygame.mixer.music.get_busy():
             self.boton_play._color_background = "Red"

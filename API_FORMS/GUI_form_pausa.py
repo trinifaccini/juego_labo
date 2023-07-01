@@ -1,5 +1,4 @@
 import pygame
-from pygame.locals import * 
 
 from API_FORMS.GUI_form import Form
 from API_FORMS.GUI_form_settings import FormSettings
@@ -34,7 +33,7 @@ class FormPausa(Form):
                            font_size=25,
                            font_color="White",
                            path_image="Recursos/bar.png")
-        
+
         self.boton_settings = Button_Image(self._slave, x, y,
                                  w/2 - ancho_btn_ranking/2, 400,
                                  ancho_btn_ranking, ancho_btn_ranking,
@@ -64,13 +63,13 @@ class FormPausa(Form):
         self.lista_widgets.append(self.boton_home)
         self.lista_widgets.append(self.boton_settings)
 
-    def btn_home_click(self, param) -> None:
+    def btn_home_click(self) -> None:
 
         self.jugando = False
         print(self.jugando)
         self.end_dialog()
 
-    def btn_settings_click(self, param) -> None:
+    def btn_settings_click(self) -> None:
 
         form_settings = FormSettings(self._master,
                                    x=W/2-400,
