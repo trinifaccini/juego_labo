@@ -21,8 +21,8 @@ class FormInicio(Form):
 
         super().__init__(screen, x,y, w,h,color_background, color_border, border_size, active)
 
-        # self.volumen = 0.2
-        # self.flag_play = True
+        #self.volumen = 0.2
+        #self.flag_play = True
         self.usuario_existente = False
         self.flag_jugar = False
         self.nivel = 0
@@ -105,16 +105,6 @@ class FormInicio(Form):
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
         
 
-        self.boton_play = Button(self._slave, x, y,
-                                 300, 50, 100, 50,
-                                 "Red", "Blue", self.btn_play_click,
-                                 "Nombre", "PAUSE", "Recursos/Fonts/Snowes.ttf", 20, "Black")
-
-
-        self.label_volumen = Label(self._slave, 700, 100, 100, 30,
-                                   "20%", "Recursos/Fonts/Snowes.ttf", 12, "White", "Recursos/Table.png")
-
-
         self.boton_ranking = Button_Image(self._slave, x, y,
                                  w/2 - ancho_btn_ranking/2, 200,
                                  ancho_btn_ranking, ancho_btn_ranking,
@@ -149,20 +139,7 @@ class FormInicio(Form):
 
         self.render()
 
-    def btn_play_click(self, param):
-
-        if self.flag_play:
-            pygame.mixer.music.pause()
-            self.boton_play._color_background = "Cyan"
-            self.boton_play.set_text("PLAY")
-
-        else:
-            pygame.mixer.music.unpause()
-            self.boton_play._color_background = "Red"
-            self.boton_play.set_text("PAUSE")
-
-        self.flag_play = not self.flag_play
-
+    
     def btn_crear_jugar_click(self, param):
 
         if(self.nombre_jugador.get_text() != "" and self.usuario_jugador_nuevo.get_text() != ""
@@ -191,7 +168,7 @@ class FormInicio(Form):
             usuario = buscar_usuario_db("jugadores.db", self.usuario_jugador_existente.get_text())
 
             if usuario:
-                self.usuario_jugador = {
+                self.usuario_jugador = { 
                     "usuario": usuario[0],
                     "puntos": usuario[1],
                     "nivel_max": usuario[2]
@@ -259,11 +236,6 @@ class FormInicio(Form):
 
         self.show_dialog(form_settings)
 
-    # def update_volumen(self, lista_eventos):
-
-    #     self.volumen = self.slider_volumen.value
-    #     self.label_volumen.set_text(f"{round(self.volumen*100)}%")
-    #     pygame.mixer.music.set_volume(self.volumen)
 
     def render(self):
         self.draw()
@@ -279,7 +251,6 @@ class FormInicio(Form):
                 for widget in self.lista_widgets:
                     widget.update(lista_eventos)
 
-                # self.update_volumen(lista_eventos)
         else:
             self.hijo.update(lista_eventos)
 
