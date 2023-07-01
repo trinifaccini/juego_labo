@@ -9,6 +9,7 @@ MAIN
 
 import sys
 import pygame
+from API_FORMS.GUI_pantalla_final import FormFinal
 from clase_juego import Juego
 from config_db import *
 from config_img import dibujar_borde_rectangulos
@@ -26,13 +27,13 @@ PANTALLA = pygame.display.set_mode(TAMANIO_PANTALLA)
 
 FUENTE = pygame.font.Font("Recursos/Fonts/Snowes.ttf", 60)
 
-
 # Timer para el juego
 TIMER_EVENT = pygame.USEREVENT + 0
 pygame.time.set_timer(TIMER_EVENT, 1000)
 
 juego = None
 form_inicio = FormInicio(PANTALLA, 50, 25, W-100, H-50,"Recursos/Fondos/bg-icebergs-2.png")
+form_final = None
 
 niveles = [nivel_uno, nivel_dos, nivel_tres]
 
@@ -40,17 +41,39 @@ while True:
 
     RELOJ.tick(FPS)
     eventos = pygame.event.get()
-
     keys = pygame.key.get_pressed()
 
-    if form_inicio.flag_jugar:
+    if juego is not None:
+        form_inicio.flag_jugar = juego.jugando
+
+    if form_inicio.flag_jugar is False:
+
+        juego = None
+        form_final = None
+
+        PANTALLA.fill("Black")
+        form_inicio.update(eventos)
+
+    elif juego is not None and juego.estado_juego is not None:
+        PANTALLA.fill("Black")
+
+        if form_final is None:
+            form_final = FormFinal(PANTALLA, 50, 25, W-100, H-50,"Recursos/Fondos/bg-icebergs-2.png",juego.estado_juego)
+        form_final.update(eventos)
+
+    else:
 
         if juego is None:
-            juego = Juego(jugador, form_inicio.nivel, "jugadores.db",
+
+            juego = Juego(PANTALLA, jugador, form_inicio.nivel, "jugadores.db",
                           form_inicio.usuario_jugador, niveles)
 
-            if form_inicio.nivel > 0:
+            if form_inicio.nivel == 0:
+                jugador.puntos = 0
+            else:
                 jugador.puntos = juego.niveles[juego.nivel_actual-1].puntos_requeridos
+
+            juego.reiniciar_tiempo_vidas_juego()
 
         juego.manejar_eventos_juego(PANTALLA, eventos)
 
@@ -59,7 +82,7 @@ while True:
                 juego.niveles[juego.nivel_actual].tiempo -= 1
                 juego.update_personalizado(PANTALLA, keys)
 
-        juego.update(PANTALLA, FUENTE, keys)
+        juego.update(PANTALLA, FUENTE, eventos, keys)
 
         if get_mode() is True:
 
@@ -78,14 +101,9 @@ while True:
 
         pygame.display.flip()
 
-    else:
-
-        for evento in eventos:
-            if evento.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit(0)
-
-        PANTALLA.fill("Black")
-        form_inicio.update(eventos)
+    for evento in eventos:
+        if evento.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit(0)
 
     pygame.display.flip()

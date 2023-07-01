@@ -13,6 +13,8 @@ from config_db import buscar_usuario_db, insertar_jugador, traer_ranking_db
 from datos_juego import W
 
 CELESTE = (64, 207, 255)
+TRANSPARENTE = (0,0,0,0)
+
 
 class FormInicio(Form):
 
@@ -104,7 +106,6 @@ class FormInicio(Form):
                                  CELESTE, "Blue", self.btn_jugar_click,
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
         
-
         self.boton_ranking = Button_Image(self._slave, x, y,
                                  w/2 - ancho_btn_ranking/2, 200,
                                  ancho_btn_ranking, ancho_btn_ranking,
@@ -168,7 +169,7 @@ class FormInicio(Form):
             usuario = buscar_usuario_db("jugadores.db", self.usuario_jugador_existente.get_text())
 
             if usuario:
-                self.usuario_jugador = { 
+                self.usuario_jugador = {
                     "usuario": usuario[0],
                     "puntos": usuario[1],
                     "nivel_max": usuario[2]
@@ -228,7 +229,7 @@ class FormInicio(Form):
                                    y=25,
                                    w=800,
                                    h=500,
-                                   color_background=(220,0,220),
+                                   color_background=TRANSPARENTE,
                                    color_border="White",
                                    border_size=-1,
                                    active=True,

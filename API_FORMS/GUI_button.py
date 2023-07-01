@@ -37,8 +37,7 @@ class Button(Widget):
 
         self.slave_rect_collide = pygame.Rect(self.slave_rect)
         self.slave_rect_collide.x += self._master_x
-        self.slave_rect_collide.y += self._master_y 
-
+        self.slave_rect_collide.y += self._master_y
 
         self._slave.fill(self._color_background)
 

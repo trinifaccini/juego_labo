@@ -23,7 +23,6 @@ class FormSettings(Form):
         # aux_image = pygame.transform.scale(aux_image,(w,h))
         # self._slave = aux_image
 
-        print("CREADO")
         pygame.mixer.init()
 
         ######
@@ -133,6 +132,9 @@ class FormSettings(Form):
         #         self.boton_play._color_background = "Cyan"
         #         self.boton_play.set_text("PLAY")
 
+        self._slave.fill(self._color_background)
+
+
         if pygame.mixer.music.get_busy():
             self.boton_play._color_background = "Red"
             self.boton_play.set_text("PAUSAR")
@@ -140,11 +142,11 @@ class FormSettings(Form):
             self.boton_play._color_background = "Cyan"
             self.boton_play.set_text("PLAY")
 
-        self.draw()
 
     def update(self, lista_eventos):
 
         if self.active:
+            self.draw()
             self.render()
 
             for widget in self.lista_widgets:

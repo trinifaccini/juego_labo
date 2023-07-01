@@ -7,7 +7,7 @@ from API_FORMS.GUI_widget import Widget
 
 class Form(Widget):
 
-    def __init__(self, screen, x,y,w,h,color_background=None,color_border = "Black",
+    def __init__(self, screen, x,y,w,h,color_background,color_border = "Black",
                  border_size = -1, active = True):
 
         super().__init__(screen, x,y,w,h, color_background, color_border, border_size)
@@ -40,5 +40,4 @@ class Form(Widget):
         pass
 
     def update(self, lista_eventos):
-        
         pass
