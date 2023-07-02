@@ -34,21 +34,20 @@ class FormPausa(Form):
                            font_color="White",
                            path_image="Recursos/bar.png")
 
-        self.boton_settings = Button_Image(self._slave, x, y,
-                                 w/2 - ancho_btn_ranking/2, 400,
+        self.boton_settings = Button_Image(self._slave, x, y, 0, h-50,
                                  ancho_btn_ranking, ancho_btn_ranking,
-                                 "Recursos/Menu_BTN.png",
+                                 "Recursos/Interfaces/button_settings.png",
                                  self.btn_settings_click, "x")
         
 
         self.boton_home = Button_Image(self._slave,
-                                        x= w-70,
-                                        y= h-70,
-                                        master_x= x,
+                                        x= w-50,
+                                        y= h-50,
+                                        master_x=x,
                                         master_y=y,
-                                        w= 50,
+                                        w=50,
                                         h=50,
-                                        color_background= (255,0,0),
+                                        color_background=(255,0,0),
                                         color_border=(255,0,255),
                                         onclick=self.btn_home_click,
                                         onclick_param="",
@@ -63,13 +62,13 @@ class FormPausa(Form):
         self.lista_widgets.append(self.boton_home)
         self.lista_widgets.append(self.boton_settings)
 
-    def btn_home_click(self) -> None:
+    def btn_home_click(self, param) -> None:
 
         self.jugando = False
         print(self.jugando)
         self.end_dialog()
 
-    def btn_settings_click(self) -> None:
+    def btn_settings_click(self,param) -> None:
 
         form_settings = FormSettings(self._master,
                                    x=W/2-400,

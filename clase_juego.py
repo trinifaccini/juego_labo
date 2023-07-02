@@ -43,12 +43,12 @@ class Juego():
         #                            active=True)
 
 
-        self.boton_silenciar = Button_Image(pantalla, 0, 0,W-60,70,50,50,
-                                 "Recursos/Menu_BTN.png",
+        self.boton_sonido = Button_Image(pantalla, 0, 0,W-60,70,50,50,
+                                 "Recursos/Interfaces/button_nosound.png",
                                  self.btn_silenciar_click, "x")
         
-        self.boton_sonido = Button_Image(pantalla, 0, 0,W-60,130,50,50,
-                                 "Recursos/Menu_BTN.png",
+        self.boton_pausa = Button_Image(pantalla, 0, 0,W-60,130,50,50,
+                                 "Recursos/Interfaces/button_pause.png",
                                  self.btn_pausar_click, "x")
 
 
@@ -67,8 +67,8 @@ class Juego():
 
     def posicionar_form_general(self, lista_eventos) -> None:
         #self.form_general.update(lista_eventos)
-        self.boton_silenciar.update(lista_eventos)
         self.boton_sonido.update(lista_eventos)
+        self.boton_pausa.update(lista_eventos)
 
     def cerrar_juego(self):
 
@@ -150,14 +150,13 @@ class Juego():
 
         for evento in eventos:
 
-            match evento.type:
-                case pygame.QUIT:
-                    self.cerrar_juego()
-                case pygame.KEYDOWN:
-                    if evento.key == pygame.K_TAB:
-                        change_mode()
-                    if evento.key == pygame.K_x:
-                        self.pausar_juego()
+            if evento.type == pygame.QUIT:
+                self.cerrar_juego()
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_TAB:
+                    change_mode()
+                if evento.key == pygame.K_x:
+                    self.pausar_juego()
 
     def reiniciar_tiempo_vidas_juego(self) -> None:
         self.niveles[self.nivel_actual].tiempo = 60

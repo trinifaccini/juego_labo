@@ -107,15 +107,15 @@ class FormInicio(Form):
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
         
         self.boton_ranking = Button_Image(self._slave, x, y,
-                                 w/2 - ancho_btn_ranking/2, 200,
+                                 w/2 - ancho_btn_ranking - 10, 200,
                                  ancho_btn_ranking, ancho_btn_ranking,
-                                 "Recursos/Menu_BTN.png",
+                                 "Recursos/Interfaces/button_ranking.png",
                                  self.btn_ranking_click, "x")
         
         self.boton_settings = Button_Image(self._slave, x, y,
-                                 w/2 - ancho_btn_ranking/2, 400,
+                                 w/2 + ancho_btn_ranking + 10, 200,
                                  ancho_btn_ranking, ancho_btn_ranking,
-                                 "Recursos/Menu_BTN.png",
+                                 "Recursos/Interfaces/button_settings.png",
                                  self.btn_settings_click, "x")
 
 

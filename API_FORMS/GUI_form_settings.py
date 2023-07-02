@@ -28,34 +28,38 @@ class FormSettings(Form):
         alto_txt = 35
 
         pos_x = w/2 - 250
-        pos_x_txt_dos = (w/4)*3 - ancho_txt/2
+        pos_x_txt_dos = w/2 - ancho_txt/2
 
         y_uno = 90
-        espacio = 15
+        espacio = 10
+        
+        ancho_slider = 500
+        pos_x_slider = w/2 - ancho_slider/2
+
+        ancho_label_volumen = 80
+        pos_x_label_volumen = w/2 - ancho_label_volumen/2
 
 
         self.label_settings = Label(self._slave, pos_x, 10, 500, 50,
                                    "CONFIGURACION", "Recursos/Fonts/Snowes.ttf", 40, "White",
                                    "Recursos/Interfaces/interfaces_2.png")
 
-        self.boton_silenciar_audio = Button(self._slave, x, y,
-                                 pos_x_txt_dos,  y_uno + alto_txt + alto_label + espacio*2,
-                                 ancho_txt, 50,CELESTE, "Blue", self.btn_play_click,
-                                 "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
+        self.label_volumen = Label(self._slave, pos_x_txt_dos, 60, ancho_txt, 80,"VOLUMEN MUSICA", 
+                                   "Recursos/Fonts/Snowes.ttf", 40, "White", "")
+        
 
-        self.boton_play = Button(self._slave, x, y,
-                                 300, 50, 100, 50,
-                                 "Red", "Blue", self.btn_play_click,
-                                 "Nombre", "PAUSE", "Recursos/Fonts/Snowes.ttf", 20, "Black")
-
-
-        self.label_volumen = Label(self._slave, 700, 100, 100, 30,"20%", 
-                                   "Recursos/Fonts/Snowes.ttf", 12, "White", "Recursos/Table.png")
-
-        self.slider_volumen = Slider(self._slave, x,y, 300, 200, 500, 15,
+        self.label_porcentaje_volumen = Label(self._slave, pos_x_label_volumen, 150, 80, 80,"20%", 
+                                   "Recursos/Fonts/Snowes.ttf", 40, "White", "Recursos/Interfaces/interfaces_4.png")
+        
+        self.slider_volumen = Slider(self._slave, x,y, pos_x_slider, 250, ancho_slider, 15,
                                      0.2, "Blue", "White")
 
-        self.boton_home = Button_Image(self._slave,
+        self.boton_sonido = Button(self._slave, x, y,
+                                 pos_x_txt_dos, 300,
+                                 ancho_txt, 50,CELESTE, "Blue", self.btn_play_click,
+                                 "Nombre", "SILENCIAR", "Recursos/Fonts/Snowes.ttf", 30, "Black")
+        
+        self.boton_atras = Button_Image(self._slave,
                                         x= w-70,
                                         y= h-70,
                                         master_x= x,
@@ -64,22 +68,22 @@ class FormSettings(Form):
                                         h=50,
                                         color_background= (255,0,0),
                                         color_border=(255,0,255),
-                                        onclick=self.btn_home_click,
+                                        onclick=self.btn_back_click,
                                         onclick_param="",
                                         font_size= 25,
                                         font_color= (0,255,0),
-                                        path_image="Recursos/home.png"
+                                        path_image="Recursos/Interfaces/flecha.png"
                                         )
 
 
         ######
 
         self.lista_widgets.append(self.label_settings)
-        self.lista_widgets.append(self.boton_silenciar_audio)
-        self.lista_widgets.append(self.boton_play)
+        self.lista_widgets.append(self.boton_sonido)
+        self.lista_widgets.append(self.label_porcentaje_volumen)
         self.lista_widgets.append(self.label_volumen)
         self.lista_widgets.append(self.slider_volumen)
-        self.lista_widgets.append(self.boton_home)
+        self.lista_widgets.append(self.boton_atras)
 
         # pygame.mixer.music.load("Recursos/Audio/musica.mp3")
         # pygame.mixer.music.play(-1) # bucle
@@ -96,10 +100,10 @@ class FormSettings(Form):
 
     def update_volumen(self, lista_eventos):
 
-        self.label_volumen.set_text(f"{round(self.slider_volumen.value*100)}%")
+        self.label_porcentaje_volumen.set_text(f"{round(self.slider_volumen.value*100)}%")
         pygame.mixer.music.set_volume(self.slider_volumen.value)
 
-    def btn_home_click(self, param) -> None:
+    def btn_back_click(self, param) -> None:
 
         self.end_dialog()
 
@@ -108,11 +112,11 @@ class FormSettings(Form):
         self._slave.fill(self._color_background)
 
         if pygame.mixer.music.get_busy():
-            self.boton_play._color_background = "Red"
-            self.boton_play.set_text("PAUSAR")
+            self.boton_sonido._color_background = "Red"
+            self.boton_sonido.set_text("SILENCIAR")
         else:
-            self.boton_play._color_background = "Cyan"
-            self.boton_play.set_text("PLAY")
+            self.boton_sonido._color_background = "Cyan"
+            self.boton_sonido.set_text("PLAY")
 
 
     def update(self, lista_eventos):

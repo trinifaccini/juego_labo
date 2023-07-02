@@ -102,24 +102,23 @@ class Personaje(ObjetoAnimado):
         self.verificar_colision_proyectil(personajes)
 
         if self.superficie_apoyo is not None:
-            match (self.accion):
-                case "derecha":
-                    if not self.esta_saltando:
-                        self.animar(pantalla, "camina_derecha")
-                    if self.lados['main'].x < pantalla.get_width() - self.w + 10:
-                        self.ultima_accion = "derecha"
-                        self.mover("x")
-                case "izquierda":
-                    if not self.esta_saltando:
-                        self.animar(pantalla, "camina_izquierda")
-                    if self.lados['main'].x > 0:
-                        self.ultima_accion = "izquierda"
-                        self.mover("x")
-                case "salta":
-                    if not self.esta_saltando:
-                        self.esta_saltando = True
-                        self.desplazamiento_y = self.potencia_salto
-                case "quieto":
+            if self.accion == "derecha":
+                if not self.esta_saltando:
+                    self.animar(pantalla, "camina_derecha")
+                if self.lados['main'].x < pantalla.get_width() - self.w + 10:
+                    self.ultima_accion = "derecha"
+                    self.mover("x")
+            elif self.accion == "izquierda":
+                if not self.esta_saltando:
+                    self.animar(pantalla, "camina_izquierda")
+                if self.lados['main'].x > 0:
+                    self.ultima_accion = "izquierda"
+                    self.mover("x")
+            elif self.accion == "salta":
+                if not self.esta_saltando:
+                    self.esta_saltando = True
+                    self.desplazamiento_y = self.potencia_salto
+            elif self.accion == "quieto":
                     if not self.esta_saltando: # solo animo si no está saltando
                         if self.ultima_accion == "derecha":
                             self.animar(pantalla, "quieto_derecha")
