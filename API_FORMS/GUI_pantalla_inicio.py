@@ -54,6 +54,7 @@ class FormInicio(Form):
 
         ancho_btn_ranking = 50
 
+
         self.label_bienvenida = Label(self._slave, pos_x, 10, 500, 50,
                                    "BIENVENIDO", "Recursos/Fonts/Snowes.ttf", 40, "White",
                                    "Recursos/Interfaces/interfaces_2.png")

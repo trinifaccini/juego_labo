@@ -18,70 +18,54 @@ class FormPausa(Form):
 
         self._slave = aux_imagen
         self.jugando = True
+        self.pausado = True
 
         ancho_btn_ranking = 50
 
         # CABECERAS
 
         self.label = Label(screen=self._slave,
-                           x=100,
+                           x=0,
                            y=100,
-                           w=600,
+                           w=w,
                            h=50,
-                           text="PRESIONA X PARA REANUDAR",
+                           text="JUEGO PAUSADO",
                            font= "Recursos/Fonts/Snowes.ttf",
-                           font_size=25,
+                           font_size=35,
                            font_color="White",
                            path_image="Recursos/bar.png")
 
-        self.boton_settings = Button_Image(self._slave, x, y, 0, h-50,
-                                 ancho_btn_ranking, ancho_btn_ranking,
-                                 "Recursos/Interfaces/button_settings.png",
-                                 self.btn_settings_click, "x")
-        
+
+        self.boton_atras = Button_Image(self._slave,
+                                           x, y, 0, h/2,
+                                           ancho_btn_ranking, ancho_btn_ranking,
+                                           "Recursos/Interfaces/flecha.png",
+                                           self.btn_back_click, "x"
+                                        )
+
 
         self.boton_home = Button_Image(self._slave,
-                                        x= w-50,
-                                        y= h-50,
-                                        master_x=x,
-                                        master_y=y,
-                                        w=50,
-                                        h=50,
-                                        color_background=(255,0,0),
-                                        color_border=(255,0,255),
-                                        onclick=self.btn_home_click,
-                                        onclick_param="",
-                                        font_size= 15,
-                                        font_color= (0,255,0),
-                                        path_image="Recursos/home.png"
+                                         x, y, w-ancho_btn_ranking, h/2,
+                                         ancho_btn_ranking, ancho_btn_ranking,
+                                         "Recursos/Interfaces/home.png",
+                                          self.btn_home_click, "x"
                                         )
 
         ######
 
         self.lista_widgets.append(self.label)
         self.lista_widgets.append(self.boton_home)
-        self.lista_widgets.append(self.boton_settings)
+        self.lista_widgets.append(self.boton_atras)
 
     def btn_home_click(self, param) -> None:
 
         self.jugando = False
-        print(self.jugando)
+        self.pausado = False
         self.end_dialog()
 
-    def btn_settings_click(self,param) -> None:
-
-        form_settings = FormSettings(self._master,
-                                   x=W/2-400,
-                                   y=25,
-                                   w=800,
-                                   h=500,
-                                   color_background="Black",
-                                   color_border="White",
-                                   border_size=-1,
-                                   active=True,
-                                   path_image="")
-
-        self.show_dialog(form_settings)
+    def btn_back_click(self, param) -> None:
+        self.pausado = False
+        self.end_dialog()
 
     def render(self):
         self._slave.fill(self._color_background)
@@ -89,7 +73,7 @@ class FormPausa(Form):
     def update(self, lista_eventos):
 
         if self.verificar_dialog_result():
- 
+
             if self.active:
                 self.draw()
                 self.render()
@@ -97,7 +81,6 @@ class FormPausa(Form):
                 for widget in self.lista_widgets:
                     widget.update(lista_eventos)
 
-                # self.update_volumen(lista_eventos)
         else:
             self.hijo.update(lista_eventos)
 

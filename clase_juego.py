@@ -14,7 +14,7 @@ import pygame
 from API_FORMS.GUI_button_image import Button_Image
 from API_FORMS.GUI_form_inicio import TRANSPARENTE
 from API_FORMS.GUI_form_pausa import FormPausa
-from API_FORMS.GUI_pantalla_final import FormFinal
+from API_FORMS.GUI_form_settings import FormSettings
 from config_db import actualizar_jugador
 from datos_juego import W
 from modo import *
@@ -42,11 +42,19 @@ class Juego():
         #                            border_size=5,
         #                            active=True)
 
+        # if pygame.mixer.music.get_busy():
+        #     path_sonido = "Recursos/Interfaces/button_sound.png"
+        # else:
+        #     path_sonido = "Recursos/Interfaces/button_nosound.png"
 
-        self.boton_sonido = Button_Image(pantalla, 0, 0,W-60,70,50,50,
-                                 "Recursos/Interfaces/button_nosound.png",
-                                 self.btn_silenciar_click, "x")
-        
+        # self.boton_sonido = Button_Image(pantalla, 0, 0,W-60,70,50,50,
+        #                          path_sonido,
+        #                          self.btn_silenciar_click, "x")
+
+        self.boton_config = Button_Image(pantalla, 0, 0,W-60,70,50,50,
+                                 "Recursos/Interfaces/button_settings.png",
+                                 self.btn_config_click, "x")
+
         self.boton_pausa = Button_Image(pantalla, 0, 0,W-60,130,50,50,
                                  "Recursos/Interfaces/button_pause.png",
                                  self.btn_pausar_click, "x")
@@ -58,16 +66,49 @@ class Juego():
             pantalla.blit(texto['texto'], (texto['pos_x'], texto['pos_y']))
 
     def btn_pausar_click(self, param):
-        self.pausar_juego()
 
+        form_pausa = FormPausa(self.pantalla,
+                                        x=W/2-300,
+                                        y=25,
+                                        w=600,
+                                        h=500,
+                                        color_background=TRANSPARENTE,
+                                        color_border="White",
+                                        border_size=-1,
+                                        active=True,
+                                        path_img="Recursos/Interfaces/interfaces_3.png")
+        self.pausar_juego(form_pausa)
 
-    def btn_silenciar_click(self, param):
-        print("apretando boton")
+    # def btn_silenciar_click(self, param):
+
+    #     if pygame.mixer.music.get_busy():
+    #         pygame.mixer.music.pause()
+    #         self.jugador.volumen = 0
+    #         self.boton_sonido.set_background_image("Recursos/Interfaces/button_nosound.png")
+    #     else:
+    #         pygame.mixer.music.unpause()
+    #         self.jugador.volumen = 5
+    #         self.boton_sonido.set_background_image("Recursos/Interfaces/button_sound.png")
+
+    def btn_config_click(self, param):
+
+        form_settings = FormSettings(self.pantalla,
+                                   x=W/2-400,
+                                   y=25,
+                                   w=800,
+                                   h=500,
+                                   color_background="Black",
+                                   color_border="White",
+                                   border_size=-1,
+                                   active=True,
+                                   path_image="")
+         
+        self.pausar_juego(form_settings)
 
 
     def posicionar_form_general(self, lista_eventos) -> None:
         #self.form_general.update(lista_eventos)
-        self.boton_sonido.update(lista_eventos)
+        self.boton_config.update(lista_eventos)
         self.boton_pausa.update(lista_eventos)
 
     def cerrar_juego(self):
@@ -108,40 +149,27 @@ class Juego():
                                        self.base_datos)
             self.estado_juego = "murio"
 
-    def pausar_juego(self) -> None:
+    def pausar_juego(self, formulario) -> None:
         
         # pygame.mixer.music.pause()
-        paused = True
+        #paused = True
 
-        form_pausa = FormPausa(self.pantalla,
-                                   x=W/2-400,
-                                   y=25,
-                                   w=800,
-                                   h=500,
-                                   color_background=TRANSPARENTE,
-                                   color_border="White",
-                                   border_size=-1,
-                                   active=True,
-                                   path_img="Recursos/Interfaces/interfaces_3.png")
-        
-
-        while paused:
+        while formulario.pausado:
             eventos = pygame.event.get()
             self.pantalla.fill("BLACK")
-            form_pausa.update(eventos)
-            if form_pausa.jugando is False:
+            formulario.update(eventos)
+            if formulario.jugando is False:
+                #paused = False
                 self.jugando = False
-                paused = False
-            
             for event in eventos:
                 if event.type == pygame.QUIT:
-                    paused = False
+                    #paused = False
                     self.cerrar_juego()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_TAB:
                         change_mode()
-                    if event.key == pygame.K_x:
-                        paused = False
+                    # if event.key == pygame.K_x:
+                    #     paused = False
                         # pygame.mixer.music.unpause()
 
             pygame.display.flip()
@@ -155,8 +183,8 @@ class Juego():
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_TAB:
                     change_mode()
-                if evento.key == pygame.K_x:
-                    self.pausar_juego()
+                # if evento.key == pygame.K_x:
+                #     self.pausar_juego()
 
     def reiniciar_tiempo_vidas_juego(self) -> None:
         self.niveles[self.nivel_actual].tiempo = 60
@@ -170,35 +198,35 @@ class Juego():
 
         self.niveles[self.nivel_actual].update(pantalla, self.jugador, keys)
 
-        texto = fuente.render(f"Vidas: {self.jugador.vidas}", False, "Green", "Blue")
+        texto = fuente.render(f"Vidas: {self.jugador.vidas}", False, "Blue")
         ancho_texto = texto.get_width()
 
         texto_vidas = {
             "texto": texto,
-            "pos_x": pantalla.get_width()-ancho_texto,
-            "pos_y": 0
+            "pos_x": pantalla.get_width()-ancho_texto-10,
+            "pos_y": 2
         }
 
         texto = fuente.render(f"Puntos: {self.jugador.puntos}", False, "Blue")
 
         texto_puntos = {
             "texto": texto,
-            "pos_x": 0,
-            "pos_y": 0
+            "pos_x": 10,
+            "pos_y": 2
         }
 
-        texto = fuente.render(f"Tiempo:{self.niveles[self.nivel_actual].tiempo}",
-                              False, "Green", "Blue")
+        texto = fuente.render(f"TIEMPO RESTANTE: {self.niveles[self.nivel_actual].tiempo}",
+                              False, "Blue")
+        
         ancho_texto = texto.get_width()
 
         texto_tiempo = {
             "texto": texto,
             "pos_x": pantalla.get_width()/2-(ancho_texto/2),
-            "pos_y": 0
+            "pos_y": 2
         }
 
         textos = [texto_vidas, texto_puntos, texto_tiempo]
-
 
         self.posicionar_textos(pantalla, textos)
         self.posicionar_form_general(eventos)

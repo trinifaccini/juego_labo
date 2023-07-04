@@ -6,34 +6,51 @@
 ARCHIVO CLASE NIVEL
 '''
 
+import random
 from clase_enemigo import Enemigo
 from clase_item import Item
-from config_img import diccionario_animaciones_yeti_normal, diccionario_animaciones_yeti_rojo
-
+from config_img import *
 
 class Nivel():
 
     def __init__(self, fondo, plataformas:list, enemigos:list,
-                 items:list, tiempo:int, puntos_requeridos:int) -> None:
+                 items:list, tiempo:int, puntos_requeridos:int, nivel:int, temporizador) -> None:
 
         self.fondo = fondo
         self.tiempo = tiempo
         self.enemigos = enemigos
         self.items = items
         self.plataformas = plataformas # las plataformas van a venir con las trampas
+        self.nivel = nivel
         self.puntos_requeridos = puntos_requeridos
+        self.temporizador = temporizador
 
     def generar_proyectiles(self) -> None:
 
-        if self.tiempo % 5 == 0:
-            for enemigo in self.enemigos:
+        for enemigo in self.enemigos:
+            if self.tiempo % enemigo.temporizador == 0:
                 enemigo.lanzar_proyectil(15)
 
-    def generar_enemigos(self) -> None:
-        if self.tiempo % 15 == 0:
-            enemigo = Enemigo((100,90), (200,0), diccionario_animaciones_yeti_normal,
-                              diccionario_animaciones_yeti_rojo, 5, -15, 2000, 200,200)
+    def enemigo_segun_nivel(self) -> Enemigo:
 
+        danio = random.randint(100, 200)
+        temporizador = random.randint(3, 10)
+        danio = random.randint(5, 10)
+
+        if self.nivel == 1:
+            return Enemigo((100,90), (200,0), diccionario_animaciones_oso_normal,
+                                diccionario_animaciones_oso_rojo, 5, -15, 2000,
+                                danio,200,temporizador)
+
+        if self.nivel == 2:
+            return Enemigo((100,90), (200,0), diccionario_animaciones_yeti_normal,
+                            diccionario_animaciones_oso_rojo, 5, -15, 2000,
+                            danio,200,temporizador)
+
+    def generar_enemigos(self) -> None:
+
+        if self.tiempo % self.temporizador == 0:
+            enemigo = self.enemigo_segun_nivel()
             self.enemigos.append(enemigo)
 
     def generar_items_especiales(self) -> None:

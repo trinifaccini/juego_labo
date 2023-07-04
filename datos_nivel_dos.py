@@ -14,10 +14,10 @@ fondo = pygame.image.load("Recursos/Fondos/aldea.png")
 fondo = pygame.transform.scale(fondo, TAMANIO_PANTALLA)
 
 enemigo_uno = Enemigo((100,90), (20,0), diccionario_animaciones_yeti_normal,
-                      diccionario_animaciones_yeti_rojo,5, -15, 2000, 200,150)
+                      diccionario_animaciones_yeti_rojo,5, -15, 2000, 200,150,3)
 
 enemigo_dos = Enemigo((100,90), (200,0), diccionario_animaciones_yeti_normal,
-                      diccionario_animaciones_yeti_rojo,5, -15, 2000, 200, 150)
+                      diccionario_animaciones_yeti_rojo,5, -15, 2000, 200, 150,6)
 
 piso_1 = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Tierra",
                 "Recursos/Plataformas/plataforma_grande.png")
@@ -34,4 +34,4 @@ lista_plataformas = [piso_1, plataforma]
 
 items = [item_uno, item_dos]
 
-nivel_dos = Nivel(fondo, lista_plataformas,enemigos, items, 60, 2450)
+nivel_dos = Nivel(fondo, lista_plataformas,enemigos, items, 60, 2450,2,7)

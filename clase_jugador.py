@@ -20,9 +20,14 @@ class Jugador(Personaje):
 
         super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
                          velocidad, potencia_salto,vidas, danio)
+        
+        pygame.mixer.init()
 
         self.accion = "derecha"
         self.puntos = 0
+        self.sonido_colision_item = pygame.mixer.Sound('Recursos/Audio/ñam.mp3')
+        self.sonido_colision_proyectil = pygame.mixer.Sound('Recursos/Audio/snowball.mp3')
+        self.volumen = 5
 
     # VERIFICO COLISION DE ITEM CON PERSONAJE JUGADOR UNICAMENTE
     # SI COLISIONA LO BORRO DE LA LISTA
@@ -30,6 +35,8 @@ class Jugador(Personaje):
 
         for item in items:
             if self.lados['main'].colliderect(item.lados['main']):
+                self.sonido_colision_item.set_volume(self.volumen)
+                self.sonido_colision_item.play()
                 self.vidas += item.cambio_vida
                 self.puntos += item.cambio_puntos
                 item.colisiono = True
@@ -43,8 +50,15 @@ class Jugador(Personaje):
 
         for enemigo in enemigos:
             if enemigo.accion == "ataca":
+                self.sonido_colision.play()
                 self.vidas -= enemigo.danio
                 self.accion = "atacado"
+
+    def verificar_colision_proyectil(self, personajes) -> bool:
+        if super().verificar_colision_proyectil(personajes):
+            self.sonido_colision_proyectil.set_volume(self.volumen)
+            self.sonido_colision_proyectil.play()
+
 
     def verificar_colision_pisos(self, lista_plataformas):
 

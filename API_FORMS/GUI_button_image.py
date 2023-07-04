@@ -66,5 +66,12 @@ class Button_Image(Widget):
                         self.contador_click = 0
         else:
             self.contador_click += 1
-        
+
         self.draw()
+
+    def set_background_image(self, path_image):
+
+        aux_image = pygame.image.load(path_image)
+        aux_image = pygame.transform.scale(aux_image,(self._w,self._h))
+        self._slave = aux_image
+        self.render()

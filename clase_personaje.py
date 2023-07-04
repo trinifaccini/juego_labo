@@ -6,6 +6,7 @@ CLASE PERSONAJE
 # pylint: disable=missing-class-docstring
 # pylint: disable=arguments-differ
 
+import pygame
 from clase_objeto_animado import ObjetoAnimado
 from clase_proyectil import Proyectil
 from config_img import deepcopy_dict_animaciones
@@ -22,6 +23,9 @@ class Personaje(ObjetoAnimado):
         lista = [animaciones_aux_normal, animaciones_aux_danio]
 
         super().__init__(tamanio, pos_inicial, lista, velocidad, potencia_salto)
+
+        pygame.mixer.init()
+
 
         self.vidas = vidas
         #self.img_proyectil = img_proyectil
@@ -71,7 +75,7 @@ class Personaje(ObjetoAnimado):
 
     # VERIFICO COLISION DE PROYECTIL CON CUALQUIER PERSONAJE (SEA ENEMIGO O JUGADOR)
     # SI COLISIONA LO BORRO DE LA LIST
-    def verificar_colision_proyectil(self, personajes):
+    def verificar_colision_proyectil(self, personajes) -> bool:
 
         for personaje in personajes:
             for proyectil in personaje.lista_proyectiles:
@@ -81,8 +85,10 @@ class Personaje(ObjetoAnimado):
                     lista_aux = personaje.lista_proyectiles
                     lista_aux.remove(proyectil)
                     del proyectil
+                    return True
                 else:
                     self.animaciones_actual = self.animaciones[0]
+                    return False
 
 
     # En el caso del jugador, va a ser manipulado por el usuario
@@ -119,11 +125,11 @@ class Personaje(ObjetoAnimado):
                     self.esta_saltando = True
                     self.desplazamiento_y = self.potencia_salto
             elif self.accion == "quieto":
-                    if not self.esta_saltando: # solo animo si no está saltando
-                        if self.ultima_accion == "derecha":
-                            self.animar(pantalla, "quieto_derecha")
-                        else:
-                            self.animar(pantalla, "quieto_izquierda")
+                if not self.esta_saltando: # solo animo si no está saltando
+                    if self.ultima_accion == "derecha":
+                        self.animar(pantalla, "quieto_derecha")
+                    else:
+                        self.animar(pantalla, "quieto_izquierda")
 
         self.verificar_salto(pantalla)
         self.verificar_colision_pisos(lista_plataformas)

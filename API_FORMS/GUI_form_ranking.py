@@ -12,10 +12,10 @@ class FormRanking(Form):
 
         super().__init__(screen, x,y, w,h,color_background, color_border, border_size, active)
 
-        aux_imagen = pygame.image.load(path_img)
-        aux_imagen = pygame.transform.scale(aux_imagen, (w,h))
+        # aux_imagen = pygame.image.load(path_img)
+        # aux_imagen = pygame.transform.scale(aux_imagen, (w,h))
 
-        self._slave = aux_imagen
+        # self._slave = aux_imagen
         self._scores = scores
         self._margen_x = margen_x
         self._margen_y = margen_y
@@ -29,11 +29,11 @@ class FormRanking(Form):
 
         self.label_usuario = Label(self._slave, pos_x_label, 25,
                                    ancho_label, 50, "USUARIO", "Recursos/Fonts/Snowes.ttf", 30,
-                                   "White", "Recursos/bar.png")
+                                   "White", "Recursos/Interfaces/interfaces_2.png")
 
         self.label_puntos = Label(self._slave, pos_x_label + ancho_label, 25,
                                   w/2-margen_x-10, 50, "PUNTOS", "Recursos/Fonts/Snowes.ttf", 30,
-                                  "White", "Recursos/bar.png")
+                                  "White", "Recursos/Interfaces/interfaces_2.png")
 
 
         self.boton_home = Button_Image(self._slave,
@@ -49,7 +49,7 @@ class FormRanking(Form):
                                         onclick_param="",
                                         font_size= 25,
                                         font_color= (0,255,0),
-                                        path_image="Recursos/home.png"
+                                        path_image="Recursos/Interfaces/home.png"
                                         )
 
         ######
@@ -67,7 +67,7 @@ class FormRanking(Form):
                 cadena += f"{x}"
                 aux = Label(self._slave, pos_inicial_x, pos_inicial_y,
                             w/2-margen_x, 50, cadena, "Recursos/Fonts/Snowes.ttf", 30,
-                            "White", "Recursos/Table.png")
+                            "White", "Recursos/Interfaces/interfaces_5.png")
                 self.lista_widgets.append(aux)
                 pos_inicial_x += w/2 - margen_x
 
@@ -82,6 +82,7 @@ class FormRanking(Form):
 
 
     def render(self):
+        self.draw()
         self._slave.fill(self._color_background)
 
     def update(self, lista_eventos):
@@ -91,7 +92,6 @@ class FormRanking(Form):
             for widget in self.lista_widgets:
                 widget.update(lista_eventos)
 
-            self.draw()
-            # self.render()
+            self.render()
 
         return super().update(lista_eventos)

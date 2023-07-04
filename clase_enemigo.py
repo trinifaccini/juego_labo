@@ -15,7 +15,7 @@ from clase_personaje import Personaje
 class Enemigo(Personaje):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio,
-                 velocidad: int, potencia_salto: int, vidas: int, danio: int, aporte_puntos):
+                 velocidad: int, potencia_salto: int, vidas: int, danio: int, aporte_puntos:int, temporizador:int):
 
         super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
                          velocidad, potencia_salto, vidas, danio)
@@ -23,6 +23,7 @@ class Enemigo(Personaje):
         self.accion = "derecha"
         self.esta_saltando = True
         self.aporte_puntos = aporte_puntos
+        self.temporizador = temporizador
 
     def atacar(self, pantalla):
 
@@ -37,7 +38,7 @@ class Enemigo(Personaje):
                 if "ataca_derecha" in self.animaciones_actual:
                     self.animar(pantalla, "ataca_derecha")
                 else:
-                    self.animar(pantalla, "camina_izquierda")
+                    self.animar(pantalla, "camina_derecha")
 
 
     def definir_accion(self, jugador):

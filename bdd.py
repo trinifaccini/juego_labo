@@ -1,5 +1,5 @@
 '''
-jjj
+CONFIGURACION DE BASE DE DATOS
 '''
 
 import sqlite3
