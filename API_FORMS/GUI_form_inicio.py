@@ -21,13 +21,12 @@ class FormInicio(Form):
     def __init__(self, screen,x,y,w,h, path_image, color_background = None, color_border="Magenta", border_size=-1,
                  active=True):
 
-        super().__init__(screen, x,y, w,h,color_background, color_border, border_size, active)
+        super().__init__(screen, x,y, w,h,TRANSPARENTE, color_border, border_size, active)
 
-        #self.volumen = 0.2
-        #self.flag_play = True
         self.usuario_existente = False
         self.flag_jugar = False
         self.nivel = 0
+        self.sonido_silenciado = False
 
         aux_image = pygame.image.load(path_image)
         aux_image = pygame.transform.scale(aux_image,(w,h))
@@ -43,6 +42,7 @@ class FormInicio(Form):
         alto_txt = 35
 
         pos_x = w/2 - 250
+        self.centro= w/2
         pos_x_label_uno = w/4 - ancho_label/2
         pos_x_label_dos = (w/4)*3 - ancho_label/2
 
@@ -121,8 +121,8 @@ class FormInicio(Form):
                                  ancho_btn_ranking, ancho_btn_ranking,
                                  "Recursos/Interfaces/button_settings.png",
                                  self.btn_settings_click, "x")
-
-
+    
+        
         ######
 
         self.lista_widgets.append(self.label_bienvenida)
@@ -144,6 +144,15 @@ class FormInicio(Form):
 
         self.render()
 
+    def mostrar_label_error(self, mensaje) -> None:
+
+        label_error = Label(self._slave,
+                                self.centro-100, 350 ,200, 30,
+                                mensaje, "Recursos/Fonts/Snowes.ttf", 25,
+                                "White", "Recursos/Interfaces/interfaces_5.png")
+        
+        self.lista_widgets.append(label_error)
+
     
     def btn_crear_jugar_click(self, param):
 
@@ -163,8 +172,12 @@ class FormInicio(Form):
 
                 self.flag_jugar = True
 
+            else:
+                self.mostrar_label_error("Ya existe ese usuario")
+                print("erorr")
         else:
-            print("falta completar datos")
+            self.mostrar_label_error("Falta completar datos")
+                
 
     def btn_jugar_click(self, param):
 
@@ -194,15 +207,10 @@ class FormInicio(Form):
                 self.show_dialog(form_niveles)
 
             else:
-                print("no existeee")
-
-        else:
-            print("falta completar datos")
+                self.mostrar_label_error("Usuario inexistente")
 
 
     def btn_ranking_click(self, param):
-
-        #print(self.nombre_jugador.get_text())
 
         dic_score = traer_ranking_db("jugadores.db")
 
@@ -241,7 +249,6 @@ class FormInicio(Form):
 
         self.show_dialog(form_settings)
 
-
     def render(self):
         self.draw()
 
@@ -250,12 +257,11 @@ class FormInicio(Form):
         if self.verificar_dialog_result():
 
             if self.active:
-                self.render()
 
                 for widget in self.lista_widgets:
                     widget.update(lista_eventos)
+                self.draw()
 
         else:
             self.hijo.update(lista_eventos)
 
-        return super().update(lista_eventos)

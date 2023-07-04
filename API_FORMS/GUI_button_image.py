@@ -3,7 +3,7 @@ from pygame.locals import *
 from API_FORMS.GUI_widget import *
 
 FPS = 18
-    
+
 class Button_Image(Widget):
     def __init__(self, screen,master_x,master_y, x,y,w,h, path_image,
                 onclick=None, onclick_param=None, text="", font="Recursos/Fonts/Snowes.ttf", font_size=12, font_color="Black",

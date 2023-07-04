@@ -44,6 +44,7 @@ def insertar_jugador(nombre, apellido, nivel, puntos, usuario, nombre_db) -> Non
             return True
         except Exception as e:
             print("error", e)
+            return False
 
 def actualizar_jugador(nivel,puntos, usuario, nombre_db) -> None:
 
@@ -54,6 +55,7 @@ def actualizar_jugador(nivel,puntos, usuario, nombre_db) -> None:
             conexion.execute(update, (nivel, puntos, usuario))
         except Exception as e:
             print("error", e)
+            return False
 
 def buscar_usuario_db(nombre_db, usuario) -> list:
 

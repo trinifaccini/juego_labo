@@ -97,12 +97,12 @@ class Juego():
                                    y=25,
                                    w=800,
                                    h=500,
-                                   color_background="Black",
+                                   color_background=TRANSPARENTE,
                                    color_border="White",
                                    border_size=-1,
                                    active=True,
                                    path_image="")
-         
+
         self.pausar_juego(form_settings)
 
 

@@ -110,8 +110,14 @@ class FormSettings(Form):
 
     def btn_sonidos_click(self, param):
 
-        self.sonido_silenciado = not self.sonido_silenciado
+        if self.sonido_silenciado is False:
+            self.sonido_silenciado = True
+            self.boton_sonidos.set_text("REANUDAR AUDIO")
+            pygame.mixer.music.pause()
 
+        else:
+            self.sonido_silenciado = False
+            self.boton_sonidos.set_text("SILENCIAR AUDIO")
 
     def update_volumen(self, lista_eventos):
 
