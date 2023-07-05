@@ -76,7 +76,7 @@ while True:
             pygame.quit()
             sys.exit(0)
 
-    if juego is not None:
+    if juego is not None and juego.jugando is False:
         form_inicio.flag_jugar = juego.jugando
 
     if form_inicio.flag_jugar is False:
@@ -84,6 +84,8 @@ while True:
         form_final = None
         PANTALLA.fill("Black")
         form_inicio.update(eventos)
+        juego = None
+
 
     elif juego is not None and juego.estado_juego is not None:
 
@@ -104,7 +106,6 @@ while True:
     else:
 
         if juego is None:
-
             juego = Juego(PANTALLA, jugador, form_inicio.nivel, "jugadores.db",
                           form_inicio.usuario_jugador)
 

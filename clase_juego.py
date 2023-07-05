@@ -16,7 +16,6 @@ from API_FORMS.GUI_form_estado_juego import CELESTE
 from API_FORMS.GUI_form_inicio import TRANSPARENTE
 from API_FORMS.GUI_form_pausa import FormPausa
 from API_FORMS.GUI_form_settings import FormSettings
-from clase_nivel import Nivel
 from config_db import actualizar_jugador
 from datos_juego import W
 from modo import *
@@ -110,6 +109,7 @@ class Juego():
                                         border_size=-1,
                                         active=True,
                                         path_img="Recursos/Interfaces/interfaces_3.png")
+        
         self.pausar_juego(form_pausa)
 
     def btn_config_click(self, param):
@@ -182,9 +182,6 @@ class Juego():
             self.estado_juego = "murio"
 
     def pausar_juego(self, formulario) -> None:
-        
-        # pygame.mixer.music.pause()
-        #paused = True
 
         while formulario.pausado:
             eventos = pygame.event.get()
@@ -195,7 +192,6 @@ class Juego():
                 self.jugando = False
             for event in eventos:
                 if event.type == pygame.QUIT:
-                    #paused = False
                     self.cerrar_juego()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_TAB:
@@ -205,7 +201,7 @@ class Juego():
                         # pygame.mixer.music.unpause()
 
             pygame.display.flip()
-   
+
     def manejar_eventos_juego(self, pantalla, eventos):
 
         for evento in eventos:
@@ -218,13 +214,14 @@ class Juego():
                 # if evento.key == pygame.K_x:
                 #     self.pausar_juego()
 
+    def reiniciar_enemigos_niveles(self) -> None:
+        for nivel in self.niveles:
+            nivel.resetear_enemigos_nivel()
+
     def reiniciar_juego(self) -> None:
         self.niveles[self.nivel_actual].tiempo = 30
         self.jugador.vidas = 1100
-
-    def reiniciar_enemigos_niveles(self) -> None:
-        for nivel in self.niveles:
-            nivel.reset_enemigos_nivel()
+        self.reiniciar_enemigos_niveles()
 
 
     def update(self, pantalla,fuente, eventos, keys) -> None:

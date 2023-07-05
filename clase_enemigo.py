@@ -13,9 +13,8 @@ from clase_personaje import Personaje
 from config_img import deepcopy_dict_animaciones
 import copy
 
-from datos_juego import W
 
-def deepcopy_enemigo(enemigo, vidas):
+def deepcopy_enemigo(enemigo):
 
     tamanio = copy.deepcopy(enemigo.tamanio)
     pos_inicial = copy.deepcopy(enemigo.pos_inicial)
@@ -28,10 +27,11 @@ def deepcopy_enemigo(enemigo, vidas):
     danio =  copy.deepcopy(enemigo.danio)
     aporte_puntos =  copy.deepcopy(enemigo.aporte_puntos)
     temporizador =  copy.deepcopy(enemigo.temporizador)
+    vidas = copy.deepcopy(enemigo.vidas)
 
     enemigo = Enemigo(tamanio, pos_inicial, animaciones_aux_normal, animaciones_aux_danio, velocidad,
                    potencia_salto, vidas,danio,aporte_puntos,temporizador)
-    
+
     enemigo.superficie_apoyo = None
 
     return enemigo
@@ -73,9 +73,6 @@ class Enemigo(Personaje):
 
         # REBOTE SOBRE LA PLATAFORMA EN LA QUE SE ENCUENTRA
 
-        print(self.lados['left'].x)
-        print(self.lados['main'].x)
-
         if self.superficie_apoyo is not None:
             if (self.ultima_accion == "derecha" and
                 jugador.lados['main'].colliderect(self.lados['right'])):
@@ -92,12 +89,10 @@ class Enemigo(Personaje):
                     self.accion = self.ultima_accion
 
                 if (self.accion == "derecha" and self.lados['right'].x >= self.superficie_apoyo.lados['right'].x):
-                        print("cambia de lado a izq")
                         self.accion = "izquierda"
 
                 elif (self.accion == "izquierda" and self.lados['left'].x <= 2):
                         self.accion = "derecha"
-                        print("cambia de lado a der")
 
     def update(self, pantalla, lista_plataformas, personajes):
 

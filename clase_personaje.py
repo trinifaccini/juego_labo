@@ -49,8 +49,6 @@ class Personaje(ObjetoAnimado):
             if (self.lados['bottom'].colliderect(plat.lados['top'])):
                 if self.superficie_apoyo is None:
                     self.superficie_apoyo = plat
-                    print(plat.lados['main'].x)
-                    print(plat.lados['right'].x)
                 self.esta_saltando = False
                 self.lados["main"].bottom = plat.lados['main'].top + 5
                 self.desplazamiento_y = 0

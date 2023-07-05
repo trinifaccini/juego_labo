@@ -8,7 +8,6 @@ from clase_item import Item
 from clase_nivel import Nivel
 from clase_plataforma import Plataforma
 from datos_juego import TAMANIO_PANTALLA, W,jugador
-from clase_enemigo import Enemigo
 from config_img import diccionario_animaciones_yeti_normal, diccionario_animaciones_yeti_rojo
 
 fondo = pygame.image.load("Recursos/Fondos/fondo_nivel_3.png")
@@ -18,7 +17,7 @@ enemigo_uno_inicial = Boss((300,200), (200,0), diccionario_animaciones_yeti_norm
                       diccionario_animaciones_yeti_rojo,5, -15, 2000, 200, 300,7)
 
 enemigo_uno = Boss((200,150), (200,0), diccionario_animaciones_yeti_normal,
-                      diccionario_animaciones_yeti_rojo,7, -15, 2000, 200, 300,5)
+                      diccionario_animaciones_yeti_rojo,7, -15, 7000, 1000, 300,5)
 
 
 piso_1 = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Tierra",
@@ -39,7 +38,7 @@ items = [item_uno, item_dos]
 trampas = []
 
 
-nivel_tres = Nivel(fondo, lista_plataformas,enemigos_iniciales,enemigos, items,trampas, 60, 7600,3,5)
+nivel_tres = Nivel(fondo, lista_plataformas,enemigos, items,trampas, 60, 7600,3,5)
 
 # nivel_tres = {"fondo": fondo,
 #              "plat": lista_plataformas,

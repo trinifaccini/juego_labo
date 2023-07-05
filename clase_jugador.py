@@ -25,7 +25,7 @@ class Jugador(Personaje):
 
         self.accion = "derecha"
         self.puntos = 0
-        self.sonido_colision_item = pygame.mixer.Sound('Recursos/Audio/ñam.mp3')
+        self.sonido_colision_item = pygame.mixer.Sound('Recursos/Audio/coin.mp3')
         self.sonido_colision_proyectil = pygame.mixer.Sound('Recursos/Audio/snowball.mp3')
         self.volumen = 5
 
@@ -124,4 +124,5 @@ class Jugador(Personaje):
         self.verificar_colision_trampas(trampas)
 
         if keys[pygame.K_SPACE]:
-            self.lanzar_proyectil(10)
+            if self.accion != "atacado":
+                self.lanzar_proyectil(10)

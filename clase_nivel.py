@@ -8,20 +8,26 @@ ARCHIVO CLASE NIVEL
 
 import copy
 import random
-from clase_enemigo import Enemigo
+from clase_boss import deepcopy_boss
+from clase_enemigo import Enemigo, deepcopy_enemigo
 from clase_item import Item
 from config_img import *
 from datos_juego import H, W
 
 class Nivel():
 
-    def __init__(self, fondo, plataformas:list, enemigos_iniciales:list, enemigos,
+    def __init__(self, fondo, plataformas:list, enemigos_iniciales:list,
                  items:list, trampas, tiempo:int, puntos_requeridos:int,
                  nivel:int, temporizador) -> None:
 
         self.fondo = fondo
         self.tiempo = tiempo
         self.enemigos_iniciales = enemigos_iniciales
+        
+        enemigos = []
+        for enemigo in enemigos_iniciales:
+            enemigos.append(deepcopy_enemigo(enemigo))
+            
         self.enemigos = enemigos
         self.items = items
         self.trampas = trampas
@@ -36,7 +42,7 @@ class Nivel():
     def generar_proyectiles(self) -> None:
 
         for enemigo in self.enemigos:
-            if self.tiempo % enemigo.temporizador == 0:
+            if self.tiempo % enemigo.temporizador == 0 and enemigo.accion != "ataca":
                 enemigo.lanzar_proyectil(15)
 
     def enemigo_segun_nivel(self) -> Enemigo:
@@ -99,6 +105,7 @@ class Nivel():
     def posicionar_enemigos(self, rect_pantalla, jugador) -> None:
 
         lista = [jugador]
+        
         for enemigo in self.enemigos:
 
             if self.nivel == 3:
@@ -139,6 +146,19 @@ class Nivel():
         self.posicionar_items(rect_pantalla)
         self.posicionar_trampas(rect_pantalla)
         self.posicionar_jugador(rect_pantalla,jugador, keys)
+
+    def resetear_enemigos_nivel(self) -> None:
+
+        self.enemigos.clear()
+        enemigos = []
+
+        if self.nivel != 3:
+            for enemigo in self.enemigos_iniciales:
+                enemigos.append(deepcopy_enemigo(enemigo))
+        else:
+            enemigos.append(deepcopy_boss(self.enemigos_iniciales[0]))
+
+        self.enemigos = enemigos
 
 
     def update_personalizado(self, jugador,pantalla, keys):
