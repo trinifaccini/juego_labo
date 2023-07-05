@@ -60,17 +60,6 @@ class Juego():
                                         path_img="Recursos/Interfaces/interfaces_3.png")
         self.pausar_juego(form_pausa)
 
-    # def btn_silenciar_click(self, param):
-
-    #     if pygame.mixer.music.get_busy():
-    #         pygame.mixer.music.pause()
-    #         self.jugador.volumen = 0
-    #         self.boton_sonido.set_background_image("Recursos/Interfaces/button_nosound.png")
-    #     else:
-    #         pygame.mixer.music.unpause()
-    #         self.jugador.volumen = 5
-    #         self.boton_sonido.set_background_image("Recursos/Interfaces/button_sound.png")
-
     def btn_config_click(self, param):
 
         form_settings = FormSettings(self.pantalla,

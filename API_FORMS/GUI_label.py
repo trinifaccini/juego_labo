@@ -52,4 +52,6 @@ class Label(Widget):
         return self._text
     
     def update(self, lista_eventos):
-        self.draw()
+
+        if self._text != "":
+            self.draw()

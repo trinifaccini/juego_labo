@@ -120,6 +120,13 @@ class FormInicio(Form):
                                  w/2+5, 200,ancho_btn_ranking, ancho_btn_ranking,
                                  "Recursos/Interfaces/button_settings.png",
                                  self.btn_settings_click, "x")
+        
+        self.label_error = Label(self._slave,
+                                self.centro-100, 350 ,200, 30,
+                                "", "Recursos/Fonts/Snowes.ttf", 25,
+                                "White", "Recursos/Interfaces/interfaces_5.png")
+        
+        self.mostrar_error = False
 
         ######
 
@@ -135,6 +142,7 @@ class FormInicio(Form):
         self.lista_widgets.append(self.boton_jugar)
         self.lista_widgets.append(self.boton_settings)
         self.lista_widgets.append(self.boton_ranking)
+        self.lista_widgets.append(self.label_error)
 
         pygame.mixer.music.load("Recursos/Audio/musica.mp3")
         pygame.mixer.music.set_volume(0.2)
@@ -144,12 +152,7 @@ class FormInicio(Form):
 
     def mostrar_label_error(self, mensaje) -> None:
 
-        label_error = Label(self._slave,
-                                self.centro-100, 350 ,200, 30,
-                                mensaje, "Recursos/Fonts/Snowes.ttf", 25,
-                                "White", "Recursos/Interfaces/interfaces_5.png")
-
-        self.lista_widgets.append(label_error)
+        self.label_error.set_text(mensaje)
 
     def btn_crear_jugar_click(self, param):
 
@@ -167,10 +170,7 @@ class FormInicio(Form):
                     "nivel_max": 0
                 }
 
-                if len(self.lista_widgets) == 13:
-                    print("hola")
-                    self.lista_widgets.remove(self.lista_widgets[len(self.lista_widgets)-1])
-
+                self.label_error.set_text("")
                 self.flag_jugar = True
 
             else:
@@ -204,12 +204,8 @@ class FormInicio(Form):
                                    color_border="White",
                                    border_size=-1,
                                    active=True)
-                
-                if len(self.lista_widgets) == 13:
-                    print("hola")
-                    self.lista_widgets.remove(self.lista_widgets[len(self.lista_widgets)-1])
-                    
-                #self.flag_jugar = True
+
+                self.label_error.set_text("")
                 self.show_dialog(form_niveles)
 
             else:

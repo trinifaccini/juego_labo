@@ -66,6 +66,7 @@ while True:
         if form_final.estado_juego is None:
             juego = None
             form_inicio.flag_jugar = False
+            form_inicio = FormInicio(PANTALLA, 50, 25, W-100, H-50,"Recursos/Fondos/bg-icebergs-2.png")
 
     else:
 
