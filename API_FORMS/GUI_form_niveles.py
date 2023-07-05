@@ -98,9 +98,9 @@ class FormNiveles(Form):
 
     def btn_jugar_click(self, param):
 
+        self.end_dialog()
         self.padre.nivel = param
         self.padre.flag_jugar = True
-        self.end_dialog()
 
     def btn_atras_click(self, param):
 

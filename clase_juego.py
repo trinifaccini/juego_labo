@@ -32,25 +32,6 @@ class Juego():
         self.niveles = niveles
         self.estado_juego = None
 
-        # self.form_general = FormGeneral(pantalla,
-        #                            x=W/2-400,
-        #                            y=25,
-        #                            w=800,
-        #                            h=500,
-        #                            color_background="dfgdfg",
-        #                            color_border="Blue",
-        #                            border_size=5,
-        #                            active=True)
-
-        # if pygame.mixer.music.get_busy():
-        #     path_sonido = "Recursos/Interfaces/button_sound.png"
-        # else:
-        #     path_sonido = "Recursos/Interfaces/button_nosound.png"
-
-        # self.boton_sonido = Button_Image(pantalla, 0, 0,W-60,70,50,50,
-        #                          path_sonido,
-        #                          self.btn_silenciar_click, "x")
-
         self.boton_config = Button_Image(pantalla, 0, 0,W-60,70,50,50,
                                  "Recursos/Interfaces/button_settings.png",
                                  self.btn_config_click, "x")
@@ -107,7 +88,6 @@ class Juego():
 
 
     def posicionar_form_general(self, lista_eventos) -> None:
-        #self.form_general.update(lista_eventos)
         self.boton_config.update(lista_eventos)
         self.boton_pausa.update(lista_eventos)
 

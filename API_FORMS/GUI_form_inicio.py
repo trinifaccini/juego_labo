@@ -64,7 +64,7 @@ class FormInicio(Form):
                                          pos_x_label_uno, y_uno,ancho_label, alto_label,
                                          "NUEVO JUGADOR", "Recursos/Fonts/Snowes.ttf", 25,
                                          "White", "Recursos/Interfaces/interfaces.png")
-        
+
         self.label_nombre = Label(self._slave,
                                          pos_x_label_uno, y_uno+20,ancho_label, alto_label,
                                          "NOMBRE", "Recursos/Fonts/Snowes.ttf", 25,
@@ -93,7 +93,7 @@ class FormInicio(Form):
                                  ancho_txt, 50,
                                  CELESTE, "Blue", self.btn_crear_jugar_click,
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
-        
+
         self.label_jugador_existente = Label(self._slave, pos_x_label_dos, y_uno,
                                              ancho_label, alto_label,
                                              "JUGADOR EXISTENTE", "Recursos/Fonts/Snowes.ttf", 25, 
@@ -106,23 +106,21 @@ class FormInicio(Form):
                                        "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
         self.boton_jugar = Button(self._slave, x, y,
-                                 pos_x_txt_dos,  y_uno + alto_txt + alto_label + espacio*2, ancho_txt, 50,
-                                 CELESTE, "Blue", self.btn_jugar_click,
+                                 pos_x_txt_dos,  y_uno + alto_txt + alto_label + espacio*2,
+                                 ancho_txt, 50,CELESTE, "Blue", self.btn_jugar_click,
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
-        
+
         self.boton_ranking = Button_Image(self._slave, x, y,
                                  w/2 - ancho_btn_ranking - 5, 200,
                                  ancho_btn_ranking, ancho_btn_ranking,
                                  "Recursos/Interfaces/button_ranking.png",
                                  self.btn_ranking_click, "x")
-        
+
         self.boton_settings = Button_Image(self._slave, x, y,
-                                 w/2+5, 200,
-                                 ancho_btn_ranking, ancho_btn_ranking,
+                                 w/2+5, 200,ancho_btn_ranking, ancho_btn_ranking,
                                  "Recursos/Interfaces/button_settings.png",
                                  self.btn_settings_click, "x")
-    
-        
+
         ######
 
         self.lista_widgets.append(self.label_bienvenida)
@@ -150,10 +148,9 @@ class FormInicio(Form):
                                 self.centro-100, 350 ,200, 30,
                                 mensaje, "Recursos/Fonts/Snowes.ttf", 25,
                                 "White", "Recursos/Interfaces/interfaces_5.png")
-        
+
         self.lista_widgets.append(label_error)
 
-    
     def btn_crear_jugar_click(self, param):
 
         if(self.nombre_jugador.get_text() != "" and self.usuario_jugador_nuevo.get_text() != ""
@@ -169,6 +166,10 @@ class FormInicio(Form):
                     "puntos": 0,
                     "nivel_max": 0
                 }
+
+                if len(self.lista_widgets) == 13:
+                    print("hola")
+                    self.lista_widgets.remove(self.lista_widgets[len(self.lista_widgets)-1])
 
                 self.flag_jugar = True
 
@@ -203,7 +204,12 @@ class FormInicio(Form):
                                    color_border="White",
                                    border_size=-1,
                                    active=True)
-
+                
+                if len(self.lista_widgets) == 13:
+                    print("hola")
+                    self.lista_widgets.remove(self.lista_widgets[len(self.lista_widgets)-1])
+                    
+                #self.flag_jugar = True
                 self.show_dialog(form_niveles)
 
             else:

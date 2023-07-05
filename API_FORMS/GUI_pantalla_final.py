@@ -29,7 +29,9 @@ class FormFinal(Form):
 
         ######
 
-        pos_x = w/2 - 250
+        pos_x = w/2 - 225
+
+        self.estado_juego = estado_juego
 
         if estado_juego == "gano":
             texto = "GANASTE"
@@ -42,27 +44,33 @@ class FormFinal(Form):
             texto_adicional = "TE QUEDASTE SIN VIDA"
 
 
-        self.label_bienvenida = Label(self._slave, pos_x, 10, 500, 50,
-                                   texto, "Recursos/Fonts/Snowes.ttf", 40, "White",
-                                   "Recursos/Interfaces/interfaces_2.png")
-        
-        self.label_adicional = Label(self._slave, pos_x, 70, 500, 50,
-                                   texto_adicional, "Recursos/Fonts/Snowes.ttf", 40, "White",
-                                   "Recursos/Interfaces/interfaces_2.png")
+        self.label_bienvenida = Label(self._slave, pos_x, 60, 450, 100,
+                                   f"{texto}:{texto_adicional}", "Recursos/Fonts/Snowes.ttf",
+                                   40, "White","Recursos/Interfaces/interfaces_3.png")
 
+        # self.label_adicional = Label(self._slave, pos_x, 120, 500, 50,
+        #                            texto_adicional, "Recursos/Fonts/Snowes.ttf", 40, "White",
+        #                            "Recursos/Interfaces/interfaces_2.png")
 
+        self.boton_home = Button(self._slave, x, y,
+                                 w/2-150, h/2+100,300, 50,
+                                 CELESTE, "Blue", self.btn_home_click,"x",
+                                 "VOLVER AL MENU PRINCIPAL", "Recursos/Fonts/Snowes.ttf", 30, "Black")
 
-        ######
 
         self.lista_widgets.append(self.label_bienvenida)
-        self.lista_widgets.append(self.label_adicional)
+        #self.lista_widgets.append(self.label_adicional)
+        self.lista_widgets.append(self.boton_home)
         self.render()
 
+    def btn_home_click(self,param) -> None:
+        print("apretando")
+        self.estado_juego = None
 
     def render(self):
         self.draw()
 
-    def update(self, lista_eventos):
+    def update(self, lista_eventos, juego):
 
         if self.verificar_dialog_result():
 
@@ -75,5 +83,8 @@ class FormFinal(Form):
 
         else:
             self.hijo.update(lista_eventos)
+
+        if self.estado_juego is None:
+            juego = None
 
         return super().update(lista_eventos)

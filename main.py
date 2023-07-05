@@ -55,12 +55,17 @@ while True:
         form_inicio.update(eventos)
 
     elif juego is not None and juego.estado_juego is not None:
+
         PANTALLA.fill("Black")
 
         if form_final is None:
             form_final = FormFinal(PANTALLA, 50, 25, W-100, H-50,
                                    "Recursos/Fondos/bg-icebergs-2.png",juego.estado_juego)
-        form_final.update(eventos)
+        form_final.update(eventos, juego)
+
+        if form_final.estado_juego is None:
+            juego = None
+            form_inicio.flag_jugar = False
 
     else:
 
