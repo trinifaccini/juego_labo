@@ -48,7 +48,7 @@ class Jugador(Personaje):
     def verificar_colision_trampas(self, trampas):
 
         for item in trampas:
-            if self.lados['main'].colliderect(item.lados['main']):  
+            if self.lados['main'].colliderect(item.lados['main']):
                 self.vidas += item.cambio_vida
                 self.puntos += item.cambio_puntos
         

@@ -18,7 +18,7 @@ enemigo_uno_inicial = Boss((300,200), (200,0), diccionario_animaciones_yeti_norm
                       diccionario_animaciones_yeti_rojo,5, -15, 2000, 200, 300,7)
 
 enemigo_uno = Boss((200,150), (200,0), diccionario_animaciones_yeti_normal,
-                      diccionario_animaciones_yeti_rojo,5, -15, 2000, 200, 300,7)
+                      diccionario_animaciones_yeti_rojo,7, -15, 2000, 200, 300,5)
 
 
 piso_1 = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Tierra",

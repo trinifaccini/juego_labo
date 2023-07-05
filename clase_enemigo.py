@@ -73,6 +73,9 @@ class Enemigo(Personaje):
 
         # REBOTE SOBRE LA PLATAFORMA EN LA QUE SE ENCUENTRA
 
+        print(self.lados['left'].x)
+        print(self.lados['main'].x)
+
         if self.superficie_apoyo is not None:
             if (self.ultima_accion == "derecha" and
                 jugador.lados['main'].colliderect(self.lados['right'])):
@@ -88,15 +91,11 @@ class Enemigo(Personaje):
                 if self.accion == "ataca":
                     self.accion = self.ultima_accion
 
-                if (self.accion == "derecha"):
-                    if (self.lados['right'].x == (self.superficie_apoyo.lados['main'].x +
-                                            self.superficie_apoyo.lados['main'].width) or self.lados['right'].x == W-self.w-2):
+                if (self.accion == "derecha" and self.lados['right'].x >= self.superficie_apoyo.lados['right'].x):
                         print("cambia de lado a izq")
                         self.accion = "izquierda"
 
-                elif (self.accion == "izquierda"):
-                    if (self.lados['left'].x == self.superficie_apoyo.lados['main'].x or
-                        self.lados['main'].x == 5):
+                elif (self.accion == "izquierda" and self.lados['left'].x <= 2):
                         self.accion = "derecha"
                         print("cambia de lado a der")
 
