@@ -18,7 +18,7 @@ TRANSPARENTE = (0,0,0,0)
 
 class FormFinal(Form):
 
-    def __init__(self, screen,x,y,w,h, path_image, estado_juego, color_background = None, color_border="Magenta", border_size=-1,
+    def __init__(self, screen,x,y,w,h, path_image, estado_juego, puntos, color_background = None, color_border="Magenta", border_size=-1,
                  active=True):
 
         super().__init__(screen, x,y, w,h,color_background, color_border, border_size, active)
@@ -35,7 +35,7 @@ class FormFinal(Form):
 
         if estado_juego == "gano":
             texto = "GANASTE"
-            texto_adicional = "TUS PUNTOS: "
+            texto_adicional = f"TUS PUNTOS: {puntos}"
         elif estado_juego == "perdiste":
             texto = "PERDISTE"
             texto_adicional = "NO ALCANZASTE LOS PUNTOS"
@@ -45,7 +45,7 @@ class FormFinal(Form):
 
 
         self.label_bienvenida = Label(self._slave, pos_x, 60, 450, 100,
-                                   f"{texto}:{texto_adicional}", "Recursos/Fonts/Snowes.ttf",
+                                   f"{texto}: {texto_adicional}", "Recursos/Fonts/Snowes.ttf",
                                    40, "White","Recursos/Interfaces/interfaces_3.png")
 
         # self.label_adicional = Label(self._slave, pos_x, 120, 500, 50,

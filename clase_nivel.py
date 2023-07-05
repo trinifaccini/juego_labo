@@ -44,7 +44,7 @@ class Nivel():
 
         if self.nivel == 2:
             return Enemigo((100,90), (200,0), diccionario_animaciones_yeti_normal,
-                            diccionario_animaciones_oso_rojo, 5, -15, 2000,
+                            diccionario_animaciones_yeti_rojo, 5, -15, 2000,
                             danio,200,temporizador)
 
     def generar_enemigos(self) -> None:

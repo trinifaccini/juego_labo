@@ -49,7 +49,7 @@ class FormInicio(Form):
         pos_x_txt_uno = w/4 - ancho_txt/2
         pos_x_txt_dos = (w/4)*3 - ancho_txt/2
 
-        y_uno = 90
+        y_uno = 120
         espacio = 15
 
         ancho_btn_ranking = 50
@@ -65,31 +65,26 @@ class FormInicio(Form):
                                          "NUEVO JUGADOR", "Recursos/Fonts/Snowes.ttf", 25,
                                          "White", "Recursos/Interfaces/interfaces.png")
 
-        self.label_nombre = Label(self._slave,
-                                         pos_x_label_uno, y_uno+20,ancho_label, alto_label,
-                                         "NOMBRE", "Recursos/Fonts/Snowes.ttf", 25,
-                                         "White", "")
+        # self.nombre_jugador = TextBox(self._slave, x,y,
+        #                               pos_x_txt_uno, y_uno + alto_label + espacio,
+        #                               ancho_txt,alto_txt,
+        #                               "Grey", "White", CELESTE, CELESTE, 5,
+        #                               "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
-        self.nombre_jugador = TextBox(self._slave, x,y,
-                                      pos_x_txt_uno, y_uno + alto_label + espacio,
-                                      ancho_txt,alto_txt,
-                                      "Grey", "White", CELESTE, CELESTE, 5,
-                                      "Recursos/Fonts/Snowes.ttf", 20, "Black")
-
-        self.apellido_jugador = TextBox(self._slave, x,y,
-                                        pos_x_txt_uno, y_uno + alto_label + alto_txt + espacio*2,
-                                        ancho_txt,alto_txt,
-                                        "Grey", "White", CELESTE, CELESTE, 5,
-                                        "Recursos/Fonts/Snowes.ttf", 20, "Black")
+        # self.apellido_jugador = TextBox(self._slave, x,y,
+        #                                 pos_x_txt_uno, y_uno + alto_label + alto_txt + espacio*2,
+        #                                 ancho_txt,alto_txt,
+        #                                 "Grey", "White", CELESTE, CELESTE, 5,
+        #                                 "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
         self.usuario_jugador_nuevo = TextBox(self._slave, x,y,
-                                       pos_x_txt_uno, y_uno + alto_label + alto_txt*2 + espacio*3,
+                                       pos_x_txt_uno, y_uno + alto_label + espacio,
                                        ancho_txt, alto_txt,
                                        "Grey", "White", CELESTE, CELESTE, 5,
                                        "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
         self.boton_crear_jugar = Button(self._slave, x, y,
-                                 pos_x_txt_uno, y_uno + alto_label+ alto_txt*3 + espacio*4,
+                                 pos_x_txt_uno,  y_uno + alto_txt + alto_label + espacio*2,
                                  ancho_txt, 50,
                                  CELESTE, "Blue", self.btn_crear_jugar_click,
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
@@ -106,7 +101,7 @@ class FormInicio(Form):
                                        "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
         self.boton_jugar = Button(self._slave, x, y,
-                                 pos_x_txt_dos,  y_uno + alto_txt + alto_label + espacio*2,
+                                 pos_x_txt_dos, y_uno + alto_txt + alto_label + espacio*2,
                                  ancho_txt, 50,CELESTE, "Blue", self.btn_jugar_click,
                                  "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
@@ -133,9 +128,8 @@ class FormInicio(Form):
         self.lista_widgets.append(self.label_bienvenida)
         self.lista_widgets.append(self.label_jugador_nuevo)
         self.lista_widgets.append(self.label_jugador_existente)
-        self.lista_widgets.append(self.label_nombre)
-        self.lista_widgets.append(self.nombre_jugador)
-        self.lista_widgets.append(self.apellido_jugador)
+        # self.lista_widgets.append(self.nombre_jugador)
+        # self.lista_widgets.append(self.apellido_jugador)
         self.lista_widgets.append(self.usuario_jugador_nuevo)
         self.lista_widgets.append(self.usuario_jugador_existente)
         self.lista_widgets.append(self.boton_crear_jugar)
@@ -156,12 +150,9 @@ class FormInicio(Form):
 
     def btn_crear_jugar_click(self, param):
 
-        if(self.nombre_jugador.get_text() != "" and self.usuario_jugador_nuevo.get_text() != ""
-           and self.apellido_jugador.get_text() != ""):
+        if(self.usuario_jugador_nuevo.get_text() != ""):
 
-            guardado = insertar_jugador(self.nombre_jugador.get_text(),
-                                        self.apellido_jugador.get_text(),0, 0,
-                                        self.usuario_jugador_nuevo.get_text(), "jugadores.db")
+            guardado = insertar_jugador(0, 0, self.usuario_jugador_nuevo.get_text(), "jugadores.db")
 
             if guardado:
                 self.usuario_jugador = {

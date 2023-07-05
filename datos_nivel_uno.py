@@ -28,13 +28,13 @@ plataforma_1 = Plataforma((200,20), (0, 500), "Tierra",
                         "Recursos/Plataformas/plataforma_tierra_nieve.png")
 
 
-plataforma_2 = Plataforma((200,20), (300, 500), "Tierra",
+plataforma_2 = Plataforma((200,20), (300, 435), "Tierra",
                         "Recursos/Plataformas/plataforma_tierra_nieve.png")
 
-plataforma_3 = Plataforma((200,20), (500, 400), "Tierra",
+plataforma_3 = Plataforma((200,20), (600, 400), "Tierra",
                         "Recursos/Plataformas/plataforma_tierra_nieve.png")
 
-plataforma_4 = Plataforma((200,20), (W-200, 300), "Tierra",
+plataforma_4 = Plataforma((200,20), (W-200-100, 300), "Tierra",
                         "Recursos/Plataformas/plataforma_tierra_nieve.png")
 
 

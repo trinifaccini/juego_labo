@@ -13,12 +13,22 @@ import sqlite3
 
 def crear_base() -> None:
 
+    # sentencia_create = '''
+    #                 create table Jugadores
+    #                     (
+    #                         id integer primary key,
+    #                         nombre text,
+    #                         apellido text,
+    #                         nivel_max integer,
+    #                         puntos integer,
+    #                         usuario text UNIQUE
+    #                     )
+    #                 '''
+    
     sentencia_create = '''
                     create table Jugadores
                         (
                             id integer primary key,
-                            nombre text,
-                            apellido text,
                             nivel_max integer,
                             puntos integer,
                             usuario text UNIQUE
@@ -31,16 +41,21 @@ def crear_base() -> None:
         except Exception as e:
             print("error", e)
 
-def insertar_jugador(nombre, apellido, nivel, puntos, usuario, nombre_db) -> None:
+def insertar_jugador(nivel, puntos, usuario, nombre_db) -> None:
+
+    # insert = '''
+    #     insert into Jugadores (nombre,apellido,nivel_max,puntos, usuario)
+    #     values (?,?,?,?,?)
+    # '''
 
     insert = '''
-        insert into Jugadores (nombre,apellido,nivel_max,puntos, usuario)
-        values (?,?,?,?,?)
+        insert into Jugadores (nivel_max,puntos, usuario)
+        values (?,?,?)
     '''
 
     with sqlite3.connect(nombre_db) as conexion:
         try:
-            conexion.execute(insert, (nombre, apellido, nivel, puntos, usuario))
+            conexion.execute(insert, (nivel, puntos, usuario))
             return True
         except Exception as e:
             print("error", e)
@@ -86,4 +101,6 @@ def traer_ranking_db(nombre_db) -> list:
         except Exception as e:
             print("error", e)
 
-traer_ranking_db("jugadores.db")
+#traer_ranking_db("jugadores.db")
+
+crear_base()
