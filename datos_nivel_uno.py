@@ -15,16 +15,16 @@ fondo = pygame.image.load("Recursos/Fondos/aldea__.png")
 fondo = pygame.transform.scale(fondo, TAMANIO_PANTALLA)
 
 enemigo_uno = Enemigo((70,60), (200,0), diccionario_animaciones_oso_normal,
-                      diccionario_animaciones_oso_rojo, 5, -15, 100, 200,100,5)
+                      diccionario_animaciones_oso_rojo, 3, -15, 100, 200,100,5)
 
 enemigo_dos = Enemigo((70,60), (600,0), diccionario_animaciones_oso_normal,
-                      diccionario_animaciones_oso_rojo, 5, -15, 100, 200,100,10)
+                      diccionario_animaciones_oso_rojo, 3, -15, 100, 200,100,10)
 
 enemigo_uno_inicial = Enemigo((100,90), (200,0), diccionario_animaciones_oso_normal,
-                      diccionario_animaciones_oso_rojo, 5, -15, 100, 200,100,5)
+                      diccionario_animaciones_oso_rojo, 3, -15, 100, 200,100,5)
 
 enemigo_dos_inicial  = Enemigo((100,90), (600,0), diccionario_animaciones_oso_normal,
-                      diccionario_animaciones_oso_rojo, 5, -15, 100, 200,100,10)
+                      diccionario_animaciones_oso_rojo, 3, -15, 100, 200,100,10)
 
 
 piso = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Nieve",
@@ -62,7 +62,6 @@ items = [item_uno, item_dos]
 trampas = [trampa_uno, trampa_dos]
 
 nivel_uno = Nivel(fondo, lista_plataformas, enemigos_iniciales, enemigos, items,trampas, 30, 220,1,10)
-
 
 # nivel_uno = {"fondo": fondo,
 #              "plat": lista_plataformas,

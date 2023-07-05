@@ -6,6 +6,7 @@
 ARCHIVO CLASE NIVEL
 '''
 
+import copy
 import random
 from clase_enemigo import Enemigo
 from clase_item import Item
@@ -27,6 +28,9 @@ class Nivel():
         self.nivel = nivel
         self.puntos_requeridos = puntos_requeridos
         self.temporizador = temporizador
+
+    def copiar(self):
+        return copy.deepcopy(self)
 
     def generar_proyectiles(self) -> None:
 
@@ -95,7 +99,11 @@ class Nivel():
 
         lista = [jugador]
         for enemigo in self.enemigos:
-            enemigo.update(rect_pantalla, self.plataformas, lista)
+
+            if self.nivel == 3:
+                enemigo.update(rect_pantalla, self.plataformas, self.items, lista)
+            else:
+                enemigo.update(rect_pantalla, self.plataformas, lista)
             for proyectil in enemigo.lista_proyectiles:
                 if proyectil.colisiono:
                     enemigo.lista_proyectiles.remove(proyectil)

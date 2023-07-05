@@ -3,6 +3,7 @@ NIVEL 3
 '''
 
 import pygame
+from clase_boss import Boss
 from clase_item import Item
 from clase_nivel import Nivel
 from clase_plataforma import Plataforma
@@ -13,10 +14,10 @@ from config_img import diccionario_animaciones_yeti_normal, diccionario_animacio
 fondo = pygame.image.load("Recursos/Fondos/fondo_nivel_3.png")
 fondo = pygame.transform.scale(fondo, TAMANIO_PANTALLA)
 
-enemigo_uno_inicial = Enemigo((300,200), (200,0), diccionario_animaciones_yeti_normal,
+enemigo_uno_inicial = Boss((300,200), (200,0), diccionario_animaciones_yeti_normal,
                       diccionario_animaciones_yeti_rojo,5, -15, 2000, 200, 300,7)
 
-enemigo_uno = Enemigo((400,300), (200,0), diccionario_animaciones_yeti_normal,
+enemigo_uno = Boss((200,150), (200,0), diccionario_animaciones_yeti_normal,
                       diccionario_animaciones_yeti_rojo,5, -15, 2000, 200, 300,7)
 
 

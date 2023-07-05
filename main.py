@@ -56,7 +56,8 @@ while True:
 
         if form_final is None:
             form_final = FormFinal(PANTALLA, 50, 25, W-100, H-50,
-                                   "Recursos/Fondos/bg-icebergs-2.png",juego.estado_juego, juego.jugador.puntos)
+                                   "Recursos/Fondos/bg-icebergs-2.png",juego.estado_juego, 
+                                   juego.jugador.puntos)
             
         form_final.update(eventos, juego)
 
