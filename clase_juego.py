@@ -27,27 +27,21 @@ class Juego():
 
     def __init__(self, pantalla, jugador, nivel_actual, base_datos, usuario) -> None:
 
+        pygame.mixer.init()
+
         self.pantalla = pantalla
         self.usuario = usuario
         self.jugando = True
         self.base_datos = base_datos
         self.jugador = jugador
         self.nivel_actual = nivel_actual
-
-        # uno = Nivel(nivel_uno['fondo'], nivel_uno['plat'], nivel_uno['enemigos'],
-        #             nivel_uno['items'], nivel_uno['tiempo'], nivel_uno['puntos'], 1,
-        #             nivel_uno['temp'])
-        
-        # dos = Nivel(nivel_dos['fondo'], nivel_dos['plat'], nivel_dos['enemigos'],
-        #             nivel_dos['items'], nivel_dos['tiempo'], nivel_dos['puntos'], 1,
-        #             nivel_dos['temp'])
-        
-        # tres = Nivel(nivel_tres['fondo'], nivel_tres['plat'], nivel_tres['enemigos'],
-        #             nivel_tres['items'], nivel_tres['tiempo'], nivel_tres['puntos'], 1,
-        #             nivel_tres['temp'])
-
         self.niveles = [nivel_uno, nivel_dos, nivel_tres]
         self.estado_juego = None
+
+        pygame.mixer.music.load("Recursos/Audio/musica.mp3")
+        pygame.mixer.music.set_volume(pygame.mixer.music.get_volume())
+        pygame.mixer.music.play(-1) # bucle
+
 
         self.boton_config = Button_Image(pantalla, 0, 0,W-60,70,50,50,
                                  "Recursos/Interfaces/button_settings.png",

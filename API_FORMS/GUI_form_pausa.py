@@ -59,8 +59,13 @@ class FormPausa(Form):
 
     def btn_home_click(self, param) -> None:
 
+        pygame.mixer.init()
+
         self.jugando = False
         self.pausado = False
+        pygame.mixer.music.load("Recursos/Audio/fondo.mp3")
+        pygame.mixer.music.set_volume(pygame.mixer.music.get_volume())
+        pygame.mixer.music.play(-1) # bucle
         self.end_dialog()
 
     def btn_back_click(self, param) -> None:

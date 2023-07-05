@@ -135,7 +135,7 @@ class FormInicio(Form):
         self.lista_widgets.append(self.boton_ranking)
         self.lista_widgets.append(self.label_error)
 
-        pygame.mixer.music.load("Recursos/Audio/musica.mp3")
+        pygame.mixer.music.load("Recursos/Audio/fondo.mp3")
         pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.play(-1) # bucle
 
