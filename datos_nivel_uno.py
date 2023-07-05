@@ -48,13 +48,21 @@ plataforma_4 = Plataforma((200,20), (W-200-100, 300), "Tierra",
 item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
 item_dos = Item((30,30), (200, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
 
+trampa_uno = Item((30,100), (plataforma_1.lados['main'].x+50, plataforma_1.lados['top'].y-100),
+                  -10, 0, "Recursos/Obstaculos/snow_108.png", True)
+
+trampa_dos = Item((50,50), (plataforma_3.lados['main'].x, plataforma_3.lados['top'].y-50),
+                  0, -10, "Recursos/Obstaculos/snow_1b.png", True)
+
 enemigos = [enemigo_uno, enemigo_dos]
 enemigos_iniciales = [enemigo_uno_inicial, enemigo_dos_inicial]
 lista_plataformas = [piso, plataforma_1, plataforma_2, plataforma_3, plataforma_4]
 
 items = [item_uno, item_dos]
+trampas = [trampa_uno, trampa_dos]
 
-nivel_uno = Nivel(fondo, lista_plataformas, enemigos_iniciales, enemigos, items, 30, 220,1,10)
+nivel_uno = Nivel(fondo, lista_plataformas, enemigos_iniciales, enemigos, items,trampas, 30, 220,1,10)
+
 
 # nivel_uno = {"fondo": fondo,
 #              "plat": lista_plataformas,

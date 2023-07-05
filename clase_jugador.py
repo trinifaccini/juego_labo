@@ -31,20 +31,27 @@ class Jugador(Personaje):
 
     # VERIFICO COLISION DE ITEM CON PERSONAJE JUGADOR UNICAMENTE
     # SI COLISIONA LO BORRO DE LA LISTA
-    def verificar_colision_items(self, items):
+    def verificar_colision_items_especiales(self, items):
 
         for item in items:
             if self.lados['main'].colliderect(item.lados['main']):
-                self.sonido_colision_item.set_volume(self.volumen)
-                self.sonido_colision_item.play()
-                self.vidas += item.cambio_vida
-                self.puntos += item.cambio_puntos
-                item.colisiono = True
+                if item.es_trampa is not True:
+                    self.sonido_colision_item.set_volume(self.volumen)
+                    self.sonido_colision_item.play()
+                    item.colisiono = True
+                    self.vidas += item.cambio_vida
+                    self.puntos += item.cambio_puntos
                 # lista_aux = items
                 # lista_aux.remove(item)
                 # del item
 
+    def verificar_colision_trampas(self, trampas):
 
+        for item in trampas:
+            if self.lados['main'].colliderect(item.lados['main']):  
+                self.vidas += item.cambio_vida
+                self.puntos += item.cambio_puntos
+        
     # SI VEO LO DE QUE SEA CADA UN SEGUNDO USAR ESTE METODO
     def verificar_colision_enemigos(self, enemigos):
 
@@ -94,7 +101,7 @@ class Jugador(Personaje):
 
     def update(self, pantalla, lista_plataformas, enemigos, items, keys):
 
-        self.verificar_colision_items(items)
+        self.verificar_colision_items_especiales(items)
         self.definir_accion(keys)
 
         if self.accion == "atacado":
@@ -106,7 +113,7 @@ class Jugador(Personaje):
         super().update(pantalla, lista_plataformas, enemigos)
 
 
-    def update_personalizado(self, enemigos, pantalla, keys):
+    def update_personalizado(self, enemigos,trampas, pantalla, keys):
 
         # Verifico la colision unicamente aca porque este update se llama
         # cada un segundo
@@ -114,6 +121,7 @@ class Jugador(Personaje):
         #self.verificar_colision_enemigos(enemigos, pantalla)
 
         self.daniar_personaje_por_enemigo(enemigos)
+        self.verificar_colision_trampas(trampas)
 
         if keys[pygame.K_SPACE]:
             self.lanzar_proyectil(10)

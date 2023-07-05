@@ -15,13 +15,14 @@ from datos_juego import H, W
 class Nivel():
 
     def __init__(self, fondo, plataformas:list, enemigos_iniciales:list, enemigos,
-                 items:list, tiempo:int, puntos_requeridos:int, nivel:int, temporizador) -> None:
+                 items:list, trampas, tiempo:int, puntos_requeridos:int, nivel:int, temporizador) -> None:
 
         self.fondo = fondo
         self.tiempo = tiempo
         self.enemigos_iniciales = enemigos_iniciales
         self.enemigos = enemigos
         self.items = items
+        self.trampas = trampas
         self.plataformas = plataformas # las plataformas van a venir con las trampas
         self.nivel = nivel
         self.puntos_requeridos = puntos_requeridos
@@ -114,6 +115,11 @@ class Nivel():
                 items_aux.remove(item)
                 del item
 
+    def posicionar_trampas(self, rect_pantalla) -> None:
+
+        for trampa in self.trampas:
+            trampa.update(rect_pantalla)
+
 
     def update(self, rect_pantalla, jugador, keys) -> None:
 
@@ -122,6 +128,7 @@ class Nivel():
         self.posicionar_plataformas(rect_pantalla)
         self.posicionar_enemigos(rect_pantalla, jugador)
         self.posicionar_items(rect_pantalla)
+        self.posicionar_trampas(rect_pantalla)
         self.posicionar_jugador(rect_pantalla,jugador, keys)
 
 
@@ -130,4 +137,4 @@ class Nivel():
         self.generar_proyectiles()
         self.generar_enemigos()
         self.generar_items_especiales()
-        jugador.update_personalizado(self.enemigos, pantalla, keys)
+        jugador.update_personalizado(self.enemigos, self.trampas, pantalla, keys)

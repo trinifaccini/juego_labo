@@ -29,19 +29,28 @@ piso_1 = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Nieve",
                 "Recursos/Plataformas/snow_33.png")
 
 
-plataforma = Plataforma((200,20), (0, 200), "Nieve",
+plataforma_1 = Plataforma((200,20), (0, 200), "Nieve",
                         "Recursos/Plataformas/snow_33.png")
+
+trampa_uno = Item((30,100), (plataforma_1.lados['main'].x+50, plataforma_1.lados['top'].y-100),
+                  -10, 0, "Recursos/Obstaculos/snow_108.png", True)
+
+trampa_dos = Item((50,50), (plataforma_1.lados['main'].x, plataforma_1.lados['top'].y-50),
+                  0, -10, "Recursos/Obstaculos/snow_1b.png", True)
+
 
 item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
 item_dos = Item((30,30), (300, 450),0, 100, "Recursos/Obstaculos/hamburguesa.png")
 
 enemigos = [enemigo_uno, enemigo_dos]
 enemigos_iniciales = [enemigo_uno_inicial, enemigo_dos_inicial]
-lista_plataformas = [piso_1, plataforma]
+lista_plataformas = [piso_1, plataforma_1]
 
 items = [item_uno, item_dos]
+trampas = [trampa_uno, trampa_dos]
 
-nivel_dos = Nivel(fondo, lista_plataformas,enemigos_iniciales, enemigos,items, 60, 2450,2,7)
+
+nivel_dos = Nivel(fondo, lista_plataformas,enemigos_iniciales, enemigos,items,trampas, 60, 2450,2,7)
 
 # nivel_dos = {"fondo": fondo,
 #              "plat": lista_plataformas,
