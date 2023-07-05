@@ -48,7 +48,8 @@ class FormSettings(Form):
                                    "Recursos/Interfaces/interfaces_4.png")
 
         self.slider_volumen = Slider(self._slave, x,y, pos_x_slider, 250, ancho_slider, 15,
-                                     0.2, "Blue", "White")
+                                     pygame.mixer.music.get_volume(), "Blue", "White")
+        
 
         if pygame.mixer.music.get_busy():
             texto_musica = "SILENCIAR MUSICA"

@@ -219,9 +219,8 @@ class Juego():
                 #     self.pausar_juego()
 
     def reiniciar_juego(self) -> None:
-        self.niveles[self.nivel_actual].tiempo = 60
+        self.niveles[self.nivel_actual].tiempo = 30
         self.jugador.vidas = 1100
-
 
     def reiniciar_enemigos_niveles(self) -> None:
         for nivel in self.niveles:

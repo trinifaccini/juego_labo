@@ -1,3 +1,15 @@
+'''
+FORMULARIO INICIO
+'''
+
+# pylint: disable=missing-function-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=unused-wildcard-import
+# pylint: disable=wildcard-import
+# pylint: disable=arguments-differ
+# pylint: disable=no-member
+
+
 import pygame
 from pygame.locals import * 
 
@@ -18,8 +30,8 @@ TRANSPARENTE = (0,0,0,0)
 
 class FormInicio(Form):
 
-    def __init__(self, screen,x,y,w,h, path_image, color_background = None, color_border="Magenta", border_size=-1,
-                 active=True):
+    def __init__(self, screen,x,y,w,h, path_image, color_border="Magenta",
+                 border_size=-1,active=True):
 
         super().__init__(screen, x,y, w,h,TRANSPARENTE, color_border, border_size, active)
 
@@ -42,7 +54,7 @@ class FormInicio(Form):
         alto_txt = 35
 
         pos_x = w/2 - 250
-        self.centro= w/2
+        self.centro = w/2
         pos_x_label_uno = w/4 - ancho_label/2
         pos_x_label_dos = (w/4)*3 - ancho_label/2
 
@@ -64,18 +76,6 @@ class FormInicio(Form):
                                          pos_x_label_uno, y_uno,ancho_label, alto_label,
                                          "NUEVO JUGADOR", "Recursos/Fonts/Snowes.ttf", 25,
                                          "White", "Recursos/Interfaces/interfaces.png")
-
-        # self.nombre_jugador = TextBox(self._slave, x,y,
-        #                               pos_x_txt_uno, y_uno + alto_label + espacio,
-        #                               ancho_txt,alto_txt,
-        #                               "Grey", "White", CELESTE, CELESTE, 5,
-        #                               "Recursos/Fonts/Snowes.ttf", 20, "Black")
-
-        # self.apellido_jugador = TextBox(self._slave, x,y,
-        #                                 pos_x_txt_uno, y_uno + alto_label + alto_txt + espacio*2,
-        #                                 ancho_txt,alto_txt,
-        #                                 "Grey", "White", CELESTE, CELESTE, 5,
-        #                                 "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
         self.usuario_jugador_nuevo = TextBox(self._slave, x,y,
                                        pos_x_txt_uno, y_uno + alto_label + espacio,
@@ -115,21 +115,18 @@ class FormInicio(Form):
                                  w/2+5, 200,ancho_btn_ranking, ancho_btn_ranking,
                                  "Recursos/Interfaces/button_settings.png",
                                  self.btn_settings_click, "x")
-        
+
         self.label_error = Label(self._slave,
                                 self.centro-100, 350 ,200, 30,
                                 "", "Recursos/Fonts/Snowes.ttf", 25,
                                 "White", "Recursos/Interfaces/interfaces_5.png")
-        
+  
         self.mostrar_error = False
 
         ######
-
         self.lista_widgets.append(self.label_bienvenida)
         self.lista_widgets.append(self.label_jugador_nuevo)
         self.lista_widgets.append(self.label_jugador_existente)
-        # self.lista_widgets.append(self.nombre_jugador)
-        # self.lista_widgets.append(self.apellido_jugador)
         self.lista_widgets.append(self.usuario_jugador_nuevo)
         self.lista_widgets.append(self.usuario_jugador_existente)
         self.lista_widgets.append(self.boton_crear_jugar)
@@ -150,7 +147,7 @@ class FormInicio(Form):
 
     def btn_crear_jugar_click(self, param):
 
-        if(self.usuario_jugador_nuevo.get_text() != ""):
+        if self.usuario_jugador_nuevo.get_text() != "":
 
             guardado = insertar_jugador(0, 0, self.usuario_jugador_nuevo.get_text(), "jugadores.db")
 
@@ -167,13 +164,11 @@ class FormInicio(Form):
             else:
                 self.mostrar_label_error("Ya existe ese usuario")
                 print("erorr")
-        else:
-            self.mostrar_label_error("Falta completar datos")
-                
+
 
     def btn_jugar_click(self, param):
 
-        if(self.usuario_jugador_existente.get_text() != ""):
+        if self.usuario_jugador_existente.get_text() != "":
 
             usuario = buscar_usuario_db("jugadores.db", self.usuario_jugador_existente.get_text())
 
@@ -201,6 +196,7 @@ class FormInicio(Form):
 
             else:
                 self.mostrar_label_error("Usuario inexistente")
+
 
 
     def btn_ranking_click(self, param):
@@ -257,4 +253,3 @@ class FormInicio(Form):
 
         else:
             self.hijo.update(lista_eventos)
-
