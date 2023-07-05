@@ -10,14 +10,16 @@ import random
 from clase_enemigo import Enemigo
 from clase_item import Item
 from config_img import *
+from datos_juego import H, W
 
 class Nivel():
 
-    def __init__(self, fondo, plataformas:list, enemigos:list,
+    def __init__(self, fondo, plataformas:list, enemigos_iniciales:list, enemigos,
                  items:list, tiempo:int, puntos_requeridos:int, nivel:int, temporizador) -> None:
 
         self.fondo = fondo
         self.tiempo = tiempo
+        self.enemigos_iniciales = enemigos_iniciales
         self.enemigos = enemigos
         self.items = items
         self.plataformas = plataformas # las plataformas van a venir con las trampas
@@ -33,33 +35,41 @@ class Nivel():
 
     def enemigo_segun_nivel(self) -> Enemigo:
 
-        danio = random.randint(100, 200)
         temporizador = random.randint(3, 10)
-        danio = random.randint(5, 10)
+        lista_pos_x = []
+
+        for plat in self.plataformas:
+            lista_pos_x.append(plat.lados['main'].x)
+
+        rand = random.randint(0, len(self.plataformas)-1)
 
         if self.nivel == 1:
-            return Enemigo((100,90), (200,0), diccionario_animaciones_oso_normal,
+            return Enemigo((100,90), (lista_pos_x[rand],0), diccionario_animaciones_oso_normal,
                                 diccionario_animaciones_oso_rojo, 5, -15, 2000,
-                                danio,200,temporizador)
+                                100,200,temporizador)
 
         if self.nivel == 2:
-            return Enemigo((100,90), (200,0), diccionario_animaciones_yeti_normal,
+            return Enemigo((100,90), (lista_pos_x[rand],0), diccionario_animaciones_yeti_normal,
                             diccionario_animaciones_yeti_rojo, 5, -15, 2000,
-                            danio,200,temporizador)
+                            150,200,temporizador)
 
     def generar_enemigos(self) -> None:
 
-        if self.tiempo % self.temporizador == 0:
+        if self.tiempo % self.temporizador == 0 and self.nivel != 3:
             enemigo = self.enemigo_segun_nivel()
             self.enemigos.append(enemigo)
 
     def generar_items_especiales(self) -> None:
 
         if self.tiempo % 10 == 0:
-            item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
+            pos_x = random.randint(0, W-100)
+            pos_y = random.randint(200, H-80)
+            item_uno = Item((30,50), (pos_x, pos_y), 10, 0, "Recursos/Obstaculos/coca.png")
             self.items.append(item_uno)
 
-        if self.tiempo % 12 == 0:
+        if self.tiempo % 15 == 0:
+            pos_x = random.randint(0, W-100)
+            pos_y = random.randint(200, H-40)
             item_dos = Item((30,30), (300, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
             self.items.append(item_dos)
 

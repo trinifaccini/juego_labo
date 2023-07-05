@@ -12,16 +12,21 @@ CLASE JUEGO
 import sys
 import pygame
 from API_FORMS.GUI_button_image import Button_Image
+from API_FORMS.GUI_form_estado_juego import CELESTE
 from API_FORMS.GUI_form_inicio import TRANSPARENTE
 from API_FORMS.GUI_form_pausa import FormPausa
 from API_FORMS.GUI_form_settings import FormSettings
+from clase_nivel import Nivel
 from config_db import actualizar_jugador
 from datos_juego import W
 from modo import *
+from datos_nivel_uno import nivel_uno
+from datos_nivel_dos import nivel_dos
+from datos_nivel_tres import nivel_tres
 
 class Juego():
 
-    def __init__(self, pantalla, jugador, nivel_actual, base_datos, usuario, niveles:list) -> None:
+    def __init__(self, pantalla, jugador, nivel_actual, base_datos, usuario) -> None:
 
         self.pantalla = pantalla
         self.usuario = usuario
@@ -29,7 +34,20 @@ class Juego():
         self.base_datos = base_datos
         self.jugador = jugador
         self.nivel_actual = nivel_actual
-        self.niveles = niveles
+
+        # uno = Nivel(nivel_uno['fondo'], nivel_uno['plat'], nivel_uno['enemigos'],
+        #             nivel_uno['items'], nivel_uno['tiempo'], nivel_uno['puntos'], 1,
+        #             nivel_uno['temp'])
+        
+        # dos = Nivel(nivel_dos['fondo'], nivel_dos['plat'], nivel_dos['enemigos'],
+        #             nivel_dos['items'], nivel_dos['tiempo'], nivel_dos['puntos'], 1,
+        #             nivel_dos['temp'])
+        
+        # tres = Nivel(nivel_tres['fondo'], nivel_tres['plat'], nivel_tres['enemigos'],
+        #             nivel_tres['items'], nivel_tres['tiempo'], nivel_tres['puntos'], 1,
+        #             nivel_tres['temp'])
+
+        self.niveles = [nivel_uno, nivel_dos, nivel_tres]
         self.estado_juego = None
 
         self.boton_config = Button_Image(pantalla, 0, 0,W-60,70,50,50,
@@ -39,9 +57,43 @@ class Juego():
         self.boton_pausa = Button_Image(pantalla, 0, 0,W-60,130,50,50,
                                  "Recursos/Interfaces/button_pause.png",
                                  self.btn_pausar_click, "x")
+        
+        self.boton_audio = Button_Image(pantalla, 0, 0,W-60,190,50,50,
+                                 "Recursos/Interfaces/button_sound.png",
+                                 self.btn_sonido_click, "x")
 
 
-    def posicionar_textos(self, pantalla, textos) -> None:
+    def generar_posicionar_textos(self, pantalla, fuente) -> None:
+
+        texto = fuente.render(f"Vidas: {self.jugador.vidas}", False, CELESTE, "Blue")
+        ancho_texto = texto.get_width()
+
+        texto_vidas = {
+            "texto": texto,
+            "pos_x": pantalla.get_width()-ancho_texto-10,
+            "pos_y": 2
+        }
+
+        texto = fuente.render(f"Puntos: {self.jugador.puntos}", False,CELESTE, "Blue")
+
+        texto_puntos = {
+            "texto": texto,
+            "pos_x": 10,
+            "pos_y": 2
+        }
+
+        texto = fuente.render(f"TIEMPO RESTANTE: {self.niveles[self.nivel_actual].tiempo}",
+                              False, CELESTE, "Blue")
+        
+        ancho_texto = texto.get_width()
+
+        texto_tiempo = {
+            "texto": texto,
+            "pos_x": pantalla.get_width()/2-(ancho_texto/2),
+            "pos_y": 2
+        }
+
+        textos = [texto_vidas, texto_puntos, texto_tiempo]
 
         for texto in textos:
             pantalla.blit(texto['texto'], (texto['pos_x'], texto['pos_y']))
@@ -75,10 +127,21 @@ class Juego():
 
         self.pausar_juego(form_settings)
 
+    def btn_sonido_click(self, param):
+        
+        if self.jugador.volumen == 0:
+            self.boton_audio.set_background_image("Recursos/Interfaces/button_sound.png")
+            self.jugador.volumen = 5
+
+        else:
+            self.boton_audio.set_background_image("Recursos/Interfaces/button_nosound.png")
+            self.jugador.volumen = 0
+
 
     def posicionar_form_general(self, lista_eventos) -> None:
         self.boton_config.update(lista_eventos)
         self.boton_pausa.update(lista_eventos)
+        self.boton_audio.update(lista_eventos)
 
     def cerrar_juego(self):
 
@@ -102,11 +165,11 @@ class Juego():
             self.jugador.puntos < self.niveles[self.nivel_actual].puntos_requeridos):
 
             if self.usuario['nivel_max'] < self.nivel_actual:
-                
+ 
                 if self.usuario['puntos'] == 0:# significa que nunca ganó
                     actualizar_jugador(self.nivel_actual, 0, self.usuario['usuario'],
                                        self.base_datos)
-                
+  
             self.estado_juego = "perdio"
         
     def verificar_vida_jugador(self) -> None:
@@ -160,44 +223,18 @@ class Juego():
         self.jugador.vidas = 1100
 
 
+    def reiniciar_enemigos_niveles(self) -> None:
+        for nivel in self.niveles:
+            nivel.reset_enemigos_nivel()
+
+
     def update(self, pantalla,fuente, eventos, keys) -> None:
 
         self.verificar_puntos_tiempo()
         self.verificar_vida_jugador()
 
         self.niveles[self.nivel_actual].update(pantalla, self.jugador, keys)
-
-        texto = fuente.render(f"Vidas: {self.jugador.vidas}", False, "Blue")
-        ancho_texto = texto.get_width()
-
-        texto_vidas = {
-            "texto": texto,
-            "pos_x": pantalla.get_width()-ancho_texto-10,
-            "pos_y": 2
-        }
-
-        texto = fuente.render(f"Puntos: {self.jugador.puntos}", False, "Blue")
-
-        texto_puntos = {
-            "texto": texto,
-            "pos_x": 10,
-            "pos_y": 2
-        }
-
-        texto = fuente.render(f"TIEMPO RESTANTE: {self.niveles[self.nivel_actual].tiempo}",
-                              False, "Blue")
-        
-        ancho_texto = texto.get_width()
-
-        texto_tiempo = {
-            "texto": texto,
-            "pos_x": pantalla.get_width()/2-(ancho_texto/2),
-            "pos_y": 2
-        }
-
-        textos = [texto_vidas, texto_puntos, texto_tiempo]
-
-        self.posicionar_textos(pantalla, textos)
+        self.generar_posicionar_textos(pantalla, fuente)
         self.posicionar_form_general(eventos)
 
     def update_personalizado(self, pantalla, keys) -> None:

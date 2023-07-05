@@ -64,8 +64,7 @@ class FormFinal(Form):
         self.render()
 
     def btn_home_click(self,param) -> None:
-        print("apretando")
-        self.estado_juego = None
+        self.estado_juego = "again"
 
     def render(self):
         self.draw()

@@ -16,7 +16,6 @@ class Personaje(ObjetoAnimado):
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio,
                  velocidad: int, potencia_salto: int, vidas:int, danio:int):
 
-
         animaciones_aux_normal = deepcopy_dict_animaciones(animaciones_normal)
         animaciones_aux_danio = deepcopy_dict_animaciones(animaciones_danio)
 
@@ -48,7 +47,7 @@ class Personaje(ObjetoAnimado):
     def verificar_colision_pisos(self, lista_plataformas):
 
         for plat in lista_plataformas:
-            if self.lados['bottom'].colliderect(plat.lados['top']):
+            if (self.lados['bottom'].colliderect(plat.lados['top'])):
                 if self.superficie_apoyo is None:
                     self.superficie_apoyo = plat
                 self.esta_saltando = False
