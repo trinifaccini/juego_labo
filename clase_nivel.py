@@ -61,7 +61,7 @@ class Nivel():
                                 100,200,temporizador)
 
         if self.nivel == 2:
-            return Enemigo((100,90), (lista_pos_x[rand],0), diccionario_animaciones_yeti_normal,
+            return Enemigo((80,70), (lista_pos_x[rand],0), diccionario_animaciones_yeti_normal,
                             diccionario_animaciones_yeti_rojo, 5, -15, 2000,
                             150,200,temporizador)
 
@@ -93,7 +93,8 @@ class Nivel():
 
     def posicionar_jugador(self, rect_pantalla, jugador, keys) -> None:
 
-        jugador.update(rect_pantalla, self.plataformas, self.enemigos, self.items, keys)
+        jugador.update(rect_pantalla, self.plataformas, self.enemigos, self.items,
+                       self.trampas, keys)
 
         for proyectil in jugador.lista_proyectiles:
             if proyectil.colisiono:

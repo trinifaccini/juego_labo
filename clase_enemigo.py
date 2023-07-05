@@ -22,7 +22,7 @@ def deepcopy_enemigo(enemigo):
     animaciones_aux_normal = deepcopy_dict_animaciones(enemigo.animaciones[0])
     animaciones_aux_danio = deepcopy_dict_animaciones(enemigo.animaciones[1])
 
-    velocidad = 20
+    velocidad = copy.deepcopy(enemigo.velocidad)
     potencia_salto = copy.deepcopy(enemigo.potencia_salto)
     danio =  copy.deepcopy(enemigo.danio)
     aporte_puntos =  copy.deepcopy(enemigo.aporte_puntos)
@@ -91,7 +91,7 @@ class Enemigo(Personaje):
                 if (self.accion == "derecha" and self.lados['right'].x >= self.superficie_apoyo.lados['right'].x):
                         self.accion = "izquierda"
 
-                elif (self.accion == "izquierda" and self.lados['left'].x <= 2):
+                elif (self.accion == "izquierda" and (self.lados['left'].x <= 2 or self.lados['left'].x <=  self.superficie_apoyo.lados['left'].x+2)):
                         self.accion = "derecha"
 
     def update(self, pantalla, lista_plataformas, personajes):

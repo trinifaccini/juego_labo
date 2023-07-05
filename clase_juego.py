@@ -219,7 +219,7 @@ class Juego():
             nivel.resetear_enemigos_nivel()
 
     def reiniciar_juego(self) -> None:
-        self.niveles[self.nivel_actual].tiempo = 30
+        self.niveles[self.nivel_actual].tiempo = 60
         self.jugador.vidas = 1100
         self.reiniciar_enemigos_niveles()
 

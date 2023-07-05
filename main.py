@@ -7,7 +7,6 @@ MAIN
 # pylint: disable=no-member
 # pylint: disable=invalid-name
 
-import copy
 import sys
 import pygame
 from API_FORMS.GUI_pantalla_final import FormFinal

@@ -23,7 +23,7 @@ def deepcopy_boss(enemigo):
     animaciones_aux_normal = deepcopy_dict_animaciones(enemigo.animaciones[0])
     animaciones_aux_danio = deepcopy_dict_animaciones(enemigo.animaciones[1])
 
-    velocidad = 20
+    velocidad = copy.deepcopy(enemigo.velocidad)
     potencia_salto = copy.deepcopy(enemigo.potencia_salto)
     danio =  copy.deepcopy(enemigo.danio)
     aporte_puntos =  copy.deepcopy(enemigo.aporte_puntos)

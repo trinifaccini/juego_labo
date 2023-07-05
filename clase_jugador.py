@@ -27,6 +27,7 @@ class Jugador(Personaje):
         self.puntos = 0
         self.sonido_colision_item = pygame.mixer.Sound('Recursos/Audio/coin.mp3')
         self.sonido_colision_proyectil = pygame.mixer.Sound('Recursos/Audio/snowball.mp3')
+        self.sonido_colision_trampa  = pygame.mixer.Sound('Recursos/Audio/ouch.mp3')
         self.volumen = 5
 
     # VERIFICO COLISION DE ITEM CON PERSONAJE JUGADOR UNICAMENTE
@@ -48,9 +49,22 @@ class Jugador(Personaje):
     def verificar_colision_trampas(self, trampas):
 
         for item in trampas:
-            if self.lados['main'].colliderect(item.lados['main']):
+            if (self.lados['right'].colliderect(item.lados['main']) or
+                                               self.lados['left'].colliderect(item.lados['main'])):
+                self.accion = "atacado"
+                print("aca")
+           
+        
+    def daniar_por_trampas(self, trampas):
+
+        for item in trampas:
+            if (self.lados['right'].colliderect(item.lados['main']) or
+                                               self.lados['left'].colliderect(item.lados['main'])):
                 self.vidas += item.cambio_vida
                 self.puntos += item.cambio_puntos
+                self.sonido_colision_trampa.set_volume(self.volumen+10)
+                self.sonido_colision_trampa.play()
+
         
     # SI VEO LO DE QUE SEA CADA UN SEGUNDO USAR ESTE METODO
     def verificar_colision_enemigos(self, enemigos):
@@ -99,12 +113,14 @@ class Jugador(Personaje):
         elif self.accion != "atacado":
             self.accion = "quieto"
 
-    def update(self, pantalla, lista_plataformas, enemigos, items, keys):
+    def update(self, pantalla, lista_plataformas, enemigos, items,trampas, keys):
 
         self.verificar_colision_items_especiales(items)
+        self.verificar_colision_trampas(trampas)
         self.definir_accion(keys)
 
         if self.accion == "atacado":
+            print("acaaaa")
             if self.ultima_accion == "derecha":
                 self.animar(pantalla, "atacado_derecha")
             else:
@@ -121,7 +137,7 @@ class Jugador(Personaje):
         #self.verificar_colision_enemigos(enemigos, pantalla)
 
         self.daniar_personaje_por_enemigo(enemigos)
-        self.verificar_colision_trampas(trampas)
+        self.daniar_por_trampas(trampas)
 
         if keys[pygame.K_SPACE]:
             if self.accion != "atacado":
