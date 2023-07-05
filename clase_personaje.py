@@ -25,7 +25,6 @@ class Personaje(ObjetoAnimado):
 
         pygame.mixer.init()
 
-
         self.vidas = vidas
         #self.img_proyectil = img_proyectil
         self.lista_proyectiles = []
@@ -50,6 +49,7 @@ class Personaje(ObjetoAnimado):
             if (self.lados['bottom'].colliderect(plat.lados['top'])):
                 if self.superficie_apoyo is None:
                     self.superficie_apoyo = plat
+                    print(plat.lados['main'].x)
                 self.esta_saltando = False
                 self.lados["main"].bottom = plat.lados['main'].top + 5
                 self.desplazamiento_y = 0

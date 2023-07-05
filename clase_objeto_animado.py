@@ -21,6 +21,8 @@ class ObjetoAnimado(Objeto):
 
         super().__init__(tamanio, pos_inicial, "")
 
+        self.tamanio = tamanio
+        self.pos_inicial = pos_inicial
         self.contador_pasos = 0
 
         self.animaciones = animaciones
@@ -72,7 +74,6 @@ class ObjetoAnimado(Objeto):
                     self.lados[lado].x += self.velocidad
             else:
                 self.lados[lado].y += self.desplazamiento_y
-
 
 
     def update(self):

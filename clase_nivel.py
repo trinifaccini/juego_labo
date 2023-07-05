@@ -16,7 +16,8 @@ from datos_juego import H, W
 class Nivel():
 
     def __init__(self, fondo, plataformas:list, enemigos_iniciales:list, enemigos,
-                 items:list, trampas, tiempo:int, puntos_requeridos:int, nivel:int, temporizador) -> None:
+                 items:list, trampas, tiempo:int, puntos_requeridos:int,
+                 nivel:int, temporizador) -> None:
 
         self.fondo = fondo
         self.tiempo = tiempo

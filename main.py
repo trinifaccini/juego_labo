@@ -94,7 +94,7 @@ while True:
                                    "Recursos/Fondos/bg-icebergs-2.png",juego.estado_juego, 
                                    juego.jugador.puntos)
 
-        form_final.update(eventos, juego)
+        form_final.update(eventos)
 
         if form_final.estado_juego == "again":
             juego = None

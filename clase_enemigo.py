@@ -10,6 +10,32 @@ CLASE ENEMIGO
 # pylint: disable=no-member
 
 from clase_personaje import Personaje
+from config_img import deepcopy_dict_animaciones
+import copy
+
+from datos_juego import W
+
+def deepcopy_enemigo(enemigo, vidas):
+
+    tamanio = copy.deepcopy(enemigo.tamanio)
+    pos_inicial = copy.deepcopy(enemigo.pos_inicial)
+
+    animaciones_aux_normal = deepcopy_dict_animaciones(enemigo.animaciones[0])
+    animaciones_aux_danio = deepcopy_dict_animaciones(enemigo.animaciones[1])
+
+    velocidad = 20
+    potencia_salto = copy.deepcopy(enemigo.potencia_salto)
+    danio =  copy.deepcopy(enemigo.danio)
+    aporte_puntos =  copy.deepcopy(enemigo.aporte_puntos)
+    temporizador =  copy.deepcopy(enemigo.temporizador)
+
+    enemigo = Enemigo(tamanio, pos_inicial, animaciones_aux_normal, animaciones_aux_danio, velocidad,
+                   potencia_salto, vidas,danio,aporte_puntos,temporizador)
+    
+    enemigo.superficie_apoyo = None
+
+    return enemigo
+
 
 
 class Enemigo(Personaje):
@@ -20,7 +46,9 @@ class Enemigo(Personaje):
         super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
                          velocidad, potencia_salto, vidas, danio)
 
+
         self.accion = "derecha"
+        self.ultima_accion = "derecha"
         self.esta_saltando = True
         self.aporte_puntos = aporte_puntos
         self.temporizador = temporizador
@@ -60,15 +88,17 @@ class Enemigo(Personaje):
                 if self.accion == "ataca":
                     self.accion = self.ultima_accion
 
-                if (self.accion == "derecha" and
-                    self.lados['right'].x == (self.superficie_apoyo.lados['main'].x +
-                                            self.superficie_apoyo.lados['main'].width)):
+                if (self.accion == "derecha"):
+                    if (self.lados['right'].x == (self.superficie_apoyo.lados['main'].x +
+                                            self.superficie_apoyo.lados['main'].width) or self.lados['right'].x == W-self.w-2):
+                        print("cambia de lado a izq")
+                        self.accion = "izquierda"
 
-                    self.accion = "izquierda"
-
-                elif (self.accion == "izquierda" and
-                    self.lados['left'].x == self.superficie_apoyo.lados['main'].x):
-                    self.accion = "derecha"
+                elif (self.accion == "izquierda"):
+                    if (self.lados['left'].x == self.superficie_apoyo.lados['main'].x or
+                        self.lados['main'].x == 5):
+                        self.accion = "derecha"
+                        print("cambia de lado a der")
 
     def update(self, pantalla, lista_plataformas, personajes):
 

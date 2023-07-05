@@ -102,5 +102,3 @@ def traer_ranking_db(nombre_db) -> list:
             print("error", e)
 
 #traer_ranking_db("jugadores.db")
-
-crear_base()
