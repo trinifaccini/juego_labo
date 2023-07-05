@@ -33,20 +33,55 @@ juego = None
 form_inicio = FormInicio(PANTALLA, 50, 25, W-100, H-50,"Recursos/Fondos/bg-icebergs-2.png")
 form_final = None
 
+def dibujar_borde_rectangulos_juego(pantalla, juego_param) -> None:
+
+    '''
+    Dibuja los rectangulos de las superficies de todo el juego
+    '''
+
+    if get_mode() is True:
+
+        for p in juego_param.niveles[juego_param.nivel_actual].plataformas:
+            dibujar_borde_rectangulos(pantalla, p.lados, "Green")
+
+        for e in juego_param.niveles[juego_param.nivel_actual].enemigos:
+            dibujar_borde_rectangulos(pantalla, e.lados, "Blue")
+            for x in e.lista_proyectiles:
+                dibujar_borde_rectangulos(pantalla, x.lados, "Magenta")
+
+        dibujar_borde_rectangulos(pantalla, juego_param.jugador.lados, "Red")
+
+        for i in juego_param.niveles[juego_param.nivel_actual].items:
+            dibujar_borde_rectangulos(pantalla, i.lados, "Yellow")
+
+def tiempo_en_segundos (eventos_juego,juego_param,pantalla, keys_param) -> None:
+
+    '''
+    Cuenta el tiempo en segundos del juego
+    '''
+
+    for e in eventos_juego:
+        if e.type == TIMER_EVENT:
+            juego_param.niveles[juego_param.nivel_actual].tiempo -= 1
+            juego_param.update_personalizado(pantalla, keys_param)
+
 while True:
 
     RELOJ.tick(FPS)
     eventos = pygame.event.get()
     keys = pygame.key.get_pressed()
 
+    for evento in eventos:
+        if evento.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit(0)
+
     if juego is not None:
         form_inicio.flag_jugar = juego.jugando
 
     if form_inicio.flag_jugar is False:
 
-        juego = None
         form_final = None
-
         PANTALLA.fill("Black")
         form_inicio.update(eventos)
 
@@ -58,19 +93,18 @@ while True:
             form_final = FormFinal(PANTALLA, 50, 25, W-100, H-50,
                                    "Recursos/Fondos/bg-icebergs-2.png",juego.estado_juego, 
                                    juego.jugador.puntos)
-            
+
         form_final.update(eventos, juego)
 
         if form_final.estado_juego == "again":
             juego = None
             form_inicio.flag_jugar = False
-            form_inicio = FormInicio(PANTALLA, 50, 25, W-100, H-50,"Recursos/Fondos/bg-icebergs-2.png")
-
+            form_inicio = FormInicio(PANTALLA, 50, 25, W-100, H-50,
+                                     "Recursos/Fondos/bg-icebergs-2.png")
     else:
 
         if juego is None:
-            print("entro acá")
-            
+
             juego = Juego(PANTALLA, jugador, form_inicio.nivel, "jugadores.db",
                           form_inicio.usuario_jugador)
 
@@ -79,37 +113,11 @@ while True:
             else:
                 jugador.puntos = juego.niveles[juego.nivel_actual-1].puntos_requeridos
 
-            juego.reiniciar_tiempo_vidas_juego()
+            juego.reiniciar_juego()
 
         juego.manejar_eventos_juego(PANTALLA, eventos)
-
-        for evento in eventos:
-            if evento.type == TIMER_EVENT:
-                juego.niveles[juego.nivel_actual].tiempo -= 1
-                juego.update_personalizado(PANTALLA, keys)
-
+        tiempo_en_segundos(eventos, juego, PANTALLA, keys)
         juego.update(PANTALLA, FUENTE, eventos, keys)
-
-        if get_mode() is True:
-
-            for p in juego.niveles[juego.nivel_actual].plataformas:
-                dibujar_borde_rectangulos(PANTALLA, p.lados, "Green")
-
-            for e in juego.niveles[juego.nivel_actual].enemigos:
-                dibujar_borde_rectangulos(PANTALLA, e.lados, "Blue")
-                for x in e.lista_proyectiles:
-                    dibujar_borde_rectangulos(PANTALLA, x.lados, "Magenta")
-
-            dibujar_borde_rectangulos(PANTALLA, juego.jugador.lados, "Red")
-
-            for i in juego.niveles[juego.nivel_actual].items:
-                dibujar_borde_rectangulos(PANTALLA, i.lados, "Yellow")
-
-        pygame.display.flip()
-
-    for evento in eventos:
-        if evento.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit(0)
+        dibujar_borde_rectangulos_juego(PANTALLA, juego)
 
     pygame.display.flip()

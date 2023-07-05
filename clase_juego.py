@@ -218,7 +218,7 @@ class Juego():
                 # if evento.key == pygame.K_x:
                 #     self.pausar_juego()
 
-    def reiniciar_tiempo_vidas_juego(self) -> None:
+    def reiniciar_juego(self) -> None:
         self.niveles[self.nivel_actual].tiempo = 60
         self.jugador.vidas = 1100
 

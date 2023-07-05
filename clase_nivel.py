@@ -49,7 +49,7 @@ class Nivel():
         rand = random.randint(0, len(self.plataformas)-1)
 
         if self.nivel == 1:
-            return Enemigo((100,90), (lista_pos_x[rand],0), diccionario_animaciones_oso_normal,
+            return Enemigo((70,60), (lista_pos_x[rand],0), diccionario_animaciones_oso_normal,
                                 diccionario_animaciones_oso_rojo, 5, -15, 2000,
                                 100,200,temporizador)
 
