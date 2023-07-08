@@ -19,10 +19,11 @@ class Jugador(Personaje):
                  potencia_salto: int, vidas: int, danio: int):
 
         super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
-                         velocidad, potencia_salto,vidas, danio)
+                         velocidad, potencia_salto, vidas, danio)
         
         pygame.mixer.init()
 
+        self.vidas_iniciales = vidas
         self.accion = "derecha"
         self.puntos = 0
         self.sonido_colision_item = pygame.mixer.Sound('Recursos/Audio/coin.mp3')
@@ -140,5 +141,4 @@ class Jugador(Personaje):
         self.daniar_por_trampas(trampas)
 
         if keys[pygame.K_SPACE]:
-            if self.accion != "atacado":
-                self.lanzar_proyectil(10)
+            self.lanzar_proyectil(10)

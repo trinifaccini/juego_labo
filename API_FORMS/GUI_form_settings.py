@@ -11,7 +11,8 @@ CELESTE = (64, 207, 255)
 
 class FormSettings(Form):
 
-    def __init__(self,screen,x,y,w,h,color_background, color_border, border_size, active, path_image):
+    def __init__(self,screen,x,y,w,h,color_background, color_border, border_size,
+                 active, path_image):
 
         super().__init__(screen, x,y, w,h,color_background, color_border, border_size, active)
 
@@ -25,7 +26,7 @@ class FormSettings(Form):
 
         pos_x = w/2 - 250
         pos_x_txt_dos = w/2 - ancho_txt/2
-        
+
         ancho_slider = 500
         pos_x_slider = w/2 - ancho_slider/2
 
@@ -49,7 +50,6 @@ class FormSettings(Form):
 
         self.slider_volumen = Slider(self._slave, x,y, pos_x_slider, 250, ancho_slider, 15,
                                      pygame.mixer.music.get_volume(), "Blue", "White")
-        
 
         if pygame.mixer.music.get_busy():
             texto_musica = "SILENCIAR MUSICA"
@@ -57,14 +57,14 @@ class FormSettings(Form):
             texto_musica = "REANUDAR MUSICA"
 
         self.boton_musica = Button(self._slave, x, y,
-                                 w/2-ancho_txt-5, 300,
+                                 w/2-ancho_txt/2, 300,
                                  ancho_txt, 50,CELESTE, "Blue", self.btn_play_click, "x",
                                  texto_musica, "Recursos/Fonts/Snowes.ttf", 30, "Black")
-        
-        self.boton_sonidos = Button(self._slave, x, y,
-                                 w/2+5, 300,
-                                 ancho_txt, 50,CELESTE, "Blue", self.btn_sonidos_click, "x",
-                                 "SILENCIAR AUDIO", "Recursos/Fonts/Snowes.ttf", 30, "Black")
+
+        # self.boton_sonidos = Button(self._slave, x, y,
+        #                          w/2+5, 300,
+        #                          ancho_txt, 50,CELESTE, "Blue", self.btn_sonidos_click, "x",
+        #                          "SILENCIAR AUDIO", "Recursos/Fonts/Snowes.ttf", 30, "Black")
 
         self.boton_atras = Button_Image(self._slave,
                                         x= w-70,
@@ -87,7 +87,7 @@ class FormSettings(Form):
 
         self.lista_widgets.append(self.label_settings)
         self.lista_widgets.append(self.boton_musica)
-        self.lista_widgets.append(self.boton_sonidos)
+        #self.lista_widgets.append(self.boton_sonidos)
         self.lista_widgets.append(self.label_porcentaje_volumen)
         self.lista_widgets.append(self.label_volumen)
         self.lista_widgets.append(self.slider_volumen)
@@ -109,16 +109,16 @@ class FormSettings(Form):
             pygame.mixer.music.unpause()
             self.boton_musica.set_text("SILENCIAR MUSICA")
 
-    def btn_sonidos_click(self, param):
+    # def btn_sonidos_click(self, param):
 
-        if self.sonido_silenciado is False:
-            self.sonido_silenciado = True
-            self.boton_sonidos.set_text("REANUDAR AUDIO")
-            pygame.mixer.music.pause()
+    #     if self.sonido_silenciado is False:
+    #         self.sonido_silenciado = True
+    #         self.boton_sonidos.set_text("REANUDAR AUDIO")
+    #         pygame.mixer.music.pause()
 
-        else:
-            self.sonido_silenciado = False
-            self.boton_sonidos.set_text("SILENCIAR AUDIO")
+    #     else:
+    #         self.sonido_silenciado = False
+    #         self.boton_sonidos.set_text("SILENCIAR AUDIO")
 
     def update_volumen(self, lista_eventos):
 

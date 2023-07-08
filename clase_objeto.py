@@ -19,6 +19,7 @@ class Objeto():
     def __init__(self, tamanio: tuple, pos_inicial:tuple, path_img=""):
 
         # Si es un objeto inanimado va a tener path_img (ejemplo: plataformas)
+        self.path_img = path_img
         if path_img != "":
             imagen = pygame.image.load(path_img)
             imagen = pygame.transform.scale(imagen, (tamanio[0], tamanio[1]))
@@ -28,7 +29,8 @@ class Objeto():
             imagen.set_alpha(0) # Transparente
 
         self.superficie = imagen
-
+        self.pos_inicial = pos_inicial
+        self.tamanio = tamanio
         self.w = tamanio[0]
         self.h = tamanio[1]
 

@@ -54,6 +54,11 @@ class FormFinal(Form):
 
         self.lista_widgets.append(self.label_bienvenida)
         self.lista_widgets.append(self.boton_home)
+        
+        pygame.mixer.init()
+        pygame.mixer.music.rewind()
+        pygame.mixer.music.pause()
+        
         self.render()
 
     def btn_home_click(self, param) -> None:

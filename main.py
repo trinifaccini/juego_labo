@@ -84,7 +84,7 @@ while True:
         PANTALLA.fill("Black")
         form_inicio.update(eventos)
         juego = None
-
+ 
 
     elif juego is not None and juego.estado_juego is not None:
 
@@ -110,8 +110,8 @@ while True:
 
             if form_inicio.nivel == 0:
                 jugador.puntos = 0
-            else:
-                jugador.puntos = juego.niveles[juego.nivel_actual-1].puntos_requeridos
+            # else:
+            #     jugador.puntos = juego.niveles[juego.nivel_actual-1].puntos_requeridos
 
             juego.reiniciar_juego()
 

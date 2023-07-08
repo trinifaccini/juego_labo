@@ -17,12 +17,11 @@ from API_FORMS.GUI_form_inicio import TRANSPARENTE
 from API_FORMS.GUI_form_pausa import FormPausa
 from API_FORMS.GUI_form_settings import FormSettings
 from config_db import actualizar_jugador
-from datos_juego import W
+from datos_juego import H, W
 from modo import *
 from datos_nivel_uno import nivel_uno
 from datos_nivel_dos import nivel_dos
 from datos_nivel_tres import nivel_tres
-
 class Juego():
 
     def __init__(self, pantalla, jugador, nivel_actual, base_datos, usuario) -> None:
@@ -38,9 +37,13 @@ class Juego():
         self.niveles = [nivel_uno, nivel_dos, nivel_tres]
         self.estado_juego = None
 
-        pygame.mixer.music.load("Recursos/Audio/musica.mp3")
-        pygame.mixer.music.set_volume(pygame.mixer.music.get_volume())
-        pygame.mixer.music.play(-1) # bucle
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.load("Recursos/Audio/musica.mp3")
+            pygame.mixer.music.set_volume(pygame.mixer.music.get_volume())
+            pygame.mixer.music.play(-1) # bucle
+
+        else:
+            pygame.mixer.music.load("Recursos/Audio/musica.mp3")
 
 
         self.boton_config = Button_Image(pantalla, 0, 0,W-60,70,50,50,
@@ -50,7 +53,7 @@ class Juego():
         self.boton_pausa = Button_Image(pantalla, 0, 0,W-60,130,50,50,
                                  "Recursos/Interfaces/button_pause.png",
                                  self.btn_pausar_click, "x")
-        
+
         self.boton_audio = Button_Image(pantalla, 0, 0,W-60,190,50,50,
                                  "Recursos/Interfaces/button_sound.png",
                                  self.btn_sonido_click, "x")
@@ -144,7 +147,7 @@ class Juego():
 
     def verificar_puntos_tiempo(self) -> None:
 
-        if self.jugador.puntos >= self.niveles[self.nivel_actual].puntos_requeridos:
+        if self.niveles[self.nivel_actual].enemigos_muertos >= self.niveles[self.nivel_actual].enemigos_requeridos:
 
             if self.nivel_actual < len(self.niveles)-1:
                 self.jugador.puntos += (self.niveles[self.nivel_actual].tiempo * 100)
@@ -156,7 +159,7 @@ class Juego():
                 self.estado_juego = "gano"
 
         if (self.niveles[self.nivel_actual].tiempo <= 0 and
-            self.jugador.puntos < self.niveles[self.nivel_actual].puntos_requeridos):
+            self.niveles[self.nivel_actual].enemigos_muertos <self.niveles[self.nivel_actual].enemigos_requeridos):
 
             if self.usuario['nivel_max'] < self.nivel_actual:
  
@@ -212,10 +215,15 @@ class Juego():
         for nivel in self.niveles:
             nivel.resetear_enemigos_nivel()
 
+    def reiniciar_items_niveles(self) -> None:
+        for nivel in self.niveles:
+            nivel.resetear_items_nivel()
+
     def reiniciar_juego(self) -> None:
         self.niveles[self.nivel_actual].tiempo = 60
-        self.jugador.vidas = 1100
+        self.jugador.vidas = self.jugador.vidas_iniciales
         self.reiniciar_enemigos_niveles()
+        self.reiniciar_items_niveles()
 
 
     def update(self, pantalla,fuente, eventos, keys) -> None:

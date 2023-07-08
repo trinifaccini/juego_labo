@@ -36,8 +36,6 @@ def deepcopy_enemigo(enemigo):
 
     return enemigo
 
-
-
 class Enemigo(Personaje):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio,

@@ -19,6 +19,10 @@ class FormPausa(Form):
         self._slave = aux_imagen
         self.jugando = True
         self.pausado = True
+        self.estado_musica = pygame.mixer.music.get_busy()
+        print(self.estado_musica)
+
+        pygame.mixer.music.pause()
 
         ancho_btn_ranking = 50
 
@@ -70,6 +74,10 @@ class FormPausa(Form):
 
     def btn_back_click(self, param) -> None:
         self.pausado = False
+
+        if self.estado_musica is True:
+            pygame.mixer.music.unpause()
+
         self.end_dialog()
 
     def render(self):

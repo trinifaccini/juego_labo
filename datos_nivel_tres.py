@@ -34,7 +34,7 @@ items = [item_uno, item_dos]
 trampas = []
 
 
-nivel_tres = Nivel(fondo, lista_plataformas,enemigos, items,trampas, 60, 7600,3,5)
+nivel_tres = Nivel(fondo, lista_plataformas,enemigos, items,trampas, 60,1,1,3,5)
 
 # nivel_tres = {"fondo": fondo,
 #              "plat": lista_plataformas,

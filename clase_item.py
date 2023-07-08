@@ -9,7 +9,22 @@ CLASE ITEM
 # pylint: disable=arguments-differ
 # pylint: disable=no-member
 
+import copy
 from clase_objeto import Objeto
+
+def deepcopy_item(item):
+
+    tamanio = copy.deepcopy(item.tamanio)
+    pos_inicial = copy.deepcopy(item.pos_inicial)
+    cambio_vida = copy.deepcopy(item.cambio_vida)
+    cambio_puntos = copy.deepcopy(item.cambio_puntos)
+    path_img = copy.deepcopy(item.path_img)
+    es_trampa = copy.deepcopy(item.es_trampa)
+
+    item = Item(tamanio, pos_inicial, cambio_vida, cambio_puntos,path_img, es_trampa)
+
+    return item
+
 
 class Item(Objeto):
 

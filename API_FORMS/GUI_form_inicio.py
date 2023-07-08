@@ -87,7 +87,7 @@ class FormInicio(Form):
                                  pos_x_txt_uno,  y_uno + alto_txt + alto_label + espacio*2,
                                  ancho_txt, 50,
                                  CELESTE, "Blue", self.btn_crear_jugar_click,
-                                 "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
+                                 "Nombre", "INICIAR AVENTURA", "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
         self.label_jugador_existente = Label(self._slave, pos_x_label_dos, y_uno,
                                              ancho_label, alto_label,
@@ -103,7 +103,7 @@ class FormInicio(Form):
         self.boton_jugar = Button(self._slave, x, y,
                                  pos_x_txt_dos, y_uno + alto_txt + alto_label + espacio*2,
                                  ancho_txt, 50,CELESTE, "Blue", self.btn_jugar_click,
-                                 "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
+                                 "Nombre", "CONTINUAR AVENTURA", "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
         self.boton_ranking = Button_Image(self._slave, x, y,
                                  w/2 - ancho_btn_ranking - 5, 200,
