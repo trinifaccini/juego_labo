@@ -54,7 +54,7 @@ class Boss(Enemigo):
 
         proyectil = Proyectil(
             (50, 50),(self.lados['main'].centerx, self.lados['left'].centery),
-            -500, 0, velocidad)
+            -500, 0, velocidad, "Recursos/Obstaculos/piedra.png")
 
         self.lista_proyectiles.append(proyectil)
 

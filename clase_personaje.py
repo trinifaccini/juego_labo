@@ -62,7 +62,7 @@ class Personaje(ObjetoAnimado):
             velocidad = velocidad * -1
 
         proyectil = Proyectil(
-            (20, 20),(self.lados['main'].centerx, self.lados['left'].centery),-self.danio, 0, velocidad)
+            (20, 20),(self.lados['main'].centerx, self.lados['left'].centery),-self.danio, 0, velocidad, "Recursos/Obstaculos/bola_nieve_1.png")
 
         self.lista_proyectiles.append(proyectil)
 

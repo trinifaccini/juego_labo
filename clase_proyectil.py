@@ -14,10 +14,10 @@ from clase_item import Item
 class Proyectil(Item):
 
     def __init__(self, tamanio: tuple, pos_inicial: tuple, cambio_vida: int, cambio_puntos: int,
-                 velocidad):
+                 velocidad, path_img):
 
-        super().__init__(tamanio, pos_inicial, cambio_vida, 
-                         cambio_puntos, "Recursos/Obstaculos/bola_nieve_1.png")
+        super().__init__(tamanio, pos_inicial, cambio_vida,
+                         cambio_puntos, path_img)
 
         self.velocidad = velocidad
 
