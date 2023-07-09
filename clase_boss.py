@@ -65,8 +65,51 @@ class Boss(Enemigo):
                 if item.es_trampa is not True:
                     item.colisiono = True
 
-    def update(self, pantalla, lista_plataformas, items, personajes):
+    def atacar_especial(self, pantalla):
+
+        if self.accion == "ataque_especial":
+            if self.ultima_accion == "izquierda":
+                self.animar(pantalla, "ataca_especial_derecha")
+            elif self.ultima_accion == "derecha":
+                self.animar(pantalla, "ataca_especial_derecha")
+
+    def definir_accion(self, jugador, tiempo):
+
+        # REBOTE SOBRE LA PLATAFORMA EN LA QUE SE ENCUENTRA
+
+        if self.superficie_apoyo is not None:
+
+            if (self.ultima_accion == "derecha" and
+                jugador.lados['main'].colliderect(self.lados['right'])):
+                self.accion = "ataca"
+                jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
+
+            elif (self.ultima_accion == "izquierda" and
+                  jugador.lados['main'].colliderect(self.lados['left'])):
+                self.accion = "ataca"
+                jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
+
+            else:
+                if tiempo % 5 == 0:
+                    self.accion = "ataque_especial"
+                    jugador.accion = "inmovilizado"
+                else:
+                    self.accion = self.ultima_accion
+                    jugador.accion = jugador.ultima_accion
+                    
+                if self.accion == "ataca":
+                    self.accion = self.ultima_accion
+
+                if (self.accion == "derecha" and self.lados['right'].x >= self.superficie_apoyo.lados['right'].x):
+                        self.accion = "izquierda"
+
+                elif (self.accion == "izquierda" and (self.lados['left'].x <= 2 or self.lados['left'].x <=  self.superficie_apoyo.lados['left'].x+2)):
+                        self.accion = "derecha"
+    
+    def update(self, pantalla, lista_plataformas, items, personajes, tiempo):
 
         self.verificar_colision_items_especiales(items)
-        super().update(pantalla, lista_plataformas, personajes)
+        self.atacar_especial(pantalla)
+        super().update(pantalla, lista_plataformas, personajes, tiempo)
+
     

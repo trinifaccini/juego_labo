@@ -156,6 +156,12 @@ yeti_ataca_derecha = [
 
 yeti_ataca_izquierda = girar_imagenes(yeti_ataca_derecha, True, False)
 
+yeti_ataca_especial_derecha = [
+    pygame.image.load("Recursos/Personajes/Normal/Yeti/Ataca/yeti_ataca_0.png"),
+    ]
+
+yeti_ataca_especial_izquierda = girar_imagenes(yeti_ataca_especial_derecha, True, False)
+
 yeti_salta_derecha = [
     pygame.image.load("Recursos/Personajes/Normal/Yeti/Quieto/yeti_quieto_0.png"),
 ]
@@ -198,7 +204,9 @@ diccionario_animaciones_yeti_normal = {
     "camina_derecha": yeti_camina_derecha,
     "camina_izquierda": yeti_camina_izquierda,
     "ataca_derecha": yeti_ataca_derecha,
-    "ataca_izquierda": yeti_ataca_izquierda
+    "ataca_izquierda": yeti_ataca_izquierda,
+    "ataca_especial_derecha": yeti_ataca_especial_derecha,
+    "ataca_especial_izquierda": yeti_ataca_especial_izquierda
 }
 
 
@@ -304,7 +312,13 @@ yeti_ataca_derecha_rojo = [
     pygame.image.load("Recursos/Personajes/Rojo/Yeti/Ataca/yeti_ataca_5.png"),
     ]
 
-yeti_ataca_izquierda = girar_imagenes(yeti_ataca_derecha_rojo, True, False)
+yeti_ataca_izquierda_rojo = girar_imagenes(yeti_ataca_derecha_rojo, True, False)
+
+yeti_ataca_especial_derecha_rojo = [
+    pygame.image.load("Recursos/Personajes/Rojo/Yeti/Ataca/yeti_ataca_0.png"),
+    ]
+
+yeti_ataca_especial_izquierda_rojo = girar_imagenes(yeti_ataca_derecha_rojo, True, False)
 
 yeti_salta_derecha_rojo = [
     pygame.image.load("Recursos/Personajes/Rojo/Yeti/Quieto/yeti_quieto_0.png"),
@@ -347,5 +361,7 @@ diccionario_animaciones_yeti_rojo = {
     "camina_derecha": yeti_camina_derecha_rojo,
     "camina_izquierda": yeti_camina_izquierda_rojo,
     "ataca_derecha": yeti_ataca_derecha_rojo,
-    "ataca_izquierda": yeti_ataca_izquierda
+    "ataca_izquierda": yeti_ataca_izquierda_rojo,
+    "ataca_especial_derecha": yeti_ataca_especial_derecha_rojo,
+    "ataca_especial_izquierda": yeti_ataca_especial_izquierda_rojo
 }

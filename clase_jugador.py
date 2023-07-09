@@ -105,14 +105,15 @@ class Jugador(Personaje):
 
     def definir_accion(self, keys):
 
-        if keys[pygame.K_RIGHT]:
-            self.accion = "derecha"
-        elif keys[pygame.K_LEFT]:
-            self.accion = "izquierda"
-        elif keys[pygame.K_UP]:
-            self.accion = "salta"
-        elif self.accion != "atacado":
-            self.accion = "quieto"
+        if self.accion != "inmovilizado":
+            if keys[pygame.K_RIGHT]:
+                self.accion = "derecha"
+            elif keys[pygame.K_LEFT]:
+                self.accion = "izquierda"
+            elif keys[pygame.K_UP]:
+                self.accion = "salta"
+            elif self.accion != "atacado":
+                self.accion = "quieto"  
 
     def update(self, pantalla, lista_plataformas, enemigos, items,trampas, keys):
 
@@ -121,7 +122,11 @@ class Jugador(Personaje):
         self.definir_accion(keys)
 
         if self.accion == "atacado":
-            print("acaaaa")
+            if self.ultima_accion == "derecha":
+                self.animar(pantalla, "atacado_derecha")
+            else:
+                self.animar(pantalla, "atacado_izquierda")
+        if self.accion == "inmovilizado":
             if self.ultima_accion == "derecha":
                 self.animar(pantalla, "atacado_derecha")
             else:
@@ -140,5 +145,5 @@ class Jugador(Personaje):
         self.daniar_personaje_por_enemigo(enemigos)
         self.daniar_por_trampas(trampas)
 
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] and self.accion != "inmovilizado":
             self.lanzar_proyectil(10)

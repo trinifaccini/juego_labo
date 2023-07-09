@@ -118,9 +118,9 @@ class Nivel():
         for enemigo in self.enemigos:
 
             if self.nivel == 3:
-                enemigo.update(rect_pantalla, self.plataformas, self.items, lista)
+                enemigo.update(rect_pantalla, self.plataformas, self.items, lista, self.tiempo)
             else:
-                enemigo.update(rect_pantalla, self.plataformas, lista)
+                enemigo.update(rect_pantalla, self.plataformas, lista, self.tiempo)
             for proyectil in enemigo.lista_proyectiles:
                 if proyectil.colisiono:
                     enemigo.lista_proyectiles.remove(proyectil)
