@@ -14,7 +14,7 @@ fondo = pygame.image.load("Recursos/Fondos/fondo_nivel_3.png")
 fondo = pygame.transform.scale(fondo, TAMANIO_PANTALLA)
 
 enemigo_uno = Boss((170,120), (200,0), diccionario_animaciones_yeti_normal,
-                      diccionario_animaciones_yeti_rojo,7, -15, 7000, 1000, 300,5)
+                      diccionario_animaciones_yeti_rojo,7, -15, 4000, 1000, 300,5)
 
 
 piso = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Tierra",

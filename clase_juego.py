@@ -16,6 +16,7 @@ from API_FORMS.GUI_form_estado_juego import CELESTE
 from API_FORMS.GUI_form_inicio import TRANSPARENTE
 from API_FORMS.GUI_form_pausa import FormPausa
 from API_FORMS.GUI_form_settings import FormSettings
+from API_FORMS.GUI_picture_box import PictureBox
 from config_db import actualizar_jugador
 from datos_juego import H, W
 from modo import *
@@ -46,29 +47,73 @@ class Juego():
             pygame.mixer.music.load("Recursos/Audio/musica.mp3")
 
 
-        self.boton_config = Button_Image(pantalla, 0, 0,W-60,70,50,50,
+        self.boton_config = Button_Image(pantalla, 0, 0,W-60,115,50,50,
                                  "Recursos/Interfaces/button_settings.png",
                                  self.btn_config_click, "x")
 
-        self.boton_pausa = Button_Image(pantalla, 0, 0,W-60,130,50,50,
+        self.boton_pausa = Button_Image(pantalla, 0, 0,W-60,175,50,50,
                                  "Recursos/Interfaces/button_pause.png",
                                  self.btn_pausar_click, "x")
-
-        self.boton_audio = Button_Image(pantalla, 0, 0,W-60,190,50,50,
+        
+        self.boton_audio = Button_Image(pantalla, 0, 0,W-60,235,50,50,
                                  "Recursos/Interfaces/button_sound.png",
                                  self.btn_sonido_click, "x")
 
+    def generar_posicionar_img_enemigos(self,pantalla, lista_eventos) -> None:
+
+        entero = self.niveles[self.nivel_actual].enemigos_requeridos - self.niveles[self.nivel_actual].enemigos_muertos
+        imgs = []
+        x = 0
+
+        for i in range(0, entero):
+            img_enemigo = PictureBox(pantalla, x, 45, 50, 50, "Recursos/Obstaculos/piedra.png")
+            imgs.append(img_enemigo)
+            x += 40
+
+        for img in imgs:
+            img.update(lista_eventos)
+
+    def generar_img_vidas(self,pantalla, lista_eventos) -> None:
+
+        vidas = round(self.jugador.vidas / 400)
+
+        imgs = []
+        x = W-50
+
+        for i in range(0, vidas):
+            img_vida = PictureBox(pantalla, x, 3, 50, 50, "Recursos/Obstaculos/piedra.png")
+            imgs.append(img_vida)
+            x -= 40
+
+        for img in imgs:
+            img.update(lista_eventos)
+
+    def generar_img_vidas_boss(self,pantalla, lista_eventos) -> None:
+
+        vida_enemigo = self.niveles[self.nivel_actual].enemigos[0].vidas
+        vidas = round(vida_enemigo/ 400)
+
+        imgs = []
+        x = W-50
+
+        for i in range(0, vidas):
+            img_vida = PictureBox(pantalla, x, 45, 50, 50, "Recursos/Obstaculos/piedra.png")
+            imgs.append(img_vida)
+            x -= 40
+
+        for img in imgs:
+            img.update(lista_eventos)
 
     def generar_posicionar_textos(self, pantalla, fuente) -> None:
 
-        texto = fuente.render(f"Vidas: {self.jugador.vidas}", False, CELESTE, "Blue")
-        ancho_texto = texto.get_width()
+        # texto = fuente.render(f"Vidas: {self.jugador.vidas}", False, CELESTE, "Blue")
+        # ancho_texto = texto.get_width()
 
-        texto_vidas = {
-            "texto": texto,
-            "pos_x": pantalla.get_width()-ancho_texto-10,
-            "pos_y": 2
-        }
+        # texto_vidas = {
+        #     "texto": texto,
+        #     "pos_x": pantalla.get_width()-ancho_texto-10,
+        #     "pos_y": 2
+        # }
 
         texto = fuente.render(f"Puntos: {self.jugador.puntos}", False,CELESTE, "Blue")
 
@@ -89,7 +134,8 @@ class Juego():
             "pos_y": 2
         }
 
-        textos = [texto_vidas, texto_puntos, texto_tiempo]
+        #textos = [texto_vidas, texto_puntos, texto_tiempo]
+        textos = [texto_puntos, texto_tiempo]
 
         for texto in textos:
             pantalla.blit(texto['texto'], (texto['pos_x'], texto['pos_y']))
@@ -233,7 +279,12 @@ class Juego():
 
         self.niveles[self.nivel_actual].update(pantalla, self.jugador, keys)
         self.generar_posicionar_textos(pantalla, fuente)
+        self.generar_posicionar_img_enemigos(pantalla, eventos)
+        self.generar_img_vidas(pantalla, eventos)
         self.posicionar_form_general(eventos)
+
+        if self.nivel_actual == 2:
+            self.generar_img_vidas_boss(pantalla, eventos)
 
     def update_personalizado(self, pantalla, keys) -> None:
 
