@@ -53,7 +53,6 @@ class Jugador(Personaje):
             if (self.lados['right'].colliderect(item.lados['main']) or
                                                self.lados['left'].colliderect(item.lados['main'])):
                 self.accion = "atacado"
-                print("aca")
            
         
     def daniar_por_trampas(self, trampas):
@@ -131,6 +130,7 @@ class Jugador(Personaje):
                 self.animar(pantalla, "atacado_derecha")
             else:
                 self.animar(pantalla, "atacado_izquierda")
+
 
         super().update(pantalla, lista_plataformas, enemigos)
 

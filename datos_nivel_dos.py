@@ -14,10 +14,10 @@ fondo = pygame.image.load("Recursos/Fondos/fondo_nivel_2.png")
 fondo = pygame.transform.scale(fondo, TAMANIO_PANTALLA)
 
 enemigo_uno = Enemigo((70,80), (20,0), diccionario_animaciones_yeti_normal,
-                      diccionario_animaciones_yeti_rojo,5, -15, 450, 200,150,3)
+                      diccionario_animaciones_yeti_rojo,5, -15, 400, 200,150,3)
 
 enemigo_dos = Enemigo((70,80), (700,0), diccionario_animaciones_yeti_normal,
-                      diccionario_animaciones_yeti_rojo,5, -15, 450, 200, 150,6)
+                      diccionario_animaciones_yeti_rojo,5, -15, 400, 200, 150,6)
 
 piso = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Nieve",
                 "Recursos/Plataformas/snow_33.png")

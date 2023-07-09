@@ -17,18 +17,15 @@ enemigo_uno = Boss((170,120), (200,0), diccionario_animaciones_yeti_normal,
                       diccionario_animaciones_yeti_rojo,7, -15, 7000, 1000, 300,5)
 
 
-piso_1 = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Tierra",
+piso = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Tierra",
                 "Recursos/Plataformas/plataforma_grande.png")
 
-
-plataforma = Plataforma((200,20), (0, 200),"Tierra",
-                        "Recursos/Plataformas/plataforma_tierra_nieve.png")
 
 item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
 item_dos = Item((30,30), (300, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
 
 enemigos = [enemigo_uno]
-lista_plataformas = [piso_1, plataforma]
+lista_plataformas = [piso]
 
 items = [item_uno, item_dos]
 trampas = []

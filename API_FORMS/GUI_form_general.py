@@ -42,8 +42,6 @@ class FormGeneral(Form):
 
     def btn_settings_click(self, param) -> None:
 
-        print("APRETOOO")
-
         form_settings = FormSettings(self._master,
                                    x=W/2-400,
                                    y=25,

@@ -69,7 +69,7 @@ class Boss(Enemigo):
 
         if self.accion == "ataque_especial":
             if self.ultima_accion == "izquierda":
-                self.animar(pantalla, "ataca_especial_derecha")
+                self.animar(pantalla, "ataca_especial_izquierda")
             elif self.ultima_accion == "derecha":
                 self.animar(pantalla, "ataca_especial_derecha")
 

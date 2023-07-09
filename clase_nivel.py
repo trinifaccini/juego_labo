@@ -69,7 +69,7 @@ class Nivel():
 
         if self.nivel == 2:
             return Enemigo((80,70), (lista_pos_x[rand],0), diccionario_animaciones_yeti_normal,
-                            diccionario_animaciones_yeti_rojo, 5, -15, 450,150,200,temporizador)
+                            diccionario_animaciones_yeti_rojo, 5, -15, 400,150,200,temporizador)
 
     def generar_enemigos(self) -> None:
 
@@ -84,13 +84,13 @@ class Nivel():
         if self.tiempo % 10 == 0:
             pos_x = random.randint(0, W-100)
             pos_y = random.randint(200, H-80)
-            item_uno = Item((30,50), (pos_x, pos_y), 10, 0, "Recursos/Obstaculos/coca.png")
+            item_uno = Item((30,50), (pos_x, pos_y), 100, 0, "Recursos/Obstaculos/coca.png")
             self.items.append(item_uno)
 
         if self.tiempo % 15 == 0:
             pos_x = random.randint(0, W-100)
             pos_y = random.randint(200, H-40)
-            item_dos = Item((30,30), (300, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
+            item_dos = Item((30,30), (300, 450),0, 30, "Recursos/Obstaculos/hamburguesa.png")
             self.items.append(item_dos)
 
     # CORREGIR ESTA FUNCION
