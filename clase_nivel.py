@@ -169,6 +169,7 @@ class Nivel():
             enemigos.append(deepcopy_boss(self.enemigos_iniciales[0]))
 
         self.enemigos = enemigos
+        self.enemigos_muertos = 0
 
     def resetear_items_nivel(self) -> None:
 

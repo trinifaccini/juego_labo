@@ -66,7 +66,7 @@ class Juego():
         x = 0
 
         for i in range(0, entero):
-            img_enemigo = PictureBox(pantalla, x, 45, 50, 50, "Recursos/Obstaculos/piedra.png")
+            img_enemigo = PictureBox(pantalla, x, 55, 30, 30, "Recursos/Obstaculos/piedra.png")
             imgs.append(img_enemigo)
             x += 40
 
@@ -81,7 +81,7 @@ class Juego():
         x = W-50
 
         for i in range(0, vidas):
-            img_vida = PictureBox(pantalla, x, 3, 50, 50, "Recursos/Obstaculos/piedra.png")
+            img_vida = PictureBox(pantalla, x, 5, 30, 30, "Recursos/Interfaces/life.png")
             imgs.append(img_vida)
             x -= 40
 
@@ -271,7 +271,6 @@ class Juego():
         self.reiniciar_enemigos_niveles()
         self.reiniciar_items_niveles()
 
-
     def update(self, pantalla,fuente, eventos, keys) -> None:
 
         self.verificar_puntos_tiempo()
@@ -279,12 +278,13 @@ class Juego():
 
         self.niveles[self.nivel_actual].update(pantalla, self.jugador, keys)
         self.generar_posicionar_textos(pantalla, fuente)
-        self.generar_posicionar_img_enemigos(pantalla, eventos)
         self.generar_img_vidas(pantalla, eventos)
         self.posicionar_form_general(eventos)
 
         if self.nivel_actual == 2:
             self.generar_img_vidas_boss(pantalla, eventos)
+        else:
+            self.generar_posicionar_img_enemigos(pantalla, eventos)
 
     def update_personalizado(self, pantalla, keys) -> None:
 

@@ -22,7 +22,7 @@ pygame.init()
 RELOJ = pygame.time.Clock()
 PANTALLA = pygame.display.set_mode(TAMANIO_PANTALLA)
 
-FUENTE = pygame.font.Font("Recursos/Fonts/Snowes.ttf", 40)
+FUENTE = pygame.font.Font("Recursos/Fonts/Snowes.ttf", 45)
 
 # Timer para el juego
 TIMER_EVENT = pygame.USEREVENT + 0
