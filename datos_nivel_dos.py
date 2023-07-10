@@ -40,22 +40,22 @@ plataforma_5 = Plataforma((50,20), (375, 270), "Nieve",
 
 
 trampa_uno = Item((40,120), (plataforma_1.lados['main'].x+50, plataforma_1.lados['top'].y-120),
-                  -10, 0, "Recursos/Obstaculos/winter-tree-2.png", True)
+                  -10, 0,"Recursos/Audio/coin.mp3", "Recursos/Obstaculos/winter-tree-2.png", True)
 
 trampa_dos = Item((50,50), (plataforma_2.lados['main'].x+15, plataforma_2.lados['top'].y-50),
-                  0, -10, "Recursos/Obstaculos/snow_2b.png", True)
+                  0, -10, "Recursos/Audio/coin.mp3","Recursos/Obstaculos/snow_2b.png", True)
 
 trampa_tres = Item((50,50), (plataforma_3.lados['main'].x+55, plataforma_3.lados['top'].y-50),
-                  0, -10, "Recursos/Obstaculos/snow_2a.png", True)
+                  0, -10, "Recursos/Audio/coin.mp3","Recursos/Obstaculos/snow_2a.png", True)
 
 trampa_cuatro = Item((30,150), (piso.lados['main'].x+60, piso.lados['top'].y-150),
-                  0, -10, "Recursos/Obstaculos/winter-tree-3.png", True)
+                  0, -10, "Recursos/Audio/coin.mp3","Recursos/Obstaculos/winter-tree-3.png", True)
 
 
 item_uno = Item((30,50), (plataforma_1.lados['main'].x, plataforma_1.lados['main'].y-50),
-                10, 0, "Recursos/Obstaculos/coca.png")
+                10, 0, "Recursos/Audio/sorbo.mp3","Recursos/Obstaculos/coca.png")
 
-item_dos = Item((30,30), (300, 450),0, 100, "Recursos/Obstaculos/hamburguesa.png")
+item_dos = Item((30,30), (300, 450),0, 100, "Recursos/Audio/ñam.mp3","Recursos/Obstaculos/hamburguesa.png")
 
 enemigos = [enemigo_uno, enemigo_dos]
 lista_plataformas = [piso, plataforma_1, plataforma_2, plataforma_3, plataforma_4, plataforma_5]
@@ -63,7 +63,7 @@ lista_plataformas = [piso, plataforma_1, plataforma_2, plataforma_3, plataforma_
 items = [item_uno, item_dos]
 trampas = [trampa_uno, trampa_dos, trampa_tres, trampa_cuatro]
 
-nivel_dos = Nivel(fondo, lista_plataformas, enemigos,items,trampas, 60,20,3,2,12)
+nivel_dos = Nivel(fondo, lista_plataformas, enemigos,items,trampas, 60,8,6,2,5)
 
 # nivel_dos = {"fondo": fondo,
 #              "plat": lista_plataformas,

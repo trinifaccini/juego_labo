@@ -21,8 +21,8 @@ piso = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Tierra",
                 "Recursos/Plataformas/plataforma_grande.png")
 
 
-item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Obstaculos/coca.png")
-item_dos = Item((30,30), (300, 450),0, 10, "Recursos/Obstaculos/hamburguesa.png")
+item_uno = Item((30,50), (0, 450), 10, 0, "Recursos/Audio/sorbo.mp3","Recursos/Obstaculos/coca.png")
+item_dos = Item((30,30), (300, 450),0, 10,"Recursos/Audio/ñam.mp3", "Recursos/Obstaculos/hamburguesa.png")
 
 enemigos = [enemigo_uno]
 lista_plataformas = [piso]

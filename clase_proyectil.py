@@ -16,8 +16,7 @@ class Proyectil(Item):
     def __init__(self, tamanio: tuple, pos_inicial: tuple, cambio_vida: int, cambio_puntos: int,
                  velocidad, path_img):
 
-        super().__init__(tamanio, pos_inicial, cambio_vida,
-                         cambio_puntos, path_img)
+        super().__init__(tamanio, pos_inicial, cambio_vida,cambio_puntos, path_img=path_img)
 
         self.velocidad = velocidad
 

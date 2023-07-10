@@ -71,7 +71,7 @@ class Enemigo(Personaje):
         self.verificar_animacion_ataque(pantalla)
         super().definir_animacion(pantalla)
 
-    def definir_accion(self, jugador):
+    def definir_accion(self, jugador, tiempo):
 
         # REBOTE SOBRE LA PLATAFORMA EN LA QUE SE ENCUENTRA
 
@@ -96,9 +96,9 @@ class Enemigo(Personaje):
                 elif (self.accion == "izquierda" and (self.lados['left'].x <= 2 or self.lados['left'].x <=  self.superficie_apoyo.lados['left'].x+2)):
                         self.accion = "derecha"
 
-    def update(self, pantalla, lista_plataformas, personajes):
+    def update(self, pantalla, lista_plataformas, personajes,tiempo):
 
-        self.definir_accion(personajes[0])
+        self.definir_accion(personajes[0],tiempo)
         super().update(pantalla, lista_plataformas)
 
     def update_personalizado(self, tiempo) -> None:

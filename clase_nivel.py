@@ -84,13 +84,13 @@ class Nivel():
         if self.tiempo % 10 == 0:
             pos_x = random.randint(0, W-100)
             pos_y = random.randint(200, H-80)
-            item_uno = Item((30,50), (pos_x, pos_y), 100, 0, "Recursos/Obstaculos/coca.png")
+            item_uno = Item((30,50), (pos_x, pos_y), 100, 0, 'Recursos/Audio/sorbo.mp3', "Recursos/Obstaculos/coca_dibujo.png")
             self.items.append(item_uno)
 
         if self.tiempo % 15 == 0:
             pos_x = random.randint(0, W-100)
             pos_y = random.randint(200, H-40)
-            item_dos = Item((30,30), (300, 450),0, 30, "Recursos/Obstaculos/hamburguesa.png")
+            item_dos = Item((30,30), (300, 450),0, 30, 'Recursos/Audio/ñam.mp3', "Recursos/Obstaculos/hamburguesa.png")
             self.items.append(item_dos)
 
     def update_plataformas(self, pantalla) -> None:
@@ -98,18 +98,7 @@ class Nivel():
         for plataforma in self.plataformas:
             plataforma.update(pantalla)
 
-    # def posicionar_jugador(self, rect_pantalla, jugador, keys) -> None:
 
-    #     jugador.update(rect_pantalla, self.plataformas, self.enemigos, self.items,
-    #                    self.trampas, keys)
-
-    #     for proyectil in jugador.lista_proyectiles:
-    #         if proyectil.colisiono:
-    #             jugador.lista_proyectiles.remove(proyectil)
-    #             del proyectil
-
-
-    #CORREGIR ESTA FUNCION
     def update_enemigos(self, pantalla, jugador) -> None:
 
         lista = [jugador]
@@ -117,9 +106,9 @@ class Nivel():
         for enemigo in self.enemigos:
 
             if self.nivel == 3:
-                enemigo.update(pantalla, self.plataformas, self.items, lista)
+                enemigo.update(pantalla, self.plataformas, self.items, lista, self.tiempo)
             else:
-                enemigo.update(pantalla, self.plataformas, lista)
+                enemigo.update(pantalla, self.plataformas, lista, self.tiempo)
             for proyectil in enemigo.lista_proyectiles:
                 if proyectil.colisiono:
                     enemigo.lista_proyectiles.remove(proyectil)
@@ -137,13 +126,8 @@ class Nivel():
 
     def update_items(self, pantalla) -> None:
 
-        items_aux = self.items
-
         for item in self.items:
             item.update(pantalla)
-            if item.colisiono:
-                items_aux.remove(item)
-                del item
 
     def update_trampas(self, pantalla) -> None:
 

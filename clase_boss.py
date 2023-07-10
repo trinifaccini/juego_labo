@@ -90,7 +90,7 @@ class Boss(Enemigo):
                 jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
 
             else:
-                if tiempo % 5 == 0:
+                if tiempo % 5 == 0 and jugador.accion != "saltando":
                     self.accion = "ataque_especial"
                     jugador.accion = "inmovilizado"
                 else:

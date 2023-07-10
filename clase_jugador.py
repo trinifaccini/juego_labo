@@ -26,7 +26,7 @@ class Jugador(Personaje):
 
         self.vidas_iniciales = vidas
         self.puntos = 0
-        self.sonido_colision_item = pygame.mixer.Sound('Recursos/Audio/coin.mp3')
+        #self.sonido_colision_item = pygame.mixer.Sound('Recursos/Audio/coin.mp3')
         self.sonido_colision_proyectil = pygame.mixer.Sound('Recursos/Audio/snowball.mp3')
         self.sonido_colision_trampa  = pygame.mixer.Sound('Recursos/Audio/ouch.mp3')
         self.volumen = 5
@@ -46,14 +46,14 @@ class Jugador(Personaje):
         for item in items:
             if self.lados['main'].colliderect(item.lados['main']):
                 if item.es_trampa is not True:
-                    self.sonido_colision_item.set_volume(self.volumen)
-                    self.sonido_colision_item.play()
-                    item.colisiono = True
+                    sound = pygame.mixer.Sound(item.path_sonido)
+                    sound.set_volume(self.volumen)
+                    sound.play()
                     self.vidas += item.cambio_vida
                     self.puntos += item.cambio_puntos
-                # lista_aux = items
-                # lista_aux.remove(item)
-                # del item
+                    lista_aux = items
+                    lista_aux.remove(item)
+                    del item
 
     def verificar_colision_trampas(self, trampas):
 
@@ -88,7 +88,6 @@ class Jugador(Personaje):
             self.sonido_colision_proyectil.set_volume(self.volumen)
             self.sonido_colision_proyectil.play()
 
-
     def verificar_colision_pisos(self, lista_plataformas):
 
         for plat in lista_plataformas:
@@ -111,7 +110,6 @@ class Jugador(Personaje):
                 self.vidas -= enemigo.danio
 
 
-
     def lanzar_proyectil(self, velocidad, keys):
 
         self.cooldown()
@@ -125,8 +123,6 @@ class Jugador(Personaje):
                 (20, 20),(self.lados['main'].centerx, self.lados['left'].centery),-self.danio, 0,
                 velocidad, "Recursos/Obstaculos/bola_nieve_1.png")
             
-            print(len(self.lista_proyectiles))
-
             self.lista_proyectiles.append(proyectil)
             self.cooldown_count = 1
 
@@ -196,7 +192,7 @@ class Jugador(Personaje):
         self.definir_accion(keys)
         super().update(pantalla, lista_plataformas)
 
-        self.lanzar_proyectil(15, keys)
+        self.lanzar_proyectil(10, keys)
         self.verificar_colision_items_especiales(items)
         self.verificar_colision_trampas(trampas)
         self.verificar_proyectil_golpeo_enemigo(enemigos)
