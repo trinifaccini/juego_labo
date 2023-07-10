@@ -46,11 +46,11 @@ class Nivel():
     def copiar(self):
         return copy.deepcopy(self)
 
-    def generar_proyectiles(self) -> None:
+    # def generar_proyectiles(self) -> None:
 
-        for enemigo in self.enemigos:
-            if self.tiempo % enemigo.temporizador == 0 and enemigo.accion != "ataca":
-                enemigo.lanzar_proyectil(15)
+    #     for enemigo in self.enemigos:
+    #         if self.tiempo % enemigo.temporizador == 0 and enemigo.accion != "ataca":
+    #             enemigo.lanzar_proyectil(15)
 
     def enemigo_segun_nivel(self) -> Enemigo:
 
@@ -93,34 +93,33 @@ class Nivel():
             item_dos = Item((30,30), (300, 450),0, 30, "Recursos/Obstaculos/hamburguesa.png")
             self.items.append(item_dos)
 
-    # CORREGIR ESTA FUNCION
-    def posicionar_plataformas(self, rect_pantalla) -> None:
+    def update_plataformas(self, pantalla) -> None:
 
         for plataforma in self.plataformas:
-            plataforma.update(rect_pantalla)
+            plataforma.update(pantalla)
 
-    def posicionar_jugador(self, rect_pantalla, jugador, keys) -> None:
+    # def posicionar_jugador(self, rect_pantalla, jugador, keys) -> None:
 
-        jugador.update(rect_pantalla, self.plataformas, self.enemigos, self.items,
-                       self.trampas, keys)
+    #     jugador.update(rect_pantalla, self.plataformas, self.enemigos, self.items,
+    #                    self.trampas, keys)
 
-        for proyectil in jugador.lista_proyectiles:
-            if proyectil.colisiono:
-                jugador.lista_proyectiles.remove(proyectil)
-                del proyectil
+    #     for proyectil in jugador.lista_proyectiles:
+    #         if proyectil.colisiono:
+    #             jugador.lista_proyectiles.remove(proyectil)
+    #             del proyectil
 
 
     #CORREGIR ESTA FUNCION
-    def posicionar_enemigos(self, rect_pantalla, jugador) -> None:
+    def update_enemigos(self, pantalla, jugador) -> None:
 
         lista = [jugador]
-        
+ 
         for enemigo in self.enemigos:
 
             if self.nivel == 3:
-                enemigo.update(rect_pantalla, self.plataformas, self.items, lista, self.tiempo)
+                enemigo.update(pantalla, self.plataformas, self.items, lista)
             else:
-                enemigo.update(rect_pantalla, self.plataformas, lista, self.tiempo)
+                enemigo.update(pantalla, self.plataformas, lista)
             for proyectil in enemigo.lista_proyectiles:
                 if proyectil.colisiono:
                     enemigo.lista_proyectiles.remove(proyectil)
@@ -131,31 +130,25 @@ class Nivel():
                 self.enemigos_muertos += 1
                 del enemigo
 
-    def posicionar_items(self, rect_pantalla) -> None:
+    def update_personalizado_enemigos(self) -> None:
+
+        for enemigo in self.enemigos:
+            enemigo.update_personalizado(self.tiempo)
+
+    def update_items(self, pantalla) -> None:
 
         items_aux = self.items
 
         for item in self.items:
-            item.update(rect_pantalla)
+            item.update(pantalla)
             if item.colisiono:
                 items_aux.remove(item)
                 del item
 
-    def posicionar_trampas(self, rect_pantalla) -> None:
+    def update_trampas(self, pantalla) -> None:
 
         for trampa in self.trampas:
-            trampa.update(rect_pantalla)
-
-
-    def update(self, rect_pantalla, jugador, keys) -> None:
-
-        rect_pantalla.blit(self.fondo, (0, 0))
-
-        self.posicionar_plataformas(rect_pantalla)
-        self.posicionar_enemigos(rect_pantalla, jugador)
-        self.posicionar_items(rect_pantalla)
-        self.posicionar_trampas(rect_pantalla)
-        self.posicionar_jugador(rect_pantalla,jugador, keys)
+            trampa.update(pantalla)
 
     def resetear_enemigos_nivel(self) -> None:
 
@@ -181,10 +174,26 @@ class Nivel():
 
         self.items = items
 
+    def resetear_nivel(self) -> None:
 
-    def update_personalizado(self, jugador,pantalla, keys):
+        self.resetear_enemigos_nivel()
+        self.resetear_items_nivel()
 
-        self.generar_proyectiles()
+    def update(self, pantalla, jugador, keys) -> None:
+
+        pantalla.blit(self.fondo, (0, 0))
+
+        self.update_plataformas(pantalla)
+        self.update_enemigos(pantalla, jugador)
+        self.update_items(pantalla)
+        self.update_trampas(pantalla)
+        jugador.update(pantalla, self.plataformas, self.enemigos, self.items, self.trampas, keys)
+
+    def update_personalizado(self, jugador):
+
         self.generar_enemigos()
         self.generar_items_especiales()
-        jugador.update_personalizado(self.enemigos, self.trampas, pantalla, keys)
+        self.update_personalizado_enemigos()
+        jugador.update_personalizado(self.enemigos, self.trampas)
+
+

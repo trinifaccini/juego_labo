@@ -54,7 +54,7 @@ class Juego():
         self.boton_pausa = Button_Image(pantalla, 0, 0,W-60,175,50,50,
                                  "Recursos/Interfaces/button_pause.png",
                                  self.btn_pausar_click, "x")
-        
+
         self.boton_audio = Button_Image(pantalla, 0, 0,W-60,235,50,50,
                                  "Recursos/Interfaces/button_sound.png",
                                  self.btn_sonido_click, "x")
@@ -66,7 +66,8 @@ class Juego():
         x = 0
 
         for i in range(0, entero):
-            img_enemigo = PictureBox(pantalla, x, 55, 30, 30, "Recursos/Obstaculos/piedra.png")
+            img_enemigo = PictureBox(pantalla, x, 55, 30, 30, 
+                                     "Recursos/Obstaculos/piedra.png")
             imgs.append(img_enemigo)
             x += 40
 
@@ -81,7 +82,8 @@ class Juego():
         x = W-50
 
         for i in range(0, vidas):
-            img_vida = PictureBox(pantalla, x, 5, 30, 30, "Recursos/Interfaces/life.png")
+            img_vida = PictureBox(pantalla, x, 5, 30, 30, 
+                                  "Recursos/Interfaces/cabeza_esquiador.png")
             imgs.append(img_vida)
             x -= 40
 
@@ -106,15 +108,6 @@ class Juego():
 
     def generar_posicionar_textos(self, pantalla, fuente) -> None:
 
-        # texto = fuente.render(f"Vidas: {self.jugador.vidas}", False, CELESTE, "Blue")
-        # ancho_texto = texto.get_width()
-
-        # texto_vidas = {
-        #     "texto": texto,
-        #     "pos_x": pantalla.get_width()-ancho_texto-10,
-        #     "pos_y": 2
-        # }
-
         texto = fuente.render(f"Puntos: {self.jugador.puntos}", False,CELESTE, "Blue")
 
         texto_puntos = {
@@ -125,7 +118,7 @@ class Juego():
 
         texto = fuente.render(f"TIEMPO RESTANTE: {self.niveles[self.nivel_actual].tiempo}",
                               False, CELESTE, "Blue")
-        
+
         ancho_texto = texto.get_width()
 
         texto_tiempo = {
@@ -152,7 +145,7 @@ class Juego():
                                         border_size=-1,
                                         active=True,
                                         path_img="Recursos/Interfaces/interfaces_3.png")
-        
+
         self.pausar_juego(form_pausa)
 
     def btn_config_click(self, param):
@@ -171,7 +164,7 @@ class Juego():
         self.pausar_juego(form_settings)
 
     def btn_sonido_click(self, param):
-        
+
         if self.jugador.volumen == 0:
             self.boton_audio.set_background_image("Recursos/Interfaces/button_sound.png")
             self.jugador.volumen = 5
@@ -206,15 +199,14 @@ class Juego():
 
         if (self.niveles[self.nivel_actual].tiempo <= 0 and
             self.niveles[self.nivel_actual].enemigos_muertos <self.niveles[self.nivel_actual].enemigos_requeridos):
-
             if self.usuario['nivel_max'] < self.nivel_actual:
- 
+
                 if self.usuario['puntos'] == 0:# significa que nunca ganó
                     actualizar_jugador(self.nivel_actual, 0, self.usuario['usuario'],
                                        self.base_datos)
-  
+
             self.estado_juego = "perdio"
-        
+
     def verificar_vida_jugador(self) -> None:
 
         if self.jugador.vidas <= 0:
@@ -239,37 +231,24 @@ class Juego():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_TAB:
                         change_mode()
-                    # if event.key == pygame.K_x:
-                    #     paused = False
-                        # pygame.mixer.music.unpause()
 
             pygame.display.flip()
 
-    def manejar_eventos_juego(self, pantalla, eventos):
+    def manejar_eventos_juego(self, eventos):
 
         for evento in eventos:
-
             if evento.type == pygame.QUIT:
                 self.cerrar_juego()
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_TAB:
                     change_mode()
-                # if evento.key == pygame.K_x:
-                #     self.pausar_juego()
-
-    def reiniciar_enemigos_niveles(self) -> None:
-        for nivel in self.niveles:
-            nivel.resetear_enemigos_nivel()
-
-    def reiniciar_items_niveles(self) -> None:
-        for nivel in self.niveles:
-            nivel.resetear_items_nivel()
 
     def reiniciar_juego(self) -> None:
-        self.niveles[self.nivel_actual].tiempo = 60
+        self.niveles[self.nivel_actual].tiempo = 200
         self.jugador.vidas = self.jugador.vidas_iniciales
-        self.reiniciar_enemigos_niveles()
-        self.reiniciar_items_niveles()
+
+        for nivel in self.niveles:
+            nivel.resetear_nivel()
 
     def update(self, pantalla,fuente, eventos, keys) -> None:
 
@@ -286,6 +265,6 @@ class Juego():
         else:
             self.generar_posicionar_img_enemigos(pantalla, eventos)
 
-    def update_personalizado(self, pantalla, keys) -> None:
+    def update_personalizado(self) -> None:
 
-        self.niveles[self.nivel_actual].update_personalizado(self.jugador,pantalla, keys)
+        self.niveles[self.nivel_actual].update_personalizado(self.jugador)

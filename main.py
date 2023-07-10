@@ -9,11 +9,11 @@ MAIN
 
 import sys
 import pygame
-from API_FORMS.GUI_pantalla_final import FormFinal
 from clase_juego import Juego
 from config_db import *
 from config_img import dibujar_borde_rectangulos
 from datos_juego import W,H,TAMANIO_PANTALLA, FPS, jugador
+from API_FORMS.GUI_pantalla_final import FormFinal
 from API_FORMS.GUI_form_inicio import FormInicio
 from modo import get_mode
 
@@ -53,7 +53,7 @@ def dibujar_borde_rectangulos_juego(pantalla, juego_param) -> None:
         for i in juego_param.niveles[juego_param.nivel_actual].items:
             dibujar_borde_rectangulos(pantalla, i.lados, "Yellow")
 
-def tiempo_en_segundos (eventos_juego,juego_param,pantalla, keys_param) -> None:
+def tiempo_en_segundos (eventos_juego,juego_param) -> None:
 
     '''
     Cuenta el tiempo en segundos del juego
@@ -62,7 +62,7 @@ def tiempo_en_segundos (eventos_juego,juego_param,pantalla, keys_param) -> None:
     for e in eventos_juego:
         if e.type == TIMER_EVENT:
             juego_param.niveles[juego_param.nivel_actual].tiempo -= 1
-            juego_param.update_personalizado(pantalla, keys_param)
+            juego_param.update_personalizado()
 
 while True:
 
@@ -84,7 +84,7 @@ while True:
         PANTALLA.fill("Black")
         form_inicio.update(eventos)
         juego = None
- 
+
 
     elif juego is not None and juego.estado_juego is not None:
 
@@ -110,13 +110,11 @@ while True:
 
             if form_inicio.nivel == 0:
                 jugador.puntos = 0
-            # else:
-            #     jugador.puntos = juego.niveles[juego.nivel_actual-1].puntos_requeridos
 
             juego.reiniciar_juego()
 
-        juego.manejar_eventos_juego(PANTALLA, eventos)
-        tiempo_en_segundos(eventos, juego, PANTALLA, keys)
+        juego.manejar_eventos_juego(eventos)
+        tiempo_en_segundos(eventos, juego)
         juego.update(PANTALLA, FUENTE, eventos, keys)
         dibujar_borde_rectangulos_juego(PANTALLA, juego)
 

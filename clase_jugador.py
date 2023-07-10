@@ -12,24 +12,32 @@ CLASE JUGADOR
 
 import pygame
 from clase_personaje import Personaje
+from clase_proyectil import Proyectil
 
 class Jugador(Personaje):
 
-    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio, velocidad: int,
-                 potencia_salto: int, vidas: int, danio: int):
+    def __init__(self, tamanio: tuple, pos_inicial: tuple, animaciones_normal, animaciones_danio,
+                 velocidad: int,potencia_salto: int, vidas: int, danio: int):
 
         super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
                          velocidad, potencia_salto, vidas, danio)
-        
+
         pygame.mixer.init()
 
         self.vidas_iniciales = vidas
-        self.accion = "derecha"
         self.puntos = 0
         self.sonido_colision_item = pygame.mixer.Sound('Recursos/Audio/coin.mp3')
         self.sonido_colision_proyectil = pygame.mixer.Sound('Recursos/Audio/snowball.mp3')
         self.sonido_colision_trampa  = pygame.mixer.Sound('Recursos/Audio/ouch.mp3')
         self.volumen = 5
+        self.cooldown_count = 0
+
+    def cooldown(self) -> None:
+
+        if self.cooldown_count >= 10:
+            self.cooldown_count = 0
+        elif self.cooldown_count > 0:
+            self.cooldown_count += 1
 
     # VERIFICO COLISION DE ITEM CON PERSONAJE JUGADOR UNICAMENTE
     # SI COLISIONA LO BORRO DE LA LISTA
@@ -53,8 +61,8 @@ class Jugador(Personaje):
             if (self.lados['right'].colliderect(item.lados['main']) or
                                                self.lados['left'].colliderect(item.lados['main'])):
                 self.accion = "atacado"
-           
-        
+
+
     def daniar_por_trampas(self, trampas):
 
         for item in trampas:
@@ -65,13 +73,13 @@ class Jugador(Personaje):
                 self.sonido_colision_trampa.set_volume(self.volumen+10)
                 self.sonido_colision_trampa.play()
 
-        
+
     # SI VEO LO DE QUE SEA CADA UN SEGUNDO USAR ESTE METODO
     def verificar_colision_enemigos(self, enemigos):
 
         for enemigo in enemigos:
             if enemigo.accion == "ataca":
-                self.sonido_colision.play()
+                self.sonido_colision_trampa.play()
                 self.vidas -= enemigo.danio
                 self.accion = "atacado"
 
@@ -102,6 +110,74 @@ class Jugador(Personaje):
             if enemigo.accion == "ataca":
                 self.vidas -= enemigo.danio
 
+
+
+    def lanzar_proyectil(self, velocidad, keys):
+
+        self.cooldown()
+
+        if keys[pygame.K_SPACE] and self.accion != "inmovilizado" and self.cooldown_count == 0:
+
+            if self.ultima_accion == "izquierda":
+                velocidad = velocidad * -1
+
+            proyectil = Proyectil(
+                (20, 20),(self.lados['main'].centerx, self.lados['left'].centery),-self.danio, 0,
+                velocidad, "Recursos/Obstaculos/bola_nieve_1.png")
+            
+            print(len(self.lista_proyectiles))
+
+            self.lista_proyectiles.append(proyectil)
+            self.cooldown_count = 1
+
+
+    def verificar_proyectil_golpeo_jugador(self, enemigos) -> None:
+
+        for enemigo in enemigos:
+            for proyectil in enemigo.lista_proyectiles:
+                if proyectil.lados['main'].colliderect(self.lados['main']):
+                    self.animaciones_actual = self.animaciones[1]
+                    self.vidas += proyectil.cambio_vida
+                    lista_aux = enemigo.lista_proyectiles
+                    lista_aux.remove(proyectil)
+                    del proyectil
+                    return True
+                else:
+                    self.animaciones_actual = self.animaciones[0]
+                    return False
+
+    def verificar_proyectil_golpeo_enemigo(self, lista_enemigos) -> None:
+
+        for enemigo in lista_enemigos:
+            for proyectil in self.lista_proyectiles:
+                if proyectil.lados['main'].colliderect(enemigo.lados['main']):
+                    enemigo.animaciones_actual = enemigo.animaciones[1]
+                    enemigo.vidas += proyectil.cambio_vida
+                    lista_aux = self.lista_proyectiles
+                    lista_aux.remove(proyectil)
+                    del proyectil
+                else:
+                    enemigo.animaciones_actual = enemigo.animaciones[0]
+
+    def verificar_animacion_atacado(self, pantalla) -> None:
+
+        if self.accion == "atacado":
+            if self.ultima_accion == "derecha":
+                self.animar(pantalla, "atacado_derecha")
+            else:
+                self.animar(pantalla, "atacado_izquierda")
+
+        if self.accion == "inmovilizado":
+            if self.ultima_accion == "derecha":
+                self.animar(pantalla, "atacado_derecha")
+            else:
+                self.animar(pantalla, "atacado_izquierda")
+
+    def definir_animacion(self, pantalla) -> None:
+
+        self.verificar_animacion_atacado(pantalla)
+        super().definir_animacion(pantalla)
+
     def definir_accion(self, keys):
 
         if self.accion != "inmovilizado":
@@ -112,38 +188,23 @@ class Jugador(Personaje):
             elif keys[pygame.K_UP]:
                 self.accion = "salta"
             elif self.accion != "atacado":
-                self.accion = "quieto"  
+                self.accion = "quieto"
+
 
     def update(self, pantalla, lista_plataformas, enemigos, items,trampas, keys):
 
+        self.definir_accion(keys)
+        super().update(pantalla, lista_plataformas)
+
+        self.lanzar_proyectil(15, keys)
         self.verificar_colision_items_especiales(items)
         self.verificar_colision_trampas(trampas)
-        self.definir_accion(keys)
-
-        if self.accion == "atacado":
-            if self.ultima_accion == "derecha":
-                self.animar(pantalla, "atacado_derecha")
-            else:
-                self.animar(pantalla, "atacado_izquierda")
-        if self.accion == "inmovilizado":
-            if self.ultima_accion == "derecha":
-                self.animar(pantalla, "atacado_derecha")
-            else:
-                self.animar(pantalla, "atacado_izquierda")
+        self.verificar_proyectil_golpeo_enemigo(enemigos)
+        self.verificar_proyectil_golpeo_jugador(enemigos)
 
 
-        super().update(pantalla, lista_plataformas, enemigos)
+    def update_personalizado(self, enemigos,trampas):
 
-
-    def update_personalizado(self, enemigos,trampas, pantalla, keys):
-
-        # Verifico la colision unicamente aca porque este update se llama
-        # cada un segundo
-
-        #self.verificar_colision_enemigos(enemigos, pantalla)
-
+        self.verificar_colision_enemigos(enemigos)
         self.daniar_personaje_por_enemigo(enemigos)
         self.daniar_por_trampas(trampas)
-
-        if keys[pygame.K_SPACE] and self.accion != "inmovilizado":
-            self.lanzar_proyectil(10)
