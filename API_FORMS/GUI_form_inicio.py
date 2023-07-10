@@ -16,13 +16,14 @@ from pygame.locals import *
 from API_FORMS.GUI_form import Form
 from API_FORMS.GUI_button import Button
 from API_FORMS.GUI_form_niveles import FormNiveles
+from API_FORMS.GUI_form_reglas import FormReglas
 from API_FORMS.GUI_form_settings import FormSettings
 from API_FORMS.GUI_textbox import TextBox
 from API_FORMS.GUI_label import Label
 from API_FORMS.GUI_button_image import Button_Image
 from API_FORMS.GUI_form_ranking import FormRanking
 from config_db import buscar_usuario_db, insertar_jugador, traer_ranking_db
-from datos_juego import W
+from datos_juego import H, W
 
 CELESTE = (64, 207, 255)
 TRANSPARENTE = (0,0,0,0)
@@ -106,15 +107,20 @@ class FormInicio(Form):
                                  "Nombre", "CONTINUAR AVENTURA", "Recursos/Fonts/Snowes.ttf", 20, "Black")
 
         self.boton_ranking = Button_Image(self._slave, x, y,
-                                 w/2 - ancho_btn_ranking - 5, 200,
+                                 w/2 - ancho_btn_ranking*1.5 - 5, 200,
                                  ancho_btn_ranking, ancho_btn_ranking,
                                  "Recursos/Interfaces/button_ranking.png",
                                  self.btn_ranking_click, "x")
 
         self.boton_settings = Button_Image(self._slave, x, y,
-                                 w/2+5, 200,ancho_btn_ranking, ancho_btn_ranking,
+                                 w/2-ancho_btn_ranking/2, 200,ancho_btn_ranking, ancho_btn_ranking,
                                  "Recursos/Interfaces/button_settings.png",
                                  self.btn_settings_click, "x")
+        
+        self.boton_reglas = Button_Image(self._slave, x, y,
+                                 w/2+ ancho_btn_ranking*0.5 + 5, 200,ancho_btn_ranking, ancho_btn_ranking,
+                                 "Recursos/Interfaces/button_info.png",
+                                 self.btn_info_click, "x")
 
         self.label_error = Label(self._slave,
                                 self.centro-100, 350 ,200, 30,
@@ -134,6 +140,7 @@ class FormInicio(Form):
         self.lista_widgets.append(self.boton_settings)
         self.lista_widgets.append(self.boton_ranking)
         self.lista_widgets.append(self.label_error)
+        self.lista_widgets.append(self.boton_reglas)
 
         pygame.mixer.music.load("Recursos/Audio/fondo.mp3")
         pygame.mixer.music.set_volume(0.2)
@@ -237,6 +244,21 @@ class FormInicio(Form):
                                    path_image="")
 
         self.show_dialog(form_settings)
+
+    def btn_info_click(self, param):
+
+        form_info = FormReglas(self._master,
+                                x=W/2-((W-200)/2),
+                                y=50,
+                                w=W-200,
+                                h=H-100,
+                                color_background=TRANSPARENTE,
+                                color_border="White",
+                                border_size=-1,
+                                active=True,
+                                path_img="Recursos/Interfaces/interfaces_3.png")
+
+        self.show_dialog(form_info)
 
     def render(self):
         self.draw()

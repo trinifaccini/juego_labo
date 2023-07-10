@@ -129,6 +129,6 @@ class Boss(Enemigo):
     def update_personalizado(self, tiempo) -> None:
 
         if self.superficie_apoyo is not None:
-            if self.accion not in ("ataque_especial","ataca"):
+            if self.accion not in ("ataca"):
                 if tiempo % self.temporizador == 0:
                     self.lanzar_proyectil(15)

@@ -65,7 +65,7 @@ class Juego():
         x = 0
 
         for i in range(0, entero):
-            img_enemigo = PictureBox(pantalla, x, 55, 30, 30, 
+            img_enemigo = PictureBox(pantalla, x, 55, 30, 30,
                                      "Recursos/Obstaculos/piedra.png")
             imgs.append(img_enemigo)
             x += 40
@@ -75,13 +75,13 @@ class Juego():
 
     def generar_img_vidas(self,pantalla, lista_eventos) -> None:
 
-        vidas = round(self.jugador.vidas / 400)
+        vidas = round(self.jugador.vidas / 400) + 1
 
         imgs = []
         x = W-50
 
         for i in range(0, vidas):
-            img_vida = PictureBox(pantalla, x, 5, 30, 30, 
+            img_vida = PictureBox(pantalla, x, 5, 30, 30,
                                   "Recursos/Interfaces/cabeza_esquiador.png")
             imgs.append(img_vida)
             x -= 40
