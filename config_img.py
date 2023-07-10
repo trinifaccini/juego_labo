@@ -97,6 +97,13 @@ personaje_atacado_derecha = [
 
 personaje_atacado_izquierda = girar_imagenes(personaje_atacado_derecha, True, False)
 
+personaje_escondido_derecha = [
+    pygame.image.load("Recursos/Personajes/Normal/Esquiador/Escondido/escondido.png"),
+]
+
+personaje_escondido_izquierda = girar_imagenes(personaje_escondido_derecha, True, False)
+
+
 
 ###########################################################################
 
@@ -180,7 +187,9 @@ diccionario_animaciones_personaje_normal = {
     "salta_derecha": personaje_salta_derecha,
     "salta_izquierda": personaje_salta_izquierda,
     "atacado_derecha": personaje_atacado_derecha,
-    "atacado_izquierda": personaje_atacado_izquierda
+    "atacado_izquierda": personaje_atacado_izquierda,
+    "escondido_derecha": personaje_escondido_derecha,
+    "escondido_izquierda": personaje_escondido_izquierda
 }
 
 
@@ -255,6 +264,14 @@ personaje_atacado_derecha_rojo = [
 
 personaje_atacado_izquierda_rojo = girar_imagenes(personaje_atacado_derecha_rojo, True, False)
 
+personaje_escondido_derecha_rojo = [
+    pygame.image.load("Recursos/Personajes/Normal/Esquiador/Escondido/escondido.png"),
+]
+
+personaje_escondido_izquierda_rojo = girar_imagenes(personaje_escondido_derecha, True, False)
+
+
+
 
 ###########################################################################
 
@@ -318,7 +335,7 @@ yeti_ataca_especial_derecha_rojo = [
     pygame.image.load("Recursos/Personajes/Rojo/Yeti/Ataca/yeti_ataca_0.png"),
     ]
 
-yeti_ataca_especial_izquierda_rojo = girar_imagenes(yeti_ataca_derecha_rojo, True, False)
+yeti_ataca_especial_izquierda_rojo = girar_imagenes(yeti_ataca_especial_derecha_rojo, True, False)
 
 yeti_salta_derecha_rojo = [
     pygame.image.load("Recursos/Personajes/Rojo/Yeti/Quieto/yeti_quieto_0.png"),
@@ -338,7 +355,9 @@ diccionario_animaciones_personaje_rojo = {
     "salta_derecha": personaje_salta_derecha_rojo,
     "salta_izquierda": personaje_salta_izquierda_rojo,
     "atacado_derecha": personaje_atacado_derecha_rojo,
-    "atacado_izquierda": personaje_atacado_izquierda
+    "atacado_izquierda": personaje_atacado_izquierda_rojo,
+    "escondido_derecha": personaje_escondido_derecha_rojo,
+    "escondido_izquierda": personaje_escondido_izquierda_rojo
 }
 
 

@@ -26,7 +26,7 @@ class Personaje(ObjetoAnimado):
         pygame.mixer.init()
 
         self.vidas = vidas
-        #self.img_proyectil = img_proyectil
+        self.img_proyectil = "Recursos/Obstaculos/bola_nieve_1.png"
         self.lista_proyectiles = []
         self.danio = danio
 
@@ -50,7 +50,7 @@ class Personaje(ObjetoAnimado):
                 if self.superficie_apoyo is None:
                     self.superficie_apoyo = plat
                 self.esta_saltando = False
-                self.lados["main"].bottom = plat.lados['main'].top + 5
+                self.lados["main"].bottom = plat.lados['main'].top
                 self.desplazamiento_y = 0
                 break
             else:
@@ -63,7 +63,7 @@ class Personaje(ObjetoAnimado):
 
         proyectil = Proyectil(
             (20, 20),(self.lados['main'].centerx, self.lados['left'].centery),-self.danio,
-            0, velocidad, "Recursos/Obstaculos/bola_nieve_1.png")
+            0, velocidad, self.img_proyectil)
 
         self.lista_proyectiles.append(proyectil)
 
@@ -76,7 +76,6 @@ class Personaje(ObjetoAnimado):
 
     # En el caso del jugador, va a ser manipulado por el usuario
     # En el caso del enemigo, va a ser manipulado por los choques
-
     def definir_accion(self):
 
         self.accion = "quieto"

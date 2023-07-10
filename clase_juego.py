@@ -18,7 +18,7 @@ from API_FORMS.GUI_form_pausa import FormPausa
 from API_FORMS.GUI_form_settings import FormSettings
 from API_FORMS.GUI_picture_box import PictureBox
 from config_db import actualizar_jugador
-from datos_juego import H, W
+from datos_juego import W
 from modo import *
 from datos_nivel_uno import nivel_uno
 from datos_nivel_dos import nivel_dos
@@ -92,19 +92,20 @@ class Juego():
 
     def generar_img_vidas_boss(self,pantalla, lista_eventos) -> None:
 
-        vida_enemigo = self.niveles[self.nivel_actual].enemigos[0].vidas
-        vidas = round(vida_enemigo/ 400)
+        if len(self.niveles[self.nivel_actual].enemigos) > 0:
+            vida_enemigo = self.niveles[self.nivel_actual].enemigos[0].vidas
+            vidas = round(vida_enemigo/ 400)
 
-        imgs = []
-        x = W-50
+            imgs = []
+            x = W-50
 
-        for i in range(0, vidas):
-            img_vida = PictureBox(pantalla, x, 45, 50, 50, "Recursos/Obstaculos/piedra.png")
-            imgs.append(img_vida)
-            x -= 40
+            for i in range(0, vidas):
+                img_vida = PictureBox(pantalla, x, 45, 50, 50, "Recursos/Obstaculos/piedra.png")
+                imgs.append(img_vida)
+                x -= 40
 
-        for img in imgs:
-            img.update(lista_eventos)
+            for img in imgs:
+                img.update(lista_eventos)
 
     def generar_posicionar_textos(self, pantalla, fuente) -> None:
 

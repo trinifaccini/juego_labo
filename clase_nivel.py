@@ -179,5 +179,3 @@ class Nivel():
         self.generar_items_especiales()
         self.update_personalizado_enemigos()
         jugador.update_personalizado(self.enemigos, self.trampas)
-
-

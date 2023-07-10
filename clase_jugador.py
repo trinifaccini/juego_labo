@@ -45,7 +45,7 @@ class Jugador(Personaje):
 
         for item in items:
             if self.lados['main'].colliderect(item.lados['main']):
-                if item.es_trampa is not True:
+                if item.es_trampa is False:
                     sound = pygame.mixer.Sound(item.path_sonido)
                     sound.set_volume(self.volumen)
                     sound.play()
@@ -81,12 +81,7 @@ class Jugador(Personaje):
             if enemigo.accion == "ataca":
                 self.sonido_colision_trampa.play()
                 self.vidas -= enemigo.danio
-                self.accion = "atacado"
-
-    def verificar_colision_proyectil(self, personajes) -> bool:
-        if super().verificar_colision_proyectil(personajes):
-            self.sonido_colision_proyectil.set_volume(self.volumen)
-            self.sonido_colision_proyectil.play()
+                self.accion = "atacado"            
 
     def verificar_colision_pisos(self, lista_plataformas):
 
@@ -132,6 +127,8 @@ class Jugador(Personaje):
         for enemigo in enemigos:
             for proyectil in enemigo.lista_proyectiles:
                 if proyectil.lados['main'].colliderect(self.lados['main']):
+                    self.sonido_colision_proyectil.set_volume(self.volumen)
+                    self.sonido_colision_proyectil.play()
                     self.animaciones_actual = self.animaciones[1]
                     self.vidas += proyectil.cambio_vida
                     lista_aux = enemigo.lista_proyectiles
@@ -146,14 +143,15 @@ class Jugador(Personaje):
 
         for enemigo in lista_enemigos:
             for proyectil in self.lista_proyectiles:
-                if proyectil.lados['main'].colliderect(enemigo.lados['main']):
-                    enemigo.animaciones_actual = enemigo.animaciones[1]
-                    enemigo.vidas += proyectil.cambio_vida
-                    lista_aux = self.lista_proyectiles
-                    lista_aux.remove(proyectil)
-                    del proyectil
-                else:
-                    enemigo.animaciones_actual = enemigo.animaciones[0]
+                if enemigo.superficie_apoyo is not None:
+                    if proyectil.lados['main'].colliderect(enemigo.lados['main']):
+                        enemigo.animaciones_actual = enemigo.animaciones[1]
+                        enemigo.vidas += proyectil.cambio_vida
+                        lista_aux = self.lista_proyectiles
+                        lista_aux.remove(proyectil)
+                        del proyectil
+                    else:
+                        enemigo.animaciones_actual = enemigo.animaciones[0]
 
     def verificar_animacion_atacado(self, pantalla) -> None:
 
@@ -165,9 +163,9 @@ class Jugador(Personaje):
 
         if self.accion == "inmovilizado":
             if self.ultima_accion == "derecha":
-                self.animar(pantalla, "atacado_derecha")
+                self.animar(pantalla, "escondido_derecha")
             else:
-                self.animar(pantalla, "atacado_izquierda")
+                self.animar(pantalla, "escondido_izquierda")
 
     def definir_animacion(self, pantalla) -> None:
 

@@ -105,4 +105,4 @@ class Enemigo(Personaje):
 
         if self.superficie_apoyo is not None:
             if tiempo % self.temporizador == 0 and self.accion != "ataca":
-                super().lanzar_proyectil(15)
+              self.lanzar_proyectil(15)

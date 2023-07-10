@@ -9,6 +9,7 @@ CLASE ENEMIGO
 # pylint: disable=arguments-differ
 # pylint: disable=no-member
 
+import pygame
 from clase_enemigo import Enemigo
 from clase_proyectil import Proyectil
 import copy
@@ -45,6 +46,11 @@ class Boss(Enemigo):
         super().__init__(tamanio, pos_inicial, animaciones_normal, animaciones_danio,
                          velocidad, potencia_salto, vidas, danio, aporte_puntos,temporizador)
 
+        pygame.mixer.init()
+        self.img_proyectil = "Recursos/Obstaculos/piedra.png"
+        self.sonido_grunido = pygame.mixer.Sound('Recursos/Audio/yeti.mp3')
+
+
     def lanzar_proyectil(self, velocidad):
 
         velocidad = velocidad * 1.5
@@ -62,8 +68,10 @@ class Boss(Enemigo):
 
         for item in items:
             if self.lados['main'].colliderect(item.lados['main']):
-                if item.es_trampa is not True:
-                    item.colisiono = True
+                if item.es_trampa is False:
+                   lista_aux = items
+                   lista_aux.remove(item)
+                   del item
 
     def atacar_especial(self, pantalla):
 
@@ -74,8 +82,6 @@ class Boss(Enemigo):
                 self.animar(pantalla, "ataca_especial_derecha")
 
     def definir_accion(self, jugador, tiempo):
-
-        # REBOTE SOBRE LA PLATAFORMA EN LA QUE SE ENCUENTRA
 
         if self.superficie_apoyo is not None:
 
@@ -90,26 +96,39 @@ class Boss(Enemigo):
                 jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
 
             else:
-                if tiempo % 5 == 0 and jugador.accion != "saltando":
+                print(jugador.esta_saltando)
+                if tiempo % 5 >= 0 and tiempo % 5 <= 1 and jugador.esta_saltando is False:
+
+                    if pygame.mixer.get_busy() is not True:
+                        self.sonido_grunido.set_volume(jugador.volumen)
+                        self.sonido_grunido.play()
                     self.accion = "ataque_especial"
                     jugador.accion = "inmovilizado"
                 else:
                     self.accion = self.ultima_accion
                     jugador.accion = jugador.ultima_accion
-                    
+
                 if self.accion == "ataca":
                     self.accion = self.ultima_accion
 
-                if (self.accion == "derecha" and self.lados['right'].x >= self.superficie_apoyo.lados['right'].x):
-                        self.accion = "izquierda"
+                if (self.accion == "derecha" and
+                    self.lados['right'].x >= self.superficie_apoyo.lados['right'].x):
+                    self.accion = "izquierda"
 
-                elif (self.accion == "izquierda" and (self.lados['left'].x <= 2 or self.lados['left'].x <=  self.superficie_apoyo.lados['left'].x+2)):
-                        self.accion = "derecha"
-    
+                elif (self.accion == "izquierda" and (self.lados['left'].x <= 2 or
+                                                      self.lados['left'].x <= self.superficie_apoyo.lados['left'].x+2)):
+                    self.accion = "derecha"
+
     def update(self, pantalla, lista_plataformas, items, personajes, tiempo):
 
         self.verificar_colision_items_especiales(items)
         self.atacar_especial(pantalla)
         super().update(pantalla, lista_plataformas, personajes, tiempo)
 
-    
+
+    def update_personalizado(self, tiempo) -> None:
+
+        if self.superficie_apoyo is not None:
+            if self.accion not in ("ataque_especial","ataca"):
+                if tiempo % self.temporizador == 0:
+                    self.lanzar_proyectil(15)
