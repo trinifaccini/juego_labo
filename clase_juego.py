@@ -46,7 +46,6 @@ class Juego():
         else:
             pygame.mixer.music.load("Recursos/Audio/musica.mp3")
 
-
         self.boton_config = Button_Image(pantalla, 0, 0,W-60,115,50,50,
                                  "Recursos/Interfaces/button_settings.png",
                                  self.btn_config_click, "x")
