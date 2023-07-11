@@ -63,7 +63,12 @@ lista_plataformas = [piso, plataforma_1, plataforma_2, plataforma_3, plataforma_
 items = [item_uno, item_dos]
 trampas = [trampa_uno, trampa_dos, trampa_tres, trampa_cuatro]
 
-nivel_dos = Nivel(fondo, lista_plataformas, enemigos,items,trampas, 60,8,6,2,5)
+descripcion = ("En este nivel te encontrara con osos, deberias matar a minimo 6 de ellos" +
+               " poder pasar al siguiente nivel. Mucha atencion porque puede parecer facil" + 
+               " pero no deberas olvidar tomar la mayor cantidad de coca-colas necesarias. " + 
+               "Las vas a necesitar pronto..")
+
+nivel_dos = Nivel(fondo, lista_plataformas, enemigos,items,trampas, 60,8,6,2,5, "yeti", descripcion)
 
 # nivel_dos = {"fondo": fondo,
 #              "plat": lista_plataformas,

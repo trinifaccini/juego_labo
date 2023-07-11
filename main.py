@@ -105,6 +105,7 @@ while True:
     else:
 
         if juego is None:
+
             juego = Juego(PANTALLA, jugador, form_inicio.nivel, "jugadores.db",
                           form_inicio.usuario_jugador)
 
@@ -112,6 +113,8 @@ while True:
                 jugador.puntos = 0
 
             juego.reiniciar_juego()
+
+            juego.mostrar_form_nivel()
 
         juego.manejar_eventos_juego(eventos)
         tiempo_en_segundos(eventos  , juego)

@@ -5,8 +5,6 @@ from API_FORMS.GUI_form import Form
 from API_FORMS.GUI_form_estado_juego import CELESTE
 from API_FORMS.GUI_label import Label
 from API_FORMS.GUI_button_image import Button_Image
-from API_FORMS.GUI_picture_box import PictureBox
-from datos_juego import W
 
 class FormNivel(Form):
 
@@ -30,21 +28,31 @@ class FormNivel(Form):
                            font_color="White",
                            path_image="Recursos/bar.png")
         
-        self.label_vidas = Label(screen=self._slave,
+        self.label_enemigos = Label(screen=self._slave,
                            x=100,
                            y=70,
-                           w=220,
+                           w=500,
                            h=50,
                            text=f"DEBERAS MATAR AL ENEMIGO DE TIPO {nivel['tipo_enemigo']}",
+                           font= "Recursos/Fonts/Snowes.ttf",
+                           font_size=25,
+                           font_color="White")
+        
+        self.label_descripcion = Label(screen=self._slave,
+                           x=100,
+                           y=130,
+                           w=500,
+                           h=150,
+                           text=f"{nivel['descripcion']}",
                            font= "Recursos/Fonts/Snowes.ttf",
                            font_size=25,
                            font_color="White")
 
 
 
-        self.boton_continuar = Button(self._slave, x, y, w-150, h/2,
-                                 150,40,CELESTE, "Blue", self.btn_continuar_click,
-                                 "Nombre", "CONTINUAR", "Recursos/Fonts/Snowes.ttf", 30, "Black")
+        self.boton_continuar = Button(self._slave, x, y, w-200, h/2,
+                                 200,40,CELESTE, "Blue", self.btn_continuar_click,
+                                 "Nombre", "COMENZAR NIVEL", "Recursos/Fonts/Snowes.ttf", 30, "Black")
         
         self.boton_home = Button_Image(self._slave,
                                          x, y, 0, h/2,50, 50,
@@ -53,7 +61,8 @@ class FormNivel(Form):
         ######
 
         self.lista_widgets.append(self.label)
-        self.lista_widgets.append(self.label_vidas)
+        self.lista_widgets.append(self.label_enemigos)
+        self.lista_widgets.append(self.label_descripcion)
         self.lista_widgets.append(self.boton_continuar)
         self.lista_widgets.append(self.boton_home)
        

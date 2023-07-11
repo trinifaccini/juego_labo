@@ -190,8 +190,10 @@ class Juego():
     def mostrar_form_nivel(self) -> None:
 
         nivel = {
-            'tipo_enemigo': "YETI",
-            'numero': self.nivel_actual+2
+            'tipo_enemigo': self.niveles[self.nivel_actual].tipo_enemigo,
+            'numero': self.nivel_actual+1,
+            'descripcion': self.niveles[self.nivel_actual].descripcion
+
         }
 
         form_nivel = FormNivel(self.pantalla,
@@ -216,14 +218,15 @@ class Juego():
                 self.sonido_paso_nivel.play()
                 self.jugador.puntos += (self.niveles[self.nivel_actual].tiempo * 100)
                 self.jugador.lista_proyectiles.clear()
+                self.nivel_actual += 1
                 self.mostrar_form_nivel()
                 print("acaaaa")
-                self.nivel_actual += 1
                 self.niveles[self.nivel_actual].tiempo = 60
             else:
                 if self.jugador.puntos > self.usuario['puntos']:
                     actualizar_jugador(self.nivel_actual, self.jugador.puntos,
                                    self.usuario['usuario'], self.base_datos)
+                pygame.mixer.stop()
                 self.sonido_win.set_volume(self.jugador.volumen)
                 self.sonido_win.play()
                 self.estado_juego = "gano"
@@ -235,7 +238,7 @@ class Juego():
                 if self.usuario['puntos'] == 0:# significa que nunca ganó
                     actualizar_jugador(self.nivel_actual, 0, self.usuario['usuario'],
                                        self.base_datos)
-
+            pygame.mixer.stop()
             self.sonido_lose.set_volume(self.jugador.volumen)
             self.sonido_lose.play()
             self.estado_juego = "perdio"
@@ -247,7 +250,7 @@ class Juego():
                 if self.usuario['puntos'] == 0: # significa que nunca ganó
                     actualizar_jugador(self.nivel_actual, 0, self.usuario['usuario'],
                                        self.base_datos)
-           
+            pygame.mixer.stop()
             self.sonido_lose.set_volume(self.jugador.volumen)
             self.sonido_lose.play()
             self.estado_juego = "murio"

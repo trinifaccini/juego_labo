@@ -18,7 +18,8 @@ class Nivel():
 
     def __init__(self, fondo, plataformas:list, enemigos_iniciales:list,
                  items_iniciales:list, trampas, tiempo:int, enemigos_requeridos:int,
-                 max_enemigos:int,nivel:int, temporizador) -> None:
+                 max_enemigos:int,nivel:int, temporizador:int, tipo_enemigo:str,
+                 descripcion:str) -> None:
 
         self.fondo = fondo
         self.tiempo = tiempo
@@ -42,6 +43,8 @@ class Nivel():
         self.enemigos_requeridos = enemigos_requeridos
         self.enemigos_muertos = 0
         self.temporizador = temporizador
+        self.tipo_enemigo = tipo_enemigo
+        self.descripcion = descripcion
 
     def copiar(self):
         return copy.deepcopy(self)
