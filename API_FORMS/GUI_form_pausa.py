@@ -1,10 +1,12 @@
 import pygame
 
 from API_FORMS.GUI_form import Form
+from API_FORMS.GUI_form_inicio import TRANSPARENTE
+from API_FORMS.GUI_form_reglas import FormReglas
 from API_FORMS.GUI_form_settings import FormSettings
 from API_FORMS.GUI_label import Label
 from API_FORMS.GUI_button_image import Button_Image
-from datos_juego import W
+from datos_juego import H, W
 
 class FormPausa(Form):
 
@@ -24,7 +26,7 @@ class FormPausa(Form):
 
         pygame.mixer.music.pause()
 
-        ancho_btn_ranking = 50
+        ancho_btn = 50
 
         # CABECERAS
 
@@ -42,24 +44,31 @@ class FormPausa(Form):
 
         self.boton_atras = Button_Image(self._slave,
                                            x, y, 0, h/2,
-                                           ancho_btn_ranking, ancho_btn_ranking,
+                                           ancho_btn, ancho_btn,
                                            "Recursos/Interfaces/flecha.png",
                                            self.btn_back_click, "x"
                                         )
 
 
         self.boton_home = Button_Image(self._slave,
-                                         x, y, w-ancho_btn_ranking, h/2,
-                                         ancho_btn_ranking, ancho_btn_ranking,
+                                         x, y, w-ancho_btn, h/2,
+                                         ancho_btn, ancho_btn,
                                          "Recursos/Interfaces/home.png",
                                           self.btn_home_click, "x"
                                         )
+        
+        self.boton_reglas = Button_Image(self._slave, x, y,
+                                 w/2-ancho_btn/2, h/2,
+                                 ancho_btn, ancho_btn,
+                                 "Recursos/Interfaces/button_info.png",
+                                 self.btn_info_click, "x")
 
         ######
 
         self.lista_widgets.append(self.label)
         self.lista_widgets.append(self.boton_home)
         self.lista_widgets.append(self.boton_atras)
+        self.lista_widgets.append(self.boton_reglas)
 
     def btn_home_click(self, param) -> None:
 
@@ -79,6 +88,22 @@ class FormPausa(Form):
             pygame.mixer.music.unpause()
 
         self.end_dialog()
+
+    def btn_info_click(self, param):
+
+        form_info = FormReglas(self._master,
+                                x=W/2-((W-200)/2),
+                                y=50,
+                                w=W-200,
+                                h=H-100,
+                                color_background=TRANSPARENTE,
+                                color_border="White",
+                                border_size=-1,
+                                active=True,
+                                path_img="Recursos/Interfaces/interfaces_3.png")
+
+        self.show_dialog(form_info)
+        
 
     def render(self):
         self._slave.fill(self._color_background)

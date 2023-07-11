@@ -38,6 +38,9 @@ class Juego():
         self.niveles = [nivel_uno, nivel_dos, nivel_tres]
         self.estado_juego = None
 
+        self.sonido_win = pygame.mixer.Sound("Recursos/Audio/win.mp3")
+        self.sonido_lose = pygame.mixer.Sound("Recursos/Audio/lose.mp3")
+
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.load("Recursos/Audio/musica.mp3")
             pygame.mixer.music.set_volume(pygame.mixer.music.get_volume())
@@ -195,6 +198,8 @@ class Juego():
                 if self.jugador.puntos > self.usuario['puntos']: # actualizo solo si los puntos q obtuvo son mayores a los que ya tenia
                     actualizar_jugador(self.nivel_actual, self.jugador.puntos,
                                    self.usuario['usuario'], self.base_datos)
+                self.sonido_win.set_volume(self.jugador.volumen)
+                self.sonido_win.play()
                 self.estado_juego = "gano"
 
         if (self.niveles[self.nivel_actual].tiempo <= 0 and
@@ -205,6 +210,8 @@ class Juego():
                     actualizar_jugador(self.nivel_actual, 0, self.usuario['usuario'],
                                        self.base_datos)
 
+            self.sonido_lose.set_volume(self.jugador.volumen)
+            self.sonido_lose.play()
             self.estado_juego = "perdio"
 
     def verificar_vida_jugador(self) -> None:
@@ -214,6 +221,9 @@ class Juego():
                 if self.usuario['puntos'] == 0: # significa que nunca ganó
                     actualizar_jugador(self.nivel_actual, 0, self.usuario['usuario'],
                                        self.base_datos)
+           
+            self.sonido_lose.set_volume(self.jugador.volumen)
+            self.sonido_lose.play()
             self.estado_juego = "murio"
 
     def pausar_juego(self, formulario) -> None:
@@ -244,7 +254,7 @@ class Juego():
                     change_mode()
 
     def reiniciar_juego(self) -> None:
-        self.niveles[self.nivel_actual].tiempo = 200
+        self.niveles[self.nivel_actual].tiempo = 60
         self.jugador.vidas = self.jugador.vidas_iniciales
 
         for nivel in self.niveles:

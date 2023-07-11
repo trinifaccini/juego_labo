@@ -37,7 +37,7 @@ class FormFinal(Form):
         if estado_juego == "gano":
             texto = f"GANASTE - TUS PUNTOS: {puntos}"
         elif estado_juego == "perdio":
-            texto = "PERDISTE: NO ALCANZASTE LOS PUNTOS"
+            texto = "PERDISTE: NO ALCANZASTE EL OBJETIVO"
         else:
             texto = "PERDISTE: TE QUEDASTE SIN VIDA"
 
