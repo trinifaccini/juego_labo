@@ -22,8 +22,6 @@ class FormPausa(Form):
         self.jugando = True
         self.pausado = True
         self.estado_musica = pygame.mixer.music.get_busy()
-        print(self.estado_musica)
-
         pygame.mixer.music.pause()
 
         ancho_btn = 50

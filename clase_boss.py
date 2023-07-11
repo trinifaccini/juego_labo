@@ -96,9 +96,7 @@ class Boss(Enemigo):
                 jugador.accion = "atacado" # SI VEO LO DE QUE SEA CADA UN SEGUNDO SACAR
 
             else:
-                print(jugador.esta_saltando)
                 if tiempo % 5 >= 0 and tiempo % 5 <= 1 and jugador.esta_saltando is False:
-
                     if pygame.mixer.get_busy() is not True:
                         self.sonido_grunido.set_volume(jugador.volumen)
                         self.sonido_grunido.play()

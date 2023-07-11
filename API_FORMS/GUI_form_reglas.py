@@ -134,10 +134,10 @@ class FormReglas(Form):
                            font= "Recursos/Fonts/Snowes.ttf",
                            font_size=25,
                            font_color="White")
-        
+
         self.icono_piedra = PictureBox(self._slave, w/2+10, 330, 50, 60,
                                   "Recursos/Obstaculos/snow_1b.png")
-        
+
         self.label_piedra = Label(screen=self._slave,
                            x=w/2+80,
                            y=340,
@@ -157,7 +157,6 @@ class FormReglas(Form):
         self.boton_historia = Button(self._slave, x, y, w-150, 70,
                                  150,40,CELESTE, "Blue", self.btn_historia_click,
                                  "Nombre", "HISTORIA >", "Recursos/Fonts/Snowes.ttf", 30, "Black")
-
 
         ######
 
@@ -182,7 +181,6 @@ class FormReglas(Form):
         self.lista_widgets.append(self.label_piedra)
         self.lista_widgets.append(self.label_arbol)
         self.lista_widgets.append(self.boton_historia)
-
 
     def btn_historia_click(self, param) -> None:
         print("apreto")

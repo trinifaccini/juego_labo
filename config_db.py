@@ -11,6 +11,8 @@ jfdj
 
 import sqlite3
 
+from config_archivos import escribir_excepcion
+
 def crear_base() -> None:
 
     # sentencia_create = '''
@@ -40,6 +42,7 @@ def crear_base() -> None:
             conexion.execute(sentencia_create)
         except Exception as e:
             print("error", e)
+            escribir_excepcion("excepciones_bdd.txt", str(e))
 
 def insertar_jugador(nivel, puntos, usuario, nombre_db) -> None:
 
@@ -59,6 +62,7 @@ def insertar_jugador(nivel, puntos, usuario, nombre_db) -> None:
             return True
         except Exception as e:
             print("error", e)
+            escribir_excepcion("excepciones_bdd.txt", str(e))
             return False
 
 def actualizar_jugador(nivel,puntos, usuario, nombre_db) -> None:
@@ -70,6 +74,7 @@ def actualizar_jugador(nivel,puntos, usuario, nombre_db) -> None:
             conexion.execute(update, (nivel, puntos, usuario))
         except Exception as e:
             print("error", e)
+            escribir_excepcion("excepciones_bdd.txt", str(e))
             return False
 
 def buscar_usuario_db(nombre_db, usuario) -> list:
@@ -84,6 +89,7 @@ def buscar_usuario_db(nombre_db, usuario) -> list:
             return usuario[0]
         except Exception as e:
             print("error", e)
+            escribir_excepcion("excepciones_bdd.txt", str(e))
 
 
 def traer_ranking_db(nombre_db) -> list:
@@ -100,5 +106,6 @@ def traer_ranking_db(nombre_db) -> list:
 
         except Exception as e:
             print("error", e)
+            escribir_excepcion("excepciones_bdd.txt", str(e))
 
 #traer_ranking_db("jugadores.db")

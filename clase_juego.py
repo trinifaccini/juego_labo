@@ -40,6 +40,7 @@ class Juego():
 
         self.sonido_win = pygame.mixer.Sound("Recursos/Audio/win.mp3")
         self.sonido_lose = pygame.mixer.Sound("Recursos/Audio/lose.mp3")
+        self.sonido_paso_nivel = pygame.mixer.Sound("Recursos/Audio/lose.mp3")
 
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.load("Recursos/Audio/musica.mp3")

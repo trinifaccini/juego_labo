@@ -30,7 +30,7 @@ class FormFinal(Form):
         aux_image = pygame.transform.scale(aux_image,(w,h))
         self._slave = aux_image
 
-        pos_x = w/2 - 225
+        pos_x = w/2 - 250
 
         self.estado_juego = estado_juego
 
@@ -42,7 +42,7 @@ class FormFinal(Form):
             texto = "PERDISTE: TE QUEDASTE SIN VIDA"
 
 
-        self.label_bienvenida = Label(self._slave, pos_x, 60, 450, 100,
+        self.label_bienvenida = Label(self._slave, pos_x, 60, 500, 100,
                                    f"{texto}", "Recursos/Fonts/Snowes.ttf",
                                    40, "White","Recursos/Interfaces/interfaces_3.png")
 

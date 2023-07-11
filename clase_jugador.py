@@ -70,7 +70,7 @@ class Jugador(Personaje):
                                                self.lados['left'].colliderect(item.lados['main'])):
                 self.vidas += item.cambio_vida
                 self.puntos += item.cambio_puntos
-                self.sonido_colision_trampa.set_volume(self.volumen+10)
+                self.sonido_colision_trampa.set_volume(self.volumen)
                 self.sonido_colision_trampa.play()
 
 
