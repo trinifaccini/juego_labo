@@ -192,8 +192,8 @@ class Juego():
         nivel = {
             'tipo_enemigo': self.niveles[self.nivel_actual].tipo_enemigo,
             'numero': self.nivel_actual+1,
-            'descripcion': self.niveles[self.nivel_actual].descripcion
-
+            'img_enemigo': self.niveles[self.nivel_actual].img_enemigo,
+            'cantidad': self.niveles[self.nivel_actual].enemigos_requeridos,
         }
 
         form_nivel = FormNivel(self.pantalla,
