@@ -114,7 +114,7 @@ while True:
             juego.reiniciar_juego()
 
         juego.manejar_eventos_juego(eventos)
-        tiempo_en_segundos(eventos, juego)
+        tiempo_en_segundos(eventos  , juego)
         juego.update(PANTALLA, FUENTE, eventos, keys)
         dibujar_borde_rectangulos_juego(PANTALLA, juego)
 

@@ -12,11 +12,12 @@ CLASE JUEGO
 import sys
 import pygame
 from API_FORMS.GUI_button_image import Button_Image
+from API_FORMS.GUI_form_nivel import FormNivel
 from API_FORMS.GUI_form_pausa import FormPausa
 from API_FORMS.GUI_form_settings import FormSettings
 from API_FORMS.GUI_picture_box import PictureBox
 from config_db import actualizar_jugador
-from datos_juego import CELESTE, TRANSPARENTE, W
+from datos_juego import CELESTE, H, TRANSPARENTE, W
 from modo import *
 from datos_nivel_uno import nivel_uno
 from datos_nivel_dos import nivel_dos
@@ -138,15 +139,15 @@ class Juego():
     def btn_pausar_click(self, param):
 
         form_pausa = FormPausa(self.pantalla,
-                                        x=W/2-300,
-                                        y=25,
-                                        w=600,
-                                        h=500,
-                                        color_background=TRANSPARENTE,
-                                        color_border="White",
-                                        border_size=-1,
-                                        active=True,
-                                        path_img="Recursos/Interfaces/interfaces_3.png")
+                                x=W/2-300,
+                                y=25,
+                                w=600,
+                                h=500,
+                                color_background=TRANSPARENTE,
+                                color_border="White",
+                                border_size=-1,
+                                active=True,
+                                path_img="Recursos/Interfaces/interfaces_3.png")
 
         self.pausar_juego(form_pausa)
 
@@ -186,7 +187,27 @@ class Juego():
         pygame.quit()
         sys.exit(0)
 
-    def verificar_puntos_tiempo(self) -> None:
+    def mostrar_form_nivel(self, eventos) -> None:
+
+        nivel = {
+            'tipo_enemigo': "YETI",
+            'numero': 1
+        }
+
+        form_nivel = FormNivel(self.pantalla,
+                                x=W/2-((W-200)/2),
+                                y=50,
+                                w=W-200,
+                                h=H-100,
+                                color_background=TRANSPARENTE,
+                                color_border="White",
+                                border_size=-1,
+                                active=True,
+                                nivel=nivel)
+        
+        self.pausar_juego(form_nivel)
+
+    def verificar_puntos_tiempo(self,eventos) -> None:
 
         if self.niveles[self.nivel_actual].enemigos_muertos >= self.niveles[self.nivel_actual].enemigos_requeridos:
 
@@ -195,9 +216,12 @@ class Juego():
                 self.sonido_paso_nivel.play()
                 self.jugador.puntos += (self.niveles[self.nivel_actual].tiempo * 100)
                 self.jugador.lista_proyectiles.clear()
+                self.mostrar_form_nivel(eventos)
+                print("acaaaa")
                 self.nivel_actual += 1
+                self.niveles[self.nivel_actual].tiempo = 60
             else:
-                if self.jugador.puntos > self.usuario['puntos']: # actualizo solo si los puntos q obtuvo son mayores a los que ya tenia
+                if self.jugador.puntos > self.usuario['puntos']:
                     actualizar_jugador(self.nivel_actual, self.jugador.puntos,
                                    self.usuario['usuario'], self.base_datos)
                 self.sonido_win.set_volume(self.jugador.volumen)
@@ -264,7 +288,7 @@ class Juego():
 
     def update(self, pantalla,fuente, eventos, keys) -> None:
 
-        self.verificar_puntos_tiempo()
+        self.verificar_puntos_tiempo(eventos)
         self.verificar_vida_jugador()
 
         self.niveles[self.nivel_actual].update(pantalla, self.jugador, keys)
