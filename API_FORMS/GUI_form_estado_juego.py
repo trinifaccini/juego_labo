@@ -1,13 +1,10 @@
-import pygame
 from pygame.locals import *
 from API_FORMS.GUI_button_image import Button_Image 
 
 from API_FORMS.GUI_form import Form
 from API_FORMS.GUI_button import Button
 from API_FORMS.GUI_label import Label
-from config_db import buscar_usuario_db, insertar_jugador, traer_ranking_db
-
-CELESTE = (64, 207, 255)
+from datos_juego import CELESTE
 
 class FormNiveles(Form):
 

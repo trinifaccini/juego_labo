@@ -61,12 +61,7 @@ class FormNiveles(Form):
 
             pos_inicial_y += alto_label + espacio
 
-        # self.boton_jugar = Button(self._slave, x, y,
-        #                          pos_x_niveles, pos_inicial_y,
-        #                          ancho_nivel, alto_nivel,
-        #                          CELESTE, "Blue", self.btn_jugar_click,
-        #                          "Nombre", "JUGAR", "Recursos/Fonts/Snowes.ttf", 20, "Black")
-        
+    
         self.boton_atras = Button_Image(self._slave,
                                         x= pos_x_niveles + 150,
                                         y= pos_inicial_y + 150,

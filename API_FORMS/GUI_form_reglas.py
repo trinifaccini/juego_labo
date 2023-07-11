@@ -1,12 +1,12 @@
-import pygame
 from API_FORMS.GUI_button import Button
 
 from API_FORMS.GUI_form import Form
 from API_FORMS.GUI_form_estado_juego import CELESTE
+from API_FORMS.GUI_form_historia import FormHistoria
 from API_FORMS.GUI_label import Label
 from API_FORMS.GUI_button_image import Button_Image
 from API_FORMS.GUI_picture_box import PictureBox
-from datos_juego import W
+from datos_juego import H, TRANSPARENTE, W
 
 class FormReglas(Form):
 
@@ -42,7 +42,7 @@ class FormReglas(Form):
                            font_color="White")
 
         self.icono_cantidad_enemigos = PictureBox(self._slave, 20, 140, 50, 50,
-                                  "Recursos/Obstaculos/piedra.png")
+                                  "Recursos/Interfaces/enemy.png")
 
         self.label_cantidad_enemigos = Label(screen=self._slave,
                            x=100,
@@ -183,7 +183,19 @@ class FormReglas(Form):
         self.lista_widgets.append(self.boton_historia)
 
     def btn_historia_click(self, param) -> None:
-        print("apreto")
+       
+        form_historia = FormHistoria(self._master,
+                                x=W/2-((W-200)/2),
+                                y=50,
+                                w=W-200,
+                                h=H-100,
+                                color_background=TRANSPARENTE,
+                                color_border="White",
+                                border_size=-1,
+                                active=True,
+                                path_img="Recursos/Interfaces/interfaces_3.png")
+
+        self.show_dialog(form_historia)
 
     def btn_back_click(self, param) -> None:
         self.end_dialog()

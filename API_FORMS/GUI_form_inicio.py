@@ -23,11 +23,7 @@ from API_FORMS.GUI_label import Label
 from API_FORMS.GUI_button_image import Button_Image
 from API_FORMS.GUI_form_ranking import FormRanking
 from config_db import buscar_usuario_db, insertar_jugador, traer_ranking_db
-from datos_juego import H, W
-
-CELESTE = (64, 207, 255)
-TRANSPARENTE = (0,0,0,0)
-
+from datos_juego import CELESTE, H, TRANSPARENTE, W
 
 class FormInicio(Form):
 

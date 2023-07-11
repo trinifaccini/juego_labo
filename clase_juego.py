@@ -12,13 +12,11 @@ CLASE JUEGO
 import sys
 import pygame
 from API_FORMS.GUI_button_image import Button_Image
-from API_FORMS.GUI_form_estado_juego import CELESTE
-from API_FORMS.GUI_form_inicio import TRANSPARENTE
 from API_FORMS.GUI_form_pausa import FormPausa
 from API_FORMS.GUI_form_settings import FormSettings
 from API_FORMS.GUI_picture_box import PictureBox
 from config_db import actualizar_jugador
-from datos_juego import W
+from datos_juego import CELESTE, TRANSPARENTE, W
 from modo import *
 from datos_nivel_uno import nivel_uno
 from datos_nivel_dos import nivel_dos
@@ -40,7 +38,7 @@ class Juego():
 
         self.sonido_win = pygame.mixer.Sound("Recursos/Audio/win.mp3")
         self.sonido_lose = pygame.mixer.Sound("Recursos/Audio/lose.mp3")
-        self.sonido_paso_nivel = pygame.mixer.Sound("Recursos/Audio/lose.mp3")
+        self.sonido_paso_nivel = pygame.mixer.Sound("Recursos/Audio/coin.mp3")
 
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.load("Recursos/Audio/musica.mp3")
@@ -66,11 +64,11 @@ class Juego():
 
         entero = self.niveles[self.nivel_actual].enemigos_requeridos - self.niveles[self.nivel_actual].enemigos_muertos
         imgs = []
-        x = 0
+        x = 10
 
         for i in range(0, entero):
             img_enemigo = PictureBox(pantalla, x, 55, 30, 30,
-                                     "Recursos/Obstaculos/piedra.png")
+                                     "Recursos/Interfaces/enemy.png")
             imgs.append(img_enemigo)
             x += 40
 
@@ -193,7 +191,10 @@ class Juego():
         if self.niveles[self.nivel_actual].enemigos_muertos >= self.niveles[self.nivel_actual].enemigos_requeridos:
 
             if self.nivel_actual < len(self.niveles)-1:
+                self.sonido_paso_nivel.set_volume(self.jugador.volumen)
+                self.sonido_paso_nivel.play()
                 self.jugador.puntos += (self.niveles[self.nivel_actual].tiempo * 100)
+                self.jugador.lista_proyectiles.clear()
                 self.nivel_actual += 1
             else:
                 if self.jugador.puntos > self.usuario['puntos']: # actualizo solo si los puntos q obtuvo son mayores a los que ya tenia
