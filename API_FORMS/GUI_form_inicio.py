@@ -107,19 +107,19 @@ class FormInicio(Form):
                                  "Nombre", "CONTINUAR AVENTURA", "Recursos/Fonts/Snowes.ttf", 25, "Black")
 
         self.boton_ranking = Button_Image(self._slave, x, y,
-                                 w/2 - ancho_btn*1.5 - 5, 150,
+                                 w/2 - ancho_btn*1.5 - 5, 200,
                                  ancho_btn, ancho_btn,
                                  "Recursos/Interfaces/button_ranking.png",
                                  self.btn_ranking_click, "x")
 
         self.boton_settings = Button_Image(self._slave, x, y,
-                                 w/2-ancho_btn/2, 150,
+                                 w/2-ancho_btn/2, 200,
                                  ancho_btn, ancho_btn,
                                  "Recursos/Interfaces/button_settings.png",
                                  self.btn_settings_click, "x")
         
         self.boton_reglas = Button_Image(self._slave, x, y,
-                                 w/2+ ancho_btn*0.5 + 5, 150,
+                                 w/2+ ancho_btn*0.5 + 5, 200,
                                  ancho_btn, ancho_btn,
                                  "Recursos/Interfaces/button_info.png",
                                  self.btn_info_click, "x")

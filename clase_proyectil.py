@@ -39,6 +39,6 @@ class Proyectil(Item):
 
     def update(self, pantalla) -> None:
 
-        self.verificar_colision_pantalla(pantalla)
         self.mover()
+        self.verificar_colision_pantalla(pantalla)
         super().update(pantalla)

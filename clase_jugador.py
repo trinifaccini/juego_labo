@@ -188,9 +188,9 @@ class Jugador(Personaje):
     def update(self, pantalla, lista_plataformas, enemigos, items,trampas, keys):
 
         self.definir_accion(keys)
+        self.lanzar_proyectil(10, keys)
         super().update(pantalla, lista_plataformas)
 
-        self.lanzar_proyectil(10, keys)
         self.verificar_colision_items_especiales(items)
         self.verificar_colision_trampas(trampas)
         self.verificar_proyectil_golpeo_enemigo(enemigos)

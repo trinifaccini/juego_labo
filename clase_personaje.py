@@ -69,9 +69,12 @@ class Personaje(ObjetoAnimado):
 
     def update_proyectiles(self, pantalla):
 
+        lista_aux = self.lista_proyectiles
         for proyectil in self.lista_proyectiles:
             proyectil.update(pantalla)
             # ACA REMOVER DE PANTALLA
+            if proyectil.verificar_colision_pantalla(pantalla):
+                lista_aux.remove(proyectil)
 
 
     # En el caso del jugador, va a ser manipulado por el usuario
