@@ -11,3 +11,4 @@
 2023-07-11 12:07:07.361225: list index out of range
 2023-07-11 12:07:11.077547: list index out of range
 2023-07-11 13:55:44.472369: UNIQUE constraint failed: Jugadores.usuario
+2023-07-11 15:45:33.981017: list index out of range

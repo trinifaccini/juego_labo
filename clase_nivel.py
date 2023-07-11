@@ -77,14 +77,20 @@ class Nivel():
 
         if self.tiempo % 10 == 0:
             pos_x = random.randint(0, W-100)
-            pos_y = random.randint(200, H-80)
+            limite_y = 200
+            if self.nivel == 3:
+                limite_y = 330
+            pos_y = random.randint(limite_y, H-80)
             item_uno = Item((30,50), (pos_x, pos_y), 100, 0,
                             'Recursos/Audio/sorbo.mp3', "Recursos/Obstaculos/coca_dibujo.png")
             self.items.append(item_uno)
 
         if self.tiempo % 12 == 0:
             pos_x = random.randint(0, W-100)
-            pos_y = random.randint(200, H-40)
+            limite_y = 200
+            if self.nivel == 3:
+                limite_y = 330
+            pos_y = random.randint(limite_y, H-40)
             item_dos = Item((30,30), (300, 450),0, 30,
                             'Recursos/Audio/ñam.mp3', "Recursos/Obstaculos/hamburguesa.png")
             self.items.append(item_dos)

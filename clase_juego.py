@@ -187,11 +187,11 @@ class Juego():
         pygame.quit()
         sys.exit(0)
 
-    def mostrar_form_nivel(self, eventos) -> None:
+    def mostrar_form_nivel(self) -> None:
 
         nivel = {
             'tipo_enemigo': "YETI",
-            'numero': 1
+            'numero': self.nivel_actual+2
         }
 
         form_nivel = FormNivel(self.pantalla,
@@ -204,7 +204,7 @@ class Juego():
                                 border_size=-1,
                                 active=True,
                                 nivel=nivel)
-        
+
         self.pausar_juego(form_nivel)
 
     def verificar_puntos_tiempo(self,eventos) -> None:
@@ -216,7 +216,7 @@ class Juego():
                 self.sonido_paso_nivel.play()
                 self.jugador.puntos += (self.niveles[self.nivel_actual].tiempo * 100)
                 self.jugador.lista_proyectiles.clear()
-                self.mostrar_form_nivel(eventos)
+                self.mostrar_form_nivel()
                 print("acaaaa")
                 self.nivel_actual += 1
                 self.niveles[self.nivel_actual].tiempo = 60
