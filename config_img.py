@@ -135,6 +135,45 @@ oso_camina_izquierda = girar_imagenes(oso_camina_derecha, True, False)
 
 ###########################################################################
 
+monstruo_quieto_derecha = [
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Quieto/tile000.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Quieto/tile001.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Quieto/tile002.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Quieto/tile003.png")
+    ]
+
+monstruo_quieto_izquierda = girar_imagenes(monstruo_quieto_derecha, True, False)
+
+monstruo_camina_izquierda = [
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Camina/tile006.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Camina/tile007.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Camina/tile008.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Camina/tile009.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Camina/tile010.png"),
+
+]
+
+monstruo_camina_derecha= girar_imagenes(monstruo_camina_izquierda, True, False)
+
+monstruo_ataca_izquierda = [
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Ataca/tile011.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Ataca/tile012.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Ataca/tile013.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Ataca/tile014.png"),
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Ataca/tile015.png"),
+    ]
+
+monstruo_ataca_derecha = girar_imagenes(monstruo_ataca_izquierda, True, False)
+
+monstruo_salta_izquierda = [
+    pygame.image.load("Recursos/Personajes/Normal/Monstruo/Quieto/tile000.png"),
+]
+
+monstruo_salta_derecha = girar_imagenes(monstruo_salta_izquierda, True, False)
+
+
+###############
+
 yeti_quieto_derecha = [
     pygame.image.load("Recursos/Personajes/Normal/Yeti/Quieto/yeti_quieto_0.png"),
     ]
@@ -218,6 +257,17 @@ diccionario_animaciones_yeti_normal = {
     "ataca_especial_izquierda": yeti_ataca_especial_izquierda
 }
 
+
+diccionario_animaciones_monstruo_normal = {
+    "quieto_derecha": monstruo_quieto_derecha,
+    "quieto_izquierda": monstruo_quieto_izquierda,
+    "salta_derecha": monstruo_salta_derecha,
+    "salta_izquierda": monstruo_salta_izquierda,
+    "camina_derecha": monstruo_camina_derecha,
+    "camina_izquierda": monstruo_camina_izquierda,
+    "ataca_derecha": monstruo_ataca_derecha,
+    "ataca_izquierda": monstruo_ataca_izquierda,
+}
 
 '''
 sdf
@@ -383,4 +433,15 @@ diccionario_animaciones_yeti_rojo = {
     "ataca_izquierda": yeti_ataca_izquierda_rojo,
     "ataca_especial_derecha": yeti_ataca_especial_derecha_rojo,
     "ataca_especial_izquierda": yeti_ataca_especial_izquierda_rojo
+}
+
+diccionario_animaciones_monstruo_rojo = {
+    "quieto_derecha": monstruo_quieto_derecha,
+    "quieto_izquierda": monstruo_quieto_izquierda,
+    "salta_derecha": monstruo_salta_derecha,
+    "salta_izquierda": monstruo_salta_izquierda,
+    "camina_derecha": monstruo_camina_derecha,
+    "camina_izquierda": monstruo_camina_izquierda,
+    "ataca_derecha": monstruo_ataca_derecha,
+    "ataca_izquierda": monstruo_ataca_izquierda,
 }

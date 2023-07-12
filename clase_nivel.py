@@ -65,8 +65,8 @@ class Nivel():
                                 diccionario_animaciones_oso_rojo,  3, -15,150,100,100, temporizador)
 
         #nivel 2
-        return Enemigo((80,70), (lista_pos_x[rand],0), diccionario_animaciones_yeti_normal,
-                            diccionario_animaciones_yeti_rojo, 5, -15, 400,150,200,temporizador)
+        return Enemigo((80,70), (lista_pos_x[rand],0), diccionario_animaciones_monstruo_normal,
+                            diccionario_animaciones_monstruo_rojo, 5, -15, 400,150,200,temporizador)
 
     def generar_enemigos(self) -> None:
 
@@ -173,10 +173,10 @@ class Nivel():
         pantalla.blit(self.fondo, (0, 0))
 
         self.update_plataformas(pantalla)
+        jugador.update(pantalla, self.plataformas, self.enemigos, self.items, self.trampas, keys)
         self.update_enemigos(pantalla, jugador)
         self.update_items(pantalla)
         self.update_trampas(pantalla)
-        jugador.update(pantalla, self.plataformas, self.enemigos, self.items, self.trampas, keys)
 
     def update_personalizado(self, jugador):
 

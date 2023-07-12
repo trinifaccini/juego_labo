@@ -34,7 +34,7 @@ trampas = []
 img_enemigo = "Recursos/Personajes/Normal/Yeti/Quieto/yeti_quieto_0.png"
 
 
-nivel_tres = Nivel(fondo, lista_plataformas,enemigos, items,trampas, 60,1,1,3,5, "mono de las nieves", img_enemigo)
+nivel_tres = Nivel(fondo, lista_plataformas,enemigos, items,trampas, 60,1,1,3,5, "yeti", img_enemigo)
 
 
 # nivel_tres = {"fondo": fondo,

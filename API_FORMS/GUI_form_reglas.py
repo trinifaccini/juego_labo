@@ -55,7 +55,7 @@ class FormReglas(Form):
                            font_color="White")
         
 
-        self.icono_vidas_boss = PictureBox(self._slave, 20, 210, 50, 50,
+        self.icono_vidas_boss = PictureBox(self._slave, 20, 210, 40, 40,
                                   "Recursos/Obstaculos/piedra.png")
 
         self.label_vidas_boss = Label(screen=self._slave,
@@ -147,6 +147,17 @@ class FormReglas(Form):
                            font= "Recursos/Fonts/Snowes.ttf",
                            font_size=25,
                            font_color="White")
+        
+
+        self.label_enemigos = Label(screen=self._slave,
+                           x=0,
+                           y=400,
+                           w=w,
+                           h=50,
+                           text="TODOS LOS ENEMIGOS DISPARAN PROYECTILES - SI TOCAS AL ENEMIGO O UN PROYECTIL TE ALCANZA PERDERAS VIDAS",
+                           font= "Recursos/Fonts/Snowes.ttf",
+                           font_size=25,
+                           font_color="White")
 
         self.boton_atras = Button_Image(self._slave,
                                            x, y, w-50, h-50,
@@ -181,6 +192,7 @@ class FormReglas(Form):
         self.lista_widgets.append(self.label_piedra)
         self.lista_widgets.append(self.label_arbol)
         self.lista_widgets.append(self.boton_historia)
+        self.lista_widgets.append(self.label_enemigos)
 
     def btn_historia_click(self, param) -> None:
        

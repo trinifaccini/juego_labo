@@ -8,16 +8,16 @@ from clase_nivel import Nivel
 from clase_plataforma import Plataforma
 from datos_juego import TAMANIO_PANTALLA, W, jugador
 from clase_enemigo import Enemigo
-from config_img import diccionario_animaciones_yeti_normal, diccionario_animaciones_yeti_rojo
+from config_img import diccionario_animaciones_monstruo_normal, diccionario_animaciones_monstruo_rojo
 
 fondo = pygame.image.load("Recursos/Fondos/fondo_nivel_2.png")
 fondo = pygame.transform.scale(fondo, TAMANIO_PANTALLA)
 
-enemigo_uno = Enemigo((70,80), (20,0), diccionario_animaciones_yeti_normal,
-                      diccionario_animaciones_yeti_rojo,5, -15, 400, 200,150,3)
+enemigo_uno = Enemigo((70,80), (20,0), diccionario_animaciones_monstruo_normal,
+                      diccionario_animaciones_monstruo_rojo,5, -15, 400, 200,150,3)
 
-enemigo_dos = Enemigo((70,80), (700,0), diccionario_animaciones_yeti_normal,
-                      diccionario_animaciones_yeti_rojo,5, -15, 400, 200, 150,6)
+enemigo_dos = Enemigo((70,80), (700,0), diccionario_animaciones_monstruo_normal,
+                      diccionario_animaciones_monstruo_rojo,5, -15, 400, 200, 150,6)
 
 piso = Plataforma((W,20), (0, jugador.lados['bottom'].bottom-1), "Nieve",
                 "Recursos/Plataformas/snow_33.png")
@@ -63,9 +63,9 @@ lista_plataformas = [piso, plataforma_1, plataforma_2, plataforma_3, plataforma_
 items = [item_uno, item_dos]
 trampas = [trampa_uno, trampa_dos, trampa_tres, trampa_cuatro]
 
-img_enemigo = "Recursos/Personajes/Normal/Yeti/Quieto/yeti_quieto_0.png"
+img_enemigo = "Recursos/Personajes/Normal/Monstruo/Quieto/tile000.png"
 
-nivel_dos = Nivel(fondo, lista_plataformas, enemigos,items,trampas, 60,8,6,2,5, "yeti", img_enemigo)
+nivel_dos = Nivel(fondo, lista_plataformas, enemigos,items,trampas, 60,8,6,2,5, "monstruo", img_enemigo)
 
 
 # nivel_dos = {"fondo": fondo,

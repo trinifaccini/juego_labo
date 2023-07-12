@@ -79,6 +79,7 @@ class Jugador(Personaje):
 
         for enemigo in enemigos:
             if enemigo.accion == "ataca":
+                self.sonido_colision_trampa.set_volume(self.volumen)
                 self.sonido_colision_trampa.play()
                 self.vidas -= enemigo.danio
                 self.accion = "atacado"            
